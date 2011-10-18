@@ -8,14 +8,92 @@
   <packaging>war</packaging>
   <version>0.1</version>
   
-  <name>A custom grails project</name>
-  <description>A custom grails project</description>
-  <url>http://www.myorganization.org</url>
+  <name>Open Mentor</name>
+  <description>
+  An open source tool providing feedback to tutors 
+  on comment usage in assessments.</description>
+  <url>http://www.openmentor.org.uk</url>
   
   <properties>
     <grails.version>1.3.7</grails.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+  <organization>
+    <name>The OpenMentor Team</name>
+    <url>http://www.openmentor.org.uk</url>
+  </organization>
+  
+  <inceptionYear>2004</inceptionYear>
+  
+  <developers>
+    <developer>
+      <name>Denise Whitelock</name>
+      <id>denise</id>
+      <email>D.M.Whitelock@open.ac.uk</email>
+      <organization>Institute of Educational Technology, The Open University</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Stuart Watt</name>
+      <id>stuart</id>
+      <email>S.N.K.Watt@rgu.ac.uk</email>
+      <organization>School of Computing, The Robert Gordon University, Aberdeen</organization>
+      <url>http://www.comp.rgu.ac.uk/staff/sw</url>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Jan Rae</name>
+      <id>jan</id>
+      <email>J.L.Rae@open.ac.uk</email>
+      <organization>Institute of Educational Technology, The Open University</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Ian Craw</name>
+      <id>ian</id>
+      <email>Ian.Craw@openability.co.uk</email>
+      <organization>Openability Consulting</organization>
+      <url>www.openability.co.uk</url>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Colin Beagrie</name>
+      <id>colin</id>
+      <email>cb@comp.rgu.ac.uk</email>
+      <organization>School of Computing, The Robert Gordon University</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Will Woods</name>
+      <id>will</id>
+      <email>W.I.S.Woods@open.ac.uk</email>
+      <organization>Institute of Educational Technology, The Open University</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Maggie Nicol</name>
+      <id>maggie</id>
+      <email>mn@comp.rgu.ac.uk</email>
+      <organization>School of Computing, The Robert Gordon University</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Hassan Sheikh</name>
+      <id>hassan</id>
+      <email>M.U.H.Sheikh@open.ac.uk</email>
+      <organization>Institute of Educational Technology, The Open University</organization>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
   
   <dependencies>
     <dependency>
