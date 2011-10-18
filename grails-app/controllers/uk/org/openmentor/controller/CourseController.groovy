@@ -1,6 +1,6 @@
 package uk.org.openmentor.controller
 
-import uk.org.openmentor.courseinfo.Course;
+import uk.org.openmentor.courseinfo.Course
 
 class CourseController {
 
@@ -26,6 +26,31 @@ class CourseController {
 		
 		[courseInstanceList: courseList, courseInstanceTotal: courseCount]
 	}
+	
+	def show = {
+		def courseInstance = Course.get(params.id)
+        if (!courseInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.id])}"
+            redirect(action: "list")
+        }
+        else {
+            [courseInstance: courseInstance]
+        }
+	}
+	
+	def edit = {
+		def courseInstance = Course.get(params.id)
+		if (!courseInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.id])}"
+			redirect(action: "list")
+		}
+		else {
+			log.error("XXX: " + params.id)
+			[courseInstance: courseInstance]
+		}
+	}
+	
+	def create = { }
 	
 	def select = {
 		if (request.method == 'POST') {

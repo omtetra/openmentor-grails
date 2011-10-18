@@ -27,4 +27,15 @@ class TutorController {
 		[tutorInstanceList: tutorList, tutorInstanceTotal: tutorCount]
 	}
 
+	def show = {
+		def tutorInstance = Tutor.get(params.id)
+        if (!tutorInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
+            redirect(action: "list")
+        }
+        else {
+            [tutorInstance: tutorInstance]
+        }
+	}
+	
 }

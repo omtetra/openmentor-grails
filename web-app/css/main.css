@@ -67,33 +67,38 @@ input:focus, select:focus, textarea:focus {
 .nav {
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
     border: 1px solid #ccc;
-    border-style: solid none solid none;
     margin-top: 5px;
-    padding: 7px 12px;
+    padding: 2px 3px 4px 3px;
 }
 
 .menuButton {
-    font-size: 10px;
     padding: 0 5px;
 }
 .menuButton a {
     color: #333;
-    padding: 4px 6px;
+    font: 10px verdana, arial, helvetica, sans-serif;
+    font-weight: bold;
+	padding: 3px 6px 5px 6px;
 }
 .menuButton a.home {
     background: url(../images/skin/house.png) center left no-repeat;
     color: #333;
-    padding-left: 25px;
+    padding-left: 23px;
 }
 .menuButton a.list {
     background: url(../images/skin/database_table.png) center left no-repeat;
     color: #333;
-    padding-left: 25px;
+    padding-left: 23px;
 }
 .menuButton a.create {
     background: url(../images/skin/database_add.png) center left no-repeat;
     color: #333;
-    padding-left: 25px;
+    padding-left: 23px;
+}
+.menuButton a.edit {
+    background: url(../images/skin/database_edit.png) center left no-repeat;
+    color: #333;
+    padding-left: 23px;
 }
 
 .panelBody hr {
