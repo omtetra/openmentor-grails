@@ -76,6 +76,26 @@
                     
                     <ul>
                     	<li>
+                    		<g:link action="index" controller="course">
+                    		Courses
+                    	    </g:link>
+                    	</li>
+                    	<li>
+                    		<g:link action="index" controller="student">
+                    		Students
+                    	    </g:link>
+                    	</li>
+                    	<li>
+                    		<g:link action="index" controller="tutor">
+                    		Tutors
+                    	    </g:link>
+                    	</li>
+                    </ul>
+                    
+                    <hr/>
+                    
+                    <ul>
+                    	<li>
                     		<g:link action="index" controller="help">
                     		Background
                     		</g:link>

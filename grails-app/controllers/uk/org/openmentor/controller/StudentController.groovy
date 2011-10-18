@@ -26,4 +26,18 @@ class StudentController {
 		
 		[studentInstanceList: studentList, studentInstanceTotal: studentCount]
 	}
+
+	def show = {
+		
+		log.error(request.g)
+		
+		def studentInstance = Student.get(params.id)
+        if (!studentInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
+            redirect(action: "list")
+        }
+        else {
+            [studentInstance: studentInstance]
+        }
+	}
 }
