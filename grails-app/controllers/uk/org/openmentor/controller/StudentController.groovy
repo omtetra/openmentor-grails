@@ -10,8 +10,8 @@ class StudentController {
 
 	def list = {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		params.sort = params.sort ?: 'id'
-		params.order = params.order ?: 'desc'
+		params.sort = params.sort ?: 'studentId'
+		params.order = params.order ?: 'asc'
 		params.offset = params.offset ?: '0'
 				
 		def criteria = Student.createCriteria()
@@ -27,10 +27,20 @@ class StudentController {
 		[studentInstanceList: studentList, studentInstanceTotal: studentCount]
 	}
 
+	def save = {
+		def studentInstance = new Student(params)
+		
+		if (studentInstance.save(flush: true)) {
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.studentId])}"
+			redirect(action: "list", id: studentInstance.studentId)
+		}
+		else {
+			log.info("Failed to create new sample: returning to dialog")
+			render(view: "create", model: [studentInstance: studentInstance])
+		}
+	}
+	
 	def show = {
-		
-		log.error(request.g)
-		
 		def studentInstance = Student.get(params.id)
         if (!studentInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
@@ -39,5 +49,27 @@ class StudentController {
         else {
             [studentInstance: studentInstance]
         }
+	}
+	
+	def edit = {
+		def studentInstance = Student.get(params.id)
+		if (!studentInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
+			redirect(action: "list")
+		}
+		else {
+			[studentInstance: studentInstance]
+		}
+	}
+	
+	def create = { }
+	
+	def query = {
+		def studentList = Student.findAllByStudentIdIlike("%" + params.term + "%")
+		studentList.sort { it.studentId }
+		
+		render(contentType: "text/json") {
+			studentList.collect { [studentId: it.studentId] };
+		}
 	}
 }
