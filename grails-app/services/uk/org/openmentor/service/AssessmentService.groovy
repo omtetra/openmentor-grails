@@ -67,6 +67,8 @@ class AssessmentService {
 		dataBook.setDataSeries("IdealCounts", toList(bands, idealAggregateCounts));
 		dataBook.setDataSeries("ActualCounts", toList(bands, actualAggregateCounts));
 		dataBook.setDataSeries("ActualComments", comments);
+		//dataBook.setProperty("SubmissionCount", new Integer(submissionCount))
+		//dataBook.setProperty("CommentCount", new Integer(commentCount))
 		return dataBook;
 	}
 	

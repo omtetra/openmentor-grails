@@ -41,6 +41,10 @@
             <div class="paginateButtons">
                 <g:paginate total="${studentInstanceTotal}"/>
             </div>
+            
+            <div class="nav">
+            	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.button.create.label" default="Create" /></g:link></span>
+            </div>
         </div>
         </div>
     </body>

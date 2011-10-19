@@ -10,8 +10,8 @@ class CourseController {
 	
 	def list = {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		params.sort = params.sort ?: 'id'
-		params.order = params.order ?: 'desc'
+		params.sort = params.sort ?: 'courseId'
+		params.order = params.order ?: 'asc'
 		params.offset = params.offset ?: '0'
 				
 		def criteria = Course.createCriteria()
@@ -25,6 +25,19 @@ class CourseController {
 		def courseCount = Course.count()
 		
 		[courseInstanceList: courseList, courseInstanceTotal: courseCount]
+	}
+	
+	def save = {
+		def courseInstance = new Course(params)
+		
+		if (courseInstance.save(flush: true)) {
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.courseId])}"
+			redirect(action: "list", id: courseInstance.courseId)
+		}
+		else {
+			log.info("Failed to create new sample: returning to dialog")
+			render(view: "create", model: [courseInstance: courseInstance])
+		}
 	}
 	
 	def show = {
@@ -45,13 +58,43 @@ class CourseController {
 			redirect(action: "list")
 		}
 		else {
-			log.error("XXX: " + params.id)
 			[courseInstance: courseInstance]
 		}
 	}
 	
 	def create = { }
 	
+	def update = {
+        def courseInstance = Course.get(params.id)
+		
+		if (courseInstance) {
+			log.info("Updating course: courseId: " + courseInstance.courseId)
+            if (params.version) {
+                def version = params.version.toLong()
+                if (courseInstance.version > version) {
+                    
+                    courseInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'course.label', default: 'Course')] as Object[], "Another user has updated this course while you were editing")
+                    render(view: "edit", model: [courseInstance: courseInstance])
+                    return
+                }
+            }
+			
+			courseInstance.properties = params
+
+            if (!courseInstance.hasErrors() && courseInstance.save(flush: true)) {
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.courseId])}"
+                redirect(action: "list")
+            }
+            else {
+                render(view: "edit", model: [courseInstance: courseInstance])
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.id])}"
+            redirect(action: "list")
+        }
+    }
+
 	def select = {
 		if (request.method == 'POST') {
 			def course = Course.findByCourseId(params.courseId)

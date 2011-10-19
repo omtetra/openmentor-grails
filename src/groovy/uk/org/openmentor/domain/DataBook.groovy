@@ -53,7 +53,7 @@ class DataBook {
 	 * @param key		the property key
 	 * @param value		the property value
 	 */
-	public void setProperty(String key, String value) {
+	public void setProperty(String key, Object value) {
 		properties.put(key, value);
 	}
 	
@@ -64,8 +64,8 @@ class DataBook {
 	 * @param key		the property key
 	 * @return   	    the property value
 	 */
-	public String getProperty(String key) {
-		return (String) properties.get(key);
+	public Object getProperty(String key) {
+		return (Object) properties.get(key);
 	}
 	
 	/**
