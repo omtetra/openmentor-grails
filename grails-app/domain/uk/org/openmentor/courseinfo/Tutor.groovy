@@ -6,6 +6,9 @@ class Tutor implements Comparable<Tutor>{
 	String givenName
 	String familyName
 
+	static hasMany = [ courses: Course ]
+	static belongsTo = Course
+
     static constraints = {
 		tutorId(nullable: false)
 		givenName(blank: true)

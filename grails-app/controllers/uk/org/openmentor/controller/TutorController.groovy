@@ -41,7 +41,7 @@ class TutorController {
 	}
 	
 	def show = {
-		def tutorInstance = Tutor.get(params.id)
+		def tutorInstance = Tutor.findByTutorId(params.id)
         if (!tutorInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
             redirect(action: "list")
@@ -52,7 +52,7 @@ class TutorController {
 	}
 	
 	def edit = {
-		def tutorInstance = Tutor.get(params.id)
+		def tutorInstance = Tutor.findByTutorId(params.id)
         if (!tutorInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
             redirect(action: "list")
@@ -64,4 +64,43 @@ class TutorController {
 	
 	def create = { }
 	
+	def update = {
+        def tutorInstance = Tutor.findByTutorId(params.id)
+		
+		if (tutorInstance) {
+			log.info("Updating tutor: tutorId: " + tutorInstance.tutorId)
+            if (params.version) {
+                def version = params.version.toLong()
+                if (tutorInstance.version > version) {
+                    
+                    tutorInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'tutor.label', default: 'Tutor')] as Object[], "Another user has updated this tutor while you were editing")
+                    render(view: "edit", model: [tutorInstance: tutorInstance])
+                    return
+                }
+            }
+			
+			tutorInstance.properties = params
+
+            if (!tutorInstance.hasErrors() && tutorInstance.save(flush: true)) {
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.tutorId])}"
+                redirect(action: "list")
+            }
+            else {
+                render(view: "edit", model: [tutorInstance: tutorInstance])
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
+            redirect(action: "list")
+        }
+    }
+
+	def query = {
+		def tutorList = Tutor.findAllByTutorIdIlike("%" + params.term + "%")
+		tutorList.sort { it.tutorId }
+		
+		render(contentType: "text/json") {
+			tutorList.collect { [tutorId: it.tutorId] };
+		}
+	}
 }

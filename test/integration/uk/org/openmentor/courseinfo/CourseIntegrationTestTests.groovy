@@ -32,6 +32,6 @@ class CourseIntegrationTestTests extends GroovyTestCase {
 	*/
     void testFirstCourseStudents() {
 		def courseCM2006 = Course.findByCourseId("CM2006")
-		assertEquals(4, courseCM2006.students.size())
+		assertEquals(6, courseCM2006.students.size())
     }
 }

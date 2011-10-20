@@ -29,6 +29,10 @@
                             <td valign="top" class="name"><g:message code="tutor.familyName.label" default="Family Name" />:</td>
                             <td valign="top" class="value">${fieldValue(bean: tutorInstance, field: "familyName")}</td>
                         </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="tutor.courses.label" default="Courses" />:</td>
+                            <td valign="top" class="value"><%= tutorInstance.courses.collect { it.courseId }.sort().join(', ') %></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

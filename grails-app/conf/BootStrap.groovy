@@ -69,6 +69,15 @@ class BootStrap {
 			def courseCM2006 = new Course(courseId: "CM2006", courseTitle: "Interface Design")
 			courseCM2006.save(failOnError:true)
 
+			def courseCM2007 = new Course(courseId: "CM2007", courseTitle: "Intranet Systems Development")
+			courseCM2007.save(failOnError:true)
+
+			def courseCM3010 = new Course(courseId: "CM3010", courseTitle: "Information Retrieval")
+			courseCM3010.save(failOnError:true)
+
+			def courseAA1003 = new Course(courseId: "AA1003", courseTitle: "Multimedia Programming")
+			courseAA1003.save(failOnError:true)
+
 			def student09000231 = new Student(studentId: "09000231", givenName: "Gwenda", familyName: "Blane")
 			student09000231.save(failOnError:true)
 
@@ -80,6 +89,15 @@ class BootStrap {
 
 			def student09000234 = new Student(studentId: "09000234", givenName: "Luke", familyName: "Naccarato")
 			student09000234.save(failOnError:true)
+
+			def student09000235 = new Student(studentId: "09000235", givenName: "Pierre", familyName: "Busse")
+			student09000235.save(failOnError:true)
+
+			def student09000236 = new Student(studentId: "09000236", givenName: "Ami", familyName: "Montalvo")
+			student09000236.save(failOnError:true)
+
+			def student09000237 = new Student(studentId: "09000237", givenName: "Jackie", familyName: "Nicolas")
+			student09000237.save(failOnError:true)
 
 			def tutorM4000061 = new Tutor(tutorId: "M4000061", givenName: "Zena", familyName: "Beatrice")
 			tutorM4000061.save(failOnError:true)
@@ -94,16 +112,40 @@ class BootStrap {
 			courseCM2006.addToStudents(student09000232)
 			courseCM2006.addToStudents(student09000233)
 			courseCM2006.addToStudents(student09000234)
-
+			courseCM2006.addToStudents(student09000235)
+			courseCM2006.addToStudents(student09000237)
 			courseCM2006.addToTutors(tutorM4000061)
 			courseCM2006.addToTutors(tutorM4000062)
 			courseCM2006.addToTutors(tutorM4000063)
 			courseCM2006.save(failOnError:true)
-
+			
+			courseCM2007.addToStudents(student09000231)
+			courseCM2007.addToStudents(student09000232)
+			courseCM2007.addToStudents(student09000234)
+			courseCM2007.addToStudents(student09000236)
+			courseCM2007.addToTutors(tutorM4000062)
+			courseCM2007.save(failOnError:true)
+			
+			courseCM3010.addToStudents(student09000233)
+			courseCM3010.addToStudents(student09000234)
+			courseCM3010.addToStudents(student09000235)
+			courseCM3010.addToTutors(tutorM4000063)
+			courseCM3010.save(failOnError:true)
+			
+			courseAA1003.addToStudents(student09000232)
+			courseAA1003.addToStudents(student09000233)
+			courseAA1003.addToStudents(student09000234)
+			courseAA1003.addToStudents(student09000236)
+			courseAA1003.addToStudents(student09000237)
+			courseAA1003.addToTutors(tutorM4000061)
+			courseAA1003.save(failOnError:true)
+			
 			def assignment1 = new Assignment(courseId: courseCM2006.courseId, code: "TMA01").save(failOnError:true)
 			def assignment2 = new Assignment(courseId: courseCM2006.courseId, code: "TMA02").save(failOnError:true)
 			def assignment3 = new Assignment(courseId: courseCM2006.courseId, code: "TMA03").save(failOnError:true)
-			def assignment4 = new Assignment(courseId: "DD303", code: "TMA01").save(failOnError:true)
+			def assignment4 = new Assignment(courseId: courseCM2007.courseId, code: "TMA01").save(failOnError:true)
+			def assignment5 = new Assignment(courseId: courseCM3010.courseId, code: "TMA01").save(failOnError:true)
+			def assignment6 = new Assignment(courseId: courseAA1003.courseId, code: "TMA01").save(failOnError:true)
 		}
 	}
 }

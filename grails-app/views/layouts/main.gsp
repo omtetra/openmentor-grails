@@ -3,6 +3,8 @@
     <head>
         <title><g:layoutTitle default="OpenMentor" /></title>
         <link rel="stylesheet" href="${resource(dir:'css/jqueryui/smoothness',file:'jquery-ui-1.8.12.custom.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css/jqueryui',file:'jquery.multiselect.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css/jqueryui',file:'jquery.multiselect.filter.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <g:javascript src='libs/jquery-1.5.1.min.js'/>
@@ -12,6 +14,8 @@
         <g:javascript src='libs/jquery-ui-1.8.12.custom.min.js'/>
         <g:javascript src='libs/excanvas.min.js'/>
         <g:javascript src='libs/jquery.flot.js'/>
+        <g:javascript src='libs/jquery.multiselect.min.js'/>
+        <g:javascript src='libs/jquery.multiselect.filter.js'/>
         <g:layoutHead />
     </head>
     <body>

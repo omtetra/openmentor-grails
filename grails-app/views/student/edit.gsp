@@ -6,16 +6,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'student.label', default: 'Student')}" />
-        <title><g:message code="default.create.label" args="[entityName]" /></title>
+        <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+            <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:form action="save" method="post">
+            <g:form action="update" method="post">
+            <g:hiddenField name="id" value="${studentInstance.studentId}" />
+            <g:hiddenField name="version" value="${studentInstance?.version}" />
             <div>
                 <table>
                     <tbody>
@@ -24,7 +26,7 @@
                             	<label for="studentId"><g:message code="student.studentId.label" default="Student ID" />:</label>
                         	</td>
                             <td valign="top" class="value ${hasErrors(bean: studentInstance, field: 'studentId', 'errors')}">
-                                <g:textField name="studentId" value="${studentInstance?.studentId}" />
+                                <g:textField disabled="disabled" name="studentId" value="${studentInstance?.studentId}" />
                             </td>
                         </tr>
                         <tr class="prop">
@@ -57,7 +59,7 @@
                 </table>
             </div>
             <div class="buttons">
-                <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                <span class="button"><g:submitButton name="save" class="save" value="${message(code: 'default.button.save.label', default: 'Save')}" /></span>
             </div>
             </g:form>
         </div>
