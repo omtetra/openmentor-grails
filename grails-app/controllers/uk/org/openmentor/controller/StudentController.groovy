@@ -41,7 +41,7 @@ class StudentController {
 	}
 	
 	def show = {
-		def studentInstance = Student.get(params.id)
+		def studentInstance = Student.findByStudentId(params.id)
         if (!studentInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
             redirect(action: "list")
@@ -52,7 +52,7 @@ class StudentController {
 	}
 	
 	def edit = {
-		def studentInstance = Student.get(params.id)
+		def studentInstance = Student.findByStudentId(params.id)
 		if (!studentInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
 			redirect(action: "list")
@@ -64,6 +64,37 @@ class StudentController {
 	
 	def create = { }
 	
+	def update = {
+        def studentInstance = Student.findByStudentId(params.id)
+		
+		if (studentInstance) {
+			log.info("Updating student: studentId: " + studentInstance.studentId)
+            if (params.version) {
+                def version = params.version.toLong()
+                if (studentInstance.version > version) {
+                    
+                    studentInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'student.label', default: 'Student')] as Object[], "Another user has updated this student while you were editing")
+                    render(view: "edit", model: [studentInstance: studentInstance])
+                    return
+                }
+            }
+			
+			studentInstance.properties = params
+
+            if (!studentInstance.hasErrors() && studentInstance.save(flush: true)) {
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.studentId])}"
+                redirect(action: "list")
+            }
+            else {
+                render(view: "edit", model: [studentInstance: studentInstance])
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
+            redirect(action: "list")
+        }
+    }
+
 	def query = {
 		def studentList = Student.findAllByStudentIdIlike("%" + params.term + "%")
 		studentList.sort { it.studentId }
