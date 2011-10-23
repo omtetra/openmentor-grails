@@ -109,6 +109,9 @@ input:focus, select:focus, textarea:focus {
     margin-left:280px;
     margin-right:20px;
 }
+#page .body {
+	width: 70.0em;
+}
 /* MESSAGES AND ERRORS */
 
 .message {
@@ -350,4 +353,7 @@ th.desc a {
 }
 .errors ul li {
 	color: #844;
+}
+.nomargin {
+	margin-top: 0px;
 }
