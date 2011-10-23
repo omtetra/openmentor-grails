@@ -59,7 +59,7 @@ input:focus, select:focus, textarea:focus {
 
 .body {
     float: left;
-    margin: 0 15px 10px 15px;
+    margin: 5px 15px 10px 15px;
 }
 
 /* NAVIGATION MENU */
@@ -67,7 +67,7 @@ input:focus, select:focus, textarea:focus {
 .nav {
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
     border: 1px solid #ccc;
-    margin-top: 5px;
+    margin-top: 0px;
     padding: 2px 3px 4px 3px;
 }
 
@@ -298,8 +298,8 @@ th.desc a {
 }
 
  #nav {
-     margin-top:20px;
-     margin-left:30px;
+     margin-top:15px;
+     margin-left:15px;
      width:228px;
      float:left;
 
