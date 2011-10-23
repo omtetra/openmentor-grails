@@ -6,7 +6,8 @@
         </style>
     </head>
     <body>
-        <div id="pageBody">
+        <div id="page">
+        	<div class="body">
             <h1>What is Open Mentor?</h1>
             
             <p>
@@ -72,7 +73,7 @@
       			Open Mentor can be used for example to:
       		</p>
       		
-      		<ul class="list">
+      		<ul>
         		<li>
         			<g:link action="index" controller="help" fragment="scenario1">
         			Help train novice tutors
@@ -115,6 +116,7 @@
             		Open Mentor in more detail.
       			</dd>
       		</dl>
+        </div>
         </div>
     </body>
 </html>
