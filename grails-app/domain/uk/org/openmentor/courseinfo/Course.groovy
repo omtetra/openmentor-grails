@@ -11,7 +11,7 @@ class Course implements Comparable<Course> {
 	static hasMany = [ students: Student, tutors: Tutor ]
 
     static constraints = {
-		courseId(nullable: false)
+		courseId(nullable: false, unique: true)
 		courseTitle(nullable: false)
     }
 	

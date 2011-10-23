@@ -10,7 +10,7 @@ class Student implements Comparable<Student>{
 	static belongsTo = Course
 	
     static constraints = {
-		studentId(nullable: false)
+		studentId(nullable: false, unique: true)
 		givenName(blank: true)
 		familyName(blank: true)
     }

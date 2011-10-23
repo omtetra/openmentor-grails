@@ -29,39 +29,50 @@
                                 <td valign="top" class="name">
                                     <label for="courseId"><g:message code="course.courseId.label" default="Course ID" />:</label>
                                 </td>
-                                <td class="value ${hasErrors(bean: sub, field: 'courseId', 'errors')}">
-                                	<g:textField name="courseId" value="${course?.courseId}" disabled="disabled" />
+                                <td class="value ${hasErrors(bean: cmd, field: 'courseId', 'errors')}">
+                                	<g:textField name="courseId" value="${courseInstance?.courseId}" readonly="readonly" />
                                 </td>
                             </tr>
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="assignment"><g:message code="assignment.label" default="Assignment" />:</label>
                                 </td>
-                                <td class="value ${hasErrors(bean: sub, field: 'assignmentId', 'errors')}">
-                         			<g:select 
+                                <td class="value ${hasErrors(bean: cmd, field: 'assignmentId', 'errors')}">
+                         			<g:hasErrors bean="${cmd}" field="assignmentId">
+                            	    <g:renderErrors bean="${cmd}" as="list" field="assignmentId"/>
+                            	    </g:hasErrors>
+                                    <g:select 
                          			    noSelection="['':'-Choose assignment-']"
                          				name="assignmentId" 
-                         				from="${Assignment.findAllByCourseId(course?.courseId)}" 
+                         				from="${Assignment.findAllByCourseId(courseInstance?.courseId)}" 
                          				optionKey="id" 
+                         				value="${cmd?.assignmentId}"
                          				optionValue="code" />
                     			</td>
                             </tr>
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="assignment"><g:message code="assignment.filePath.label" default="File" />:</label>
+                                    <label for="assignment"><g:message code="assignment.dataFile.label" default="File" />:</label>
                                 </td>
-                                <td class="value ${hasErrors(bean: sub, field: 'filePath', 'errors')}">
-                         			<input type="file" name="dataFile" />
+                                <td class="value ${hasErrors(bean: cmd, field: 'dataFile', 'errors')}">
+                         			<g:hasErrors bean="${cmd}" field="dataFile">
+                            	    <g:renderErrors bean="${cmd}" as="list" field="dataFile"/>
+                            	    </g:hasErrors>
+                                    <input type="file" name="dataFile" />
                     			</td>
                             </tr>
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="assignment"><g:message code="assignment.grade.label" default="Marks category given" />:</label>
                                 </td>
-                                <td class="value ${hasErrors(bean: sub, field: 'grade', 'errors')}">
-                         			<g:select 
+                                <td class="value ${hasErrors(bean: cmd, field: 'grade', 'errors')}">
+                         			<g:hasErrors bean="${cmd}" field="grade">
+                            	    <g:renderErrors bean="${cmd}" as="list" field="grade"/>
+                            	    </g:hasErrors>
+                                    <g:select 
                          			    noSelection="['':'-Choose grade-']"
                          				name="grade" 
+                         				value="${cmd?.grade}"
                          				from="${grades}" />
                     			</td>
                     		</tr>
@@ -69,11 +80,15 @@
                                 <td valign="top" class="name">
                                     <label for="tutor"><g:message code="default.tutor.label" default="Tutor" />:</label>
                                 </td>
-                                <td class="value ${hasErrors(bean: sub, field: 'tutorIds', 'errors')}">
-                         			<g:select 
+                                <td class="value ${hasErrors(bean: cmd, field: 'tutorIds', 'errors')}">
+                         			<g:hasErrors bean="${cmd}" field="tutorIds">
+                            	    <g:renderErrors bean="${cmd}" as="list" field="tutorIds"/>
+                            	    </g:hasErrors>
+                                    <g:select 
                          			    noSelection="['':'-Choose tutor-']"
                          				name="tutorIds" 
-                         				from="${course.tutors}" 
+                         				from="${courseInstance.tutors}" 
+                          				value="${cmd?.tutorIds}"
                          				optionKey="tutorId" 
                          				optionValue="idAndName" />
                     			</td>
@@ -82,11 +97,15 @@
                                 <td valign="top" class="name">
                                     <label for="student"><g:message code="default.student.label" default="Student" />:</label>
                                 </td>
-                                <td class="value ${hasErrors(bean: sub, field: 'studentIds', 'errors')}">
-                         			<g:select 
+                                <td class="value ${hasErrors(bean: cmd, field: 'studentIds', 'errors')}">
+                         			<g:hasErrors bean="${cmd}" field="studentIds">
+                            	    <g:renderErrors bean="${cmd}" as="list" field="studentIds"/>
+                            	    </g:hasErrors>
+                                    <g:select 
                          			    noSelection="['':'-Choose student-']"
                          				name="studentIds" 
-                         				from="${course.students}" 
+                         				from="${courseInstance.students}" 
+                          				value="${cmd?.studentIds}"
                          				optionKey="studentId" 
                          				optionValue="idAndName" />
                     			</td>

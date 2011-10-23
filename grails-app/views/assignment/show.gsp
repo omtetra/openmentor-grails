@@ -4,25 +4,37 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'assignment.label', default: 'Assignment')}" />
-        <title><g:message code="assignment.uploaded.label" /></title>
+        <title><g:message code="assignment.show.label" args="${[assignmentInstance.code, courseInstance.courseId]}" /></title>
     </head>
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="assignment.uploaded.label" /></h1>
+            <h1><g:message code="assignment.show.label" args="${[assignmentInstance.code, courseInstance.courseId]}" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            
-			<g:hasErrors bean="${submission}">
-            <div class="errors">
-                <g:renderErrors bean="${submission}" as="list" />
+            <div>
+                <table>
+                    <tbody>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="assignment.courseId.label" default="Course ID" />:</td>
+                            <td valign="top" class="value">${fieldValue(bean: assignmentInstance, field: "courseId")}</td>
+                        </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="assignment.code.label" default="Code" />:</td>
+                            <td valign="top" class="value">${fieldValue(bean: assignmentInstance, field: "code")}</td>
+                        </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="assignment.title.label" default="Title" />:</td>
+                            <td valign="top" class="value">${fieldValue(bean: assignmentInstance, field: "title")}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            </g:hasErrors>
-            
-            <h3>Submission saved: id: ${submission.id}</h3>
-		</div>
-		</div>
-	</body>
+            <div class="nav">
+            	<span class="menuButton"><g:link class="edit" action="edit" id="${assignmentInstance.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link></span>
+            </div>
+        </div>
+        </div>
+    </body>
 </html>

@@ -341,3 +341,13 @@ th.desc a {
  	margin-top:2.0ex;
     margin-bottom:2.0ex;
  }
+
+#feedback { font-size: 1.4em; }
+
+.errors ul {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+.errors ul li {
+	color: #844;
+}

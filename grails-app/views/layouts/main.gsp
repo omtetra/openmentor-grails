@@ -64,8 +64,13 @@
                     			</g:link>
                     		</li>
                     		<li>
-                    			<g:link action="upload" controller="assignment">
-                    			Upload assignments
+                    			<g:link action="index" controller="assignment">
+                    			Assignments
+                    			</g:link>
+                    		</li>
+                    		<li>
+                    			<g:link action="upload" controller="submission">
+                    			Upload submissions
                     			</g:link>
                     		</li>
                     		<li>
