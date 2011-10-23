@@ -12,4 +12,8 @@ class Category {
 	static List<String> getBands() {
 		return ConfigurationHolder.config.openmentor.bands as List<String>
 	}
+
+	static Map<String, String> getCategoryBandMap() {
+		return ConfigurationHolder.config.openmentor.categoryBands as Map<String, String>
+	}
 }
