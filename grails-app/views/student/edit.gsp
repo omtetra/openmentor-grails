@@ -26,6 +26,9 @@
                             	<label for="studentId"><g:message code="student.studentId.label" default="Student ID" />:</label>
                         	</td>
                             <td valign="top" class="value ${hasErrors(bean: studentInstance, field: 'studentId', 'errors')}">
+                                <g:hasErrors bean="${studentInstance}" field="studentId">
+                            	<g:renderErrors bean="${studentInstance}" as="list" field="studentId"/>
+                            	</g:hasErrors>
                                 <g:textField disabled="disabled" name="studentId" value="${studentInstance?.studentId}" />
                             </td>
                         </tr>
@@ -34,6 +37,9 @@
                             	<label for="givenName"><g:message code="student.givenName.label" default="Given Name" />:</label>
                         	</td>
                             <td valign="top" class="value ${hasErrors(bean: studentInstance, field: 'givenName', 'errors')}">
+                                <g:hasErrors bean="${studentInstance}" field="givenName">
+                            	<g:renderErrors bean="${studentInstance}" as="list" field="givenName"/>
+                            	</g:hasErrors>
                                 <g:textField name="givenName" value="${studentInstance?.givenName}" />
                             </td>
                         </tr>
@@ -42,6 +48,9 @@
                             	<label for="familyName"><g:message code="student.familyName.label" default="Family Name" />:</label>
                         	</td>
                             <td valign="top" class="value ${hasErrors(bean: studentInstance, field: 'familyName', 'errors')}">
+                                <g:hasErrors bean="${studentInstance}" field="familyName">
+                            	<g:renderErrors bean="${studentInstance}" as="list" field="familyName"/>
+                            	</g:hasErrors>
                                 <g:textField name="familyName" value="${studentInstance?.familyName}" />
                             </td>
                         </tr>
@@ -50,6 +59,9 @@
                             	<label for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
                         	</td>
                             <td valign="top" class="value ${hasErrors(bean: studentInstance, field: 'courses', 'errors')}">
+                                <g:hasErrors bean="${studentInstance}" field="courses">
+                            	<g:renderErrors bean="${studentInstance}" as="list" field="courses"/>
+                            	</g:hasErrors>
                                 <g:select id="courses" name="courses" optionKey="courseId" optionValue="courseId" multiple="${true}"
                                           from="${Course.findAll()}" 
                                           value="${studentInstance?.courses}"/>

@@ -1,6 +1,7 @@
 package uk.org.openmentor.controller
 
 import uk.org.openmentor.courseinfo.Course
+import uk.org.openmentor.data.Assignment;
 
 class CourseController {
 
@@ -82,6 +83,7 @@ class CourseController {
 			courseInstance.properties = params
 
             if (!courseInstance.hasErrors() && courseInstance.save(flush: true)) {
+				
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.courseId])}"
                 redirect(action: "list")
             }

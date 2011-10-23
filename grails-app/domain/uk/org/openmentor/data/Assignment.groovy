@@ -10,7 +10,7 @@ class Assignment {
 	
     static constraints = {
 		courseId(nullable: false, blank: false)
-		code(nullable: false, blank: false)
-		title(nullable: true)
+		code(nullable: false, blank: false, unique: 'courseId')
+		title(nullable: true, blank: true)
     }
 }

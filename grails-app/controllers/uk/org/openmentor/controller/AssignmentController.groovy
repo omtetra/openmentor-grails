@@ -2,64 +2,128 @@ package uk.org.openmentor.controller
 
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Assignment;
-import uk.org.openmentor.data.Submission;
-
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.springframework.web.multipart.MultipartFile;
 
 class AssignmentController {
 	
-	def analyzerService
-	
-    def index = { }
-	
-	private Map getUploadModel() {
-		return [
-			grades: ConfigurationHolder.config.openmentor.grades,
-			course: Course.findByCourseId(session.current_course)
-		]
-	}
+	private Course getSelectedCourse() {
+		def courseId = session.current_course
+		def courseInstance = Course.get(courseId)
 
-    def upload = { 
-		log.info(Course.findByCourseId(session.current_course).tutors)
-		getUploadModel()
+		if (! courseInstance) {
+			redirect(action: "select", controller: "course")
+			return
+		}
+		
+		return courseInstance
 	}
 	
-	def show = {
-		log.error(Submission.findAll())
+    def index = { 
+		redirect(action: "list", params: params)
 	}
 	
-	def save = { SubmissionCommand sc ->
-		log.error("Ready to save and start processing")
-		log.error(sc)
-		
-		// First of all, we may have the same submission already. This is not hugely
-		// well-specified in the previous implementation.
-		
-		Assignment assignment = Assignment.get(sc.assignmentId)
-		Submission sub = analyzerService.newSubmission(
-			assignment,
-			[sc.studentIds] as Set<String>,
-			[sc.tutorIds] as Set<String>,
-			sc.grade,
-			sc.dataFile.getOriginalFilename(),
-			sc.dataFile.getBytes()
-		)
-		
-		def model = getUploadModel()
-		model.submission = sub
+	def list = {
+		def courseInstance = getSelectedCourse()
 
-		if (sub.validate() && sub.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'submission.label', default: 'Submission')])}"
-			render(view: "show", model: model)
-		} else {
-			sub.errors.each {
+		params.sort = params.sort ?: 'code'
+		params.order = params.order ?: 'asc'
+		
+		def criteria = Assignment.createCriteria()
+		
+		def assignmentList = criteria.list {
+			eq('courseId', courseInstance.courseId)
+			order(params.sort, params.order)
+		}
+		
+		def assignmentCount = assignmentList.size()
+		
+		[assignmentInstanceList: assignmentList, assignmentInstanceTotal: assignmentCount, courseInstance: courseInstance]
+	}
+	
+	def create = { 
+		def courseInstance = getSelectedCourse()
+		
+		[courseInstance: courseInstance]
+	}
+	
+	def save = {
+		
+		def courseInstance = getSelectedCourse()
+		def assignmentInstance = new Assignment(params)
+		
+		if (assignmentInstance.save(flush: true)) {
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'assignment.label', default: 'Assignment'), assignmentInstance.code])}"
+			redirect(action: "list", id: assignmentInstance.id)
+		}
+		else {
+			log.info("Failed to create new sample: returning to dialog")
+			assignmentInstance.errors.allErrors.each {
 				log.error(it)
 			}
-			render(view: "upload", model: model)
+			render(view: "create", model: [assignmentInstance: assignmentInstance, courseInstance: courseInstance])
 		}
 	}
 	
+	def show = {
+		
+		def courseInstance = getSelectedCourse()
+		def assignmentInstance = Assignment.get(params.id)
+		
+        if (!assignmentInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'assignment.label', default: 'Assignment'), params.id])}"
+            redirect(action: "list")
+        }
+        else {
+            [assignmentInstance: assignmentInstance, courseInstance: courseInstance]
+        }
+	}
+	
+	def edit = {
+		
+		def courseInstance = getSelectedCourse()
+		def assignmentInstance = Assignment.get(params.id)
+		
+        if (!assignmentInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'assignment.label', default: 'Assignment'), params.id])}"
+            redirect(action: "list")
+        }
+        else {
+            [assignmentInstance: assignmentInstance, courseInstance: courseInstance]
+        }
+	}
+	
+	def update = {
+        
+		def courseInstance = getSelectedCourse()
+		def assignmentInstance = Assignment.get(params.id)
+		
+		if (assignmentInstance) {
+			log.info("Updating assignment: id: " + assignmentInstance.id)
+            if (params.version) {
+                def version = params.version.toLong()
+                if (assignmentInstance.version > version) {
+                    
+                    assignmentInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'assignment.label', default: 'Student')] as Object[], "Another user has updated this student while you were editing")
+                    render(view: "edit", model: [assignmentInstance: assignmentInstance, courseInstance: courseInstance])
+                    return
+                }
+            }
+			
+			assignmentInstance.properties = params
+
+            if (!assignmentInstance.hasErrors() && assignmentInstance.save(flush: true)) {
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'assignment.label', default: 'Assignment'), assignmentInstance.code])}"
+                redirect(action: "list")
+            }
+            else {
+                render(view: "edit", model: [assignmentInstance: assignmentInstance, courseInstance: courseInstance])
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'assignment.label', default: 'Assignment'), params.id])}"
+            redirect(action: "list")
+        }
+    }
+
 	def query = {
 		def assignmentList = Assignment.findAllByCodeIlike("%" + params.term + "%")
 		assignmentList.sort { it.code }
@@ -68,15 +132,16 @@ class AssignmentController {
 			assignmentList.collect { [code: it.code] };
 		}
 	}
-}
-
-final class SubmissionCommand {
-	String courseId
-	Integer assignmentId
-	String grade
-	String studentIds
-	String tutorIds
-	MultipartFile dataFile
 	
-	static constraints = {}
+	def courseAssignments = {
+		log.info("Requested course id: " + params.courseId);
+		log.error("Requested course id (error): " + params.courseId);
+		def assignmentList = Assignment.findAllByCourseId(params.courseId)
+		assignmentList.sort { it.code }
+		log.error(assignmentList)
+		
+		render(contentType: "text/json") {
+			assignmentList.collect { [code: it.code] };
+		}
+	}
 }

@@ -25,6 +25,9 @@
                             	<label for="courseId"><g:message code="course.courseId.label" default="Course Code" />:</label>
                         	</td>
                             <td valign="top" class="value ${hasErrors(bean: courseInstance, field: 'courseId', 'errors')}">
+                                <g:hasErrors bean="${courseInstance}" field="courseId">
+                            	<g:renderErrors bean="${courseInstance}" as="list" field="courseId"/>
+                            	</g:hasErrors>
                                 <g:textField disabled="disabled" name="courseId" value="${courseInstance.courseId}" />
                             </td>
                         </tr>
@@ -33,6 +36,9 @@
                             	<label for="courseTitle"><g:message code="course.courseTitle.label" default="Course Title" />:</label>
                         	</td>
                             <td valign="top" class="value ${hasErrors(bean: courseInstance, field: 'courseTitle', 'errors')}">
+                                <g:hasErrors bean="${courseInstance}" field="courseTitle">
+                            	<g:renderErrors bean="${courseInstance}" as="list" field="courseTitle"/>
+                            	</g:hasErrors>
                                 <g:textField name="courseTitle" value="${courseInstance?.courseTitle}" />
                             </td>
                         </tr>

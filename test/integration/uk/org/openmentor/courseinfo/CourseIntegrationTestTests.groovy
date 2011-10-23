@@ -1,5 +1,6 @@
 package uk.org.openmentor.courseinfo
 
+import uk.org.openmentor.data.Assignment;
 import grails.test.*
 
 class CourseIntegrationTestTests extends GroovyTestCase {
@@ -34,4 +35,13 @@ class CourseIntegrationTestTests extends GroovyTestCase {
 		def courseCM2006 = Course.findByCourseId("CM2006")
 		assertEquals(6, courseCM2006.students.size())
     }
+
+	/**
+	 * Simple check we can read a course from the test data
+	 */
+    void testFirstCourseAssignments() {
+		def assignmentsCM2006 = Assignment.findAllByCourseId("CM2006")
+		assertEquals(3, assignmentsCM2006.size())
+    }
+
 }
