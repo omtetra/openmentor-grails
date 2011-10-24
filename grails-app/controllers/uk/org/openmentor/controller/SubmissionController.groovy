@@ -1,5 +1,7 @@
 package uk.org.openmentor.controller
 
+import grails.plugins.springsecurity.Secured;
+
 import java.util.Map;
 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder;
@@ -10,6 +12,7 @@ import uk.org.openmentor.data.Assignment;
 import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.domain.DataBook;
 
+@Secured(['ROLE_OPENMENTOR-USER'])
 class SubmissionController {
 
 	def analyzerService

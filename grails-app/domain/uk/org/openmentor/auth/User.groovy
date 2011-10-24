@@ -19,4 +19,14 @@ class User {
 	Set<Role> getAuthorities() {
 		UserRole.findAllByUser(this).collect { it.role } as Set
 	}
+	
+	Boolean hasRole(String role) {
+		def criteria = UserRole.createCriteria()
+		def found = criteria.get {
+			role {
+				eq('authority', role)
+			}
+		}
+		return found != null
+	}
 }

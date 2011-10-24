@@ -1,8 +1,10 @@
 package uk.org.openmentor.controller
 
+import grails.plugins.springsecurity.Secured;
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Assignment;
 
+@Secured(['ROLE_OPENMENTOR-USER'])
 class AssignmentController {
 	
 	private Course getSelectedCourse() {

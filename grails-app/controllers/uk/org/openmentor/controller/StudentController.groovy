@@ -1,7 +1,10 @@
 package uk.org.openmentor.controller
 
+import org.springframework.security.access.annotation.Secured;
+
 import uk.org.openmentor.courseinfo.Student;
 
+@Secured(['ROLE_OPENMENTOR-ADMIN'])
 class StudentController {
 
     def index = { 

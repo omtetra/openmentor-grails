@@ -3,11 +3,13 @@ package uk.org.openmentor.controller
 import java.util.Map;
 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder;
+import grails.plugins.springsecurity.Secured
 
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.domain.DataBook;
 
+@Secured(['ROLE_OPENMENTOR-USER'])
 class ReportController {
 	
 	def assessmentService

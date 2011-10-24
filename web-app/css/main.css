@@ -36,7 +36,9 @@ h1 {
 ul {
     padding-left: 15px;
 }
-
+body #login .inner .cssform p {
+	clear: none;
+}
 input, select, textarea {
     background-color: #fcfcfc;
     border: 1px solid #ccc;
