@@ -45,7 +45,7 @@ class BootStrap {
 	 */
 	private void seedUserData() {
 		
-		def userRole = Role.findByAuthority('ROLE_OPENMENTOR-USERS') ?: new Role(authority: 'ROLE_OPENMENTOR-USERS').save(failOnError: true)
+		def userRole = Role.findByAuthority('ROLE_OPENMENTOR-USER') ?: new Role(authority: 'ROLE_OPENMENTOR-USER').save(failOnError: true)
 		def adminRole = Role.findByAuthority('ROLE_OPENMENTOR-ADMIN') ?: new Role(authority: 'ROLE_OPENMENTOR-ADMIN').save(failOnError: true)
 
 		def adminUser = User.findByUsername('admin') ?: new User(

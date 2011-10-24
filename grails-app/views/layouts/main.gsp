@@ -35,9 +35,6 @@
 			</sec:ifLoggedIn>
 		</div>
 		<div class="nav">
-           	<sec:ifAnyGranted roles="ROLE_OPENMENTOR-USERS">
-            <span class="menuButton"><a class="list" href="${createLinkTo(dir:'',file:'/')}"><g:message code="Home" /></a></span>
-            </sec:ifAnyGranted>
         </div>
         
         <div id="nav">
@@ -85,6 +82,25 @@
                     
                     <ul>
                     	<li>
+                    		<g:link action="index" controller="help">
+                    		Background
+                    		</g:link>
+                    	</li>
+                    	<sec:ifAnyGranted roles="ROLE_OPENMENTOR-USER">
+                    	<li>
+                    		<g:link action="show" controller="user" id="${sec.username()}">
+                    		My Account
+                    		</g:link>
+                    	</li>
+                    	</sec:ifAnyGranted>
+                    </ul>
+                    
+                    <sec:ifAnyGranted roles="ROLE_OPENMENTOR-ADMIN">
+                    
+                    <hr/>
+                    
+                    <ul>
+                    	<li>
                     		<g:link action="index" controller="course">
                     		Courses
                     	    </g:link>
@@ -99,17 +115,14 @@
                     		Tutors
                     	    </g:link>
                     	</li>
-                    </ul>
-                    
-                    <hr/>
-                    
-                    <ul>
                     	<li>
-                    		<g:link action="index" controller="help">
-                    		Background
+                    		<g:link action="index" controller="user">
+                    		Users
                     		</g:link>
                     	</li>
                     </ul>
+                    
+                    </sec:ifAnyGranted>
                 </div>
                 <div class="panelBtm"></div>
             </div>

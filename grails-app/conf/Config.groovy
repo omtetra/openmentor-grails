@@ -97,7 +97,10 @@ log4j = {
 }
 
 //grails.plugins.springsecurity.rejectIfNoRule = true
-//grails.plugins.springsecurity.rejectIfNoRule = true
+
+grails.plugins.springsecurity.roleHierarchy = '''
+ROLE_OPENMENTOR-ADMIN > ROLE_OPENMENTOR-USER
+'''
 
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'uk.org.openmentor.auth.User'

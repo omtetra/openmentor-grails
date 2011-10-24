@@ -1,7 +1,9 @@
 package uk.org.openmentor.controller
 
+import grails.plugins.springsecurity.Secured;
 import uk.org.openmentor.courseinfo.Tutor;
 
+@Secured(['ROLE_OPENMENTOR-ADMIN'])
 class TutorController {
 
     def index = { 
