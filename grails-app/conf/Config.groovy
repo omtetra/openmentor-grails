@@ -79,7 +79,7 @@ log4j = {
     }
 	
 	debug  'grails.app.controller',
-	       'grails.app.domain'
+           'grails.app.domain'
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -106,6 +106,18 @@ ROLE_OPENMENTOR-ADMIN > ROLE_OPENMENTOR-USER
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'uk.org.openmentor.auth.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'uk.org.openmentor.auth.UserRole'
 grails.plugins.springsecurity.authority.className = 'uk.org.openmentor.auth.Role'
+
+// Added for the Spring Security LDAP plugin:
+//grails.plugins.springsecurity.ldap.context.managerDn = 'uid=admin,ou=system'
+//grails.plugins.springsecurity.ldap.context.managerPassword = 'secret'
+grails.plugins.springsecurity.ldap.context.anonymousReadOnly=true
+grails.plugins.springsecurity.ldap.context.server = 'ldap://localhost:1389/'
+grails.plugins.springsecurity.ldap.search.base = 'dc=example,dc=com'
+grails.plugins.springsecurity.ldap.search.filter = '(uid={0})'
+grails.plugins.springsecurity.ldap.authorities.groupSearchBase = 'ou=Groups,dc=example,dc=com'
+grails.plugins.springsecurity.ldap.authorities.groupSearchFilter = 'uniqueMember={0}'
+//grails.plugins.springsecurity.password.algorithm = 'SHA-256'
+grails.plugins.springsecurity.ldap.authorities.retrieveDatabaseRoles = true
 
 // This exploits the significantly more flexible handling of types in Grails to 
 // allow configuration down to the grading scheme. 

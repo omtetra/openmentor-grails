@@ -263,13 +263,6 @@
       </exclusions>
     </dependency>
     
-    <!-- For ease of development and testing, we include the HSQLDB database. -->
-    <dependency>
-      <groupId>hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>1.8.0.10</version>
-    </dependency>
-    
     <!-- Use Log4J for logging. This artifact also pulls in the Log4J JAR. -->
     <dependency>
       <groupId>org.slf4j</groupId>
