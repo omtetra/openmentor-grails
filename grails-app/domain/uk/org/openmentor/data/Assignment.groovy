@@ -6,7 +6,7 @@ class Assignment {
 	String code
 	String title
 
-	static hasMany = [ submission: Submission ]
+	static hasMany = [ submissions: Submission ]
 	
     static constraints = {
 		courseId(nullable: false, blank: false)
