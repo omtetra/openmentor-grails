@@ -1,6 +1,8 @@
 package uk.org.openmentor.pages;
 
 import grails.test.*
+import org.htmlparser.Parser
+import org.htmlparser.filters.TagNameFilter
 import uk.org.openmentor.courseinfo.Course
 import uk.org.openmentor.controller.CourseController
 
@@ -95,5 +97,14 @@ class CourseGroovyPagesTests extends GroovyPagesTestCase {
 		def model = controller.edit()
 
 		def htmlString = applyTemplate(file.text, model)
+		
+		// Throw this into an HTML parser for testing
+		def parser = new Parser(htmlString)
+		def nodes = parser.parse(null)
+		
+		// Now check we have some inputs
+		def inputs = nodes.extractAllNodesThatMatch(new TagNameFilter("input"), true)
+		assertTrue(inputs.size > 1)
 	}
 }
+

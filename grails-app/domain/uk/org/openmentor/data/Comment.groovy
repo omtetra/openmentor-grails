@@ -9,6 +9,6 @@ class Comment {
 	static hasMany = [ classes: String ]
 
     static constraints = {
-		text(nullable: false)
+		text(nullable: false, , maxSize: 4*1024)
     }
 }

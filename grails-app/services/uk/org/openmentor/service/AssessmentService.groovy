@@ -27,7 +27,21 @@ class AssessmentService {
 
     static transactional = true
 	
-	private Categorization getCategorization(Set<Submission> submissions) {
+	/**
+	 * Returns a Categorization constructed from a single submission. 
+	 * @param submission
+	 * @return a Categorization
+	 */
+	public Categorization getCategorization(Submission submission) {
+		return getCategorization([submission] as Set<Submission>)
+    }
+	
+	/**
+	 * Returns a Categorization constructed from a set of submissions. 
+	 * @param submission
+	 * @return a Categorization
+	 */
+	public Categorization getCategorization(Set<Submission> submissions) {
 		Categorization ctgz = new Categorization()
 		ctgz.clear()
 		ctgz.addComments(submissions)
@@ -58,21 +72,35 @@ class AssessmentService {
 	}
 	
 	private aggregateComments
-		
+	
 	/**
-	 * Builds a DataBook for charting purposes.
+	 * Builds a DataBook for charting purposes, based on a single submission. 
+	 * @return  the DataBook instance
+	 */
+	public final DataBook buildDataBook(Submission submission) {
+		return buildDataBook([submission] as Set<Submission>)
+	}
+	
+	/**
+	 * Builds a DataBook for charting purposes, based on a set of submissions. 
 	 * @return  the DataBook instance
 	 */
 	public final DataBook buildDataBook(Set<Submission> submissions) {
-
-		DataBook dataBook = new DataBook();
-		
 		Categorization ctgz = getCategorization(submissions)
+		return buildDataBook(ctgz)
+	}
 		
+	/**
+	 * Builds a DataBook for charting purposes, based on a categorization
+	 * constructed from the set of submissions. 
+	 * @return  the DataBook instance
+	 */
+	public final DataBook buildDataBook(Categorization ctgz) {
+		DataBook dataBook = new DataBook();
 		Map<String, Integer> actualCounts = getCommentCounts(ctgz)
 		Integer commentCount = getValuesTotal(actualCounts.values())
-		log.error("Actual coment counts: " + actualCounts)
-		log.error("Total coment count: " + commentCount)
+		log.debug("Actual coment counts: " + actualCounts)
+		log.debug("Total coment count: " + commentCount)
 		
 		List<String> categories = Category.getCategories()
 		List<String> bands = Category.getBands()
@@ -80,7 +108,7 @@ class AssessmentService {
 		
 		Map<String, List<String>> comments = new HashMap<String, List<String>>();
 		for (String category: categories) {
-			log.error("Comment: " + category + ", " + ctgz.getComments(category))
+			log.debug("Comment: " + category + ", " + ctgz.getComments(category))
 			comments.put(category, ctgz.getComments(category));
 		}
 		Map<String, List<String>> aggregateComments = aggregateComments(comments);

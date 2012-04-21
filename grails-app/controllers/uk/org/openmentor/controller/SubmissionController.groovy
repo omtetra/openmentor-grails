@@ -4,13 +4,14 @@ import grails.plugins.springsecurity.Secured;
 
 import java.util.Map;
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Assignment;
 import uk.org.openmentor.data.Submission;
+import uk.org.openmentor.domain.Categorization
 import uk.org.openmentor.domain.DataBook;
+import uk.org.openmentor.domain.Grade;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
 class SubmissionController {
@@ -37,24 +38,34 @@ class SubmissionController {
 	def upload = { 
 		
 		def courseInstance = getSelectedCourse()
-		def grades = ConfigurationHolder.config.openmentor.grades;
+		def grades = Grade.getGrades()
 		[grades: grades, courseInstance: courseInstance]
 	}
 	
+	/**
+	 * The show action for the submission controller. This generates a Categorization
+	 * of the comments, and then uses that to build a DataBook. The Submission, along
+	 * with the DataBook and the categorization, are passed into the view. The 
+	 * assessmentService is used for the underlying work. 
+	 */
 	def show = {
 		
 		Submission sub = Submission.get(params.id)
-		Set<Submission> submissions = [sub] as Set<Submission>
-		DataBook book = assessmentService.buildDataBook(submissions)
 		
-		return [book: book, submissionInstance: sub]
+		Categorization ctgz = assessmentService.getCategorization(sub)
+		DataBook book = assessmentService.buildDataBook(ctgz)
+		
+		return [book: book, submissionInstance: sub, categorization: ctgz]
 	}
 	
 	def save = { SubmissionCommand cmd ->
 		
 		def courseInstance = getSelectedCourse()
-		def grades = ConfigurationHolder.config.openmentor.grades;
+		if (! courseInstance) {
+			return
+		}
 		
+		def grades = Grade.getGrades()
 		def model = [grades: grades, courseInstance: courseInstance]
 		model.cmd = cmd
 
@@ -63,8 +74,8 @@ class SubmissionController {
 			return
 		}
 			
-		log.error("Ready to save and start processing")
-		log.error(cmd)
+		log.debug("Ready to save and start processing")
+		log.debug(cmd)
 		
 		// First of all, we may have the same submission already. This is not hugely
 		// well-specified in the previous implementation.

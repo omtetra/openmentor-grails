@@ -16,4 +16,10 @@ class Category {
 	static Map<String, String> getCategoryBandMap() {
 		return ConfigurationHolder.config.openmentor.categoryBands as Map<String, String>
 	}
+	
+	static List<String> getBandCategories(String band) {
+		Map<String, String> map = getCategoryBandMap()
+		List<String> categories = getCategories()
+		return categories.findAll { map.getAt(it) == band }
+	}
 }
