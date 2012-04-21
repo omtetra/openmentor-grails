@@ -131,6 +131,12 @@ openmentor {
 	bands = [
 		"A", "B", "C", "D"
 	]
+	bandLabels = [
+		"A": "Positive comments",
+		"B": "Teaching points",
+		"C": "Questions",
+		"D": "Negative comments"	
+	]
 	categoryBands = [
 		"A1": "A",
 		"A2": "A",
