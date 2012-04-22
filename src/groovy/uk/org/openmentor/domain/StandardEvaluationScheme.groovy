@@ -6,13 +6,21 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder;
 
 import uk.org.openmentor.evaluator.EvaluationScheme;
 
+/**
+ * The standard evaluation scheme simply uses a set of weights defined in the main
+ * configuration files. It is simple and easy to adapt to different organizations. 
+ * 
+ * @author morungos
+ */
 class StandardEvaluationScheme implements EvaluationScheme {
 	
-	public double getIdealProportion(final String category, final String grade) {
+	/**
+	 * Method to look up the ideal proportion. 
+	 */
+	public double getIdealProportion(final String band, final String grade) {
 		
-		Map<String, String> bands = ConfigurationHolder.config.openmentor.bands as Map<String, String>
 		Map<String, Map<String, Double>> weights = ConfigurationHolder.config.openmentor.weights as Map<String, Double>
 		
-		return weights.get(grade).get(bands.getAt(category)).value
+		return weights.getAt(grade).getAt(band).doubleValue()
 	}
 }
