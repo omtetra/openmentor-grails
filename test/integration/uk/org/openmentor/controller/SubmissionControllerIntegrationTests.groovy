@@ -40,17 +40,17 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
         super.tearDown()
     }
 	
-	private def getMockFile() {
+	private def getMockFile(String fileName) {
 		def mockFile = mock(MultipartFile)
-		mockFile.getOriginalFilename().returns("test/resources/test1.doc").stub()
-		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream("test/resources/test1.doc"))).stub()
+		mockFile.getOriginalFilename().returns(fileName).stub()
+		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream(fileName))).stub()
 		mockFile.getContentType().returns("application/msword").stub()
 		
 		return mockFile
 	}
 
     void testSubmission() {
-		def mockFile = getMockFile()
+		def mockFile = getMockFile("test/resources/test1.doc")
 		
 		def sc = new SubmissionCommand()
 		
