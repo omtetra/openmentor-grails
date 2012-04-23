@@ -33,6 +33,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	 */
 	void testSubmissionShow() {
 		def file = new File("grails-app/views/submission/show.gsp")
+		def inputFile = "test/resources/test1a.doc"
 
 		def course = Course.findByCourseId("CM2006")
 		assertTrue course != null
@@ -43,8 +44,8 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 			['09000231'] as Set<String>,
 			['M4000061'] as Set<String>,
 			'A',
-			"test/resources/test1.doc",
-			IOUtils.toByteArray(new FileInputStream("test/resources/test1.doc"))
+			inputFile,
+			IOUtils.toByteArray(new FileInputStream(inputFile))
 		)
 		assertTrue sub != null
 		sub.save(flush: true, validate: true)
