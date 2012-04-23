@@ -125,6 +125,20 @@
                     </ul>
                     
                     </sec:ifAnyGranted>
+
+                    <sec:ifAnyGranted roles="ROLE_OPENMENTOR-ADMIN">
+                    
+                    <hr/>
+                    
+                    <ul>
+                    	<li>
+                    		<g:link action="index" controller="history">
+                    		History
+                    	    </g:link>
+                    	</li>
+					</ul>
+					
+					</sec:ifAnyGranted>
                 </div>
                 <div class="panelBtm"></div>
             </div>

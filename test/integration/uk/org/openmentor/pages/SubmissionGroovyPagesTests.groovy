@@ -44,6 +44,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 			['09000231'] as Set<String>,
 			['M4000061'] as Set<String>,
 			'A',
+			"admin",
 			inputFile,
 			IOUtils.toByteArray(new FileInputStream(inputFile))
 		)

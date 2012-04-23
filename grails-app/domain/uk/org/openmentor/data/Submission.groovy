@@ -22,6 +22,11 @@ class Submission {
 	 */
 	Date dateSubmitted = new Date()
 	
+	/**
+	 * The username of the person who uploaded this submission
+	 */
+	String username
+	
 	static belongsTo = [ assignment: Assignment ]
 	
 	static hasMany = [ 
@@ -31,10 +36,11 @@ class Submission {
 	]
 
     static constraints = {
-		filename(nullable: false)
-		grade(nullable: false)
+		filename(nullable: false, blank: false)
+		grade(nullable: false, blank: false)
 		fileContents(nullable: true, maxSize: 8*1024*1024) // Allow up to 8Mb
 		dateSubmitted(nullable: false)
+		username(nullable: false, blank: false)
     }
 	
 	static Set<Submission> findAllCourseSubmissions(String courseId) {
