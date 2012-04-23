@@ -24,7 +24,7 @@ class SubmissionIntegrationTests extends GroovyTestCase {
 		def testFile = new File(testFileName)
 		
 		// Write the submission
-		def submission = new Submission(filename: "foo.doc", grade: "A", fileContents: testFile.getBytes())
+		def submission = new Submission(filename: "foo.doc", grade: "A", username: "admin", fileContents: testFile.getBytes())
 		assignment.addToSubmissions(submission)
 		assignment.save(validate: true, flush: true)
 		

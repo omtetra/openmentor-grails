@@ -1,6 +1,7 @@
 package uk.org.openmentor.controller
 
 import grails.plugins.springsecurity.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Map;
 
@@ -18,6 +19,7 @@ class SubmissionController {
 
 	def analyzerService
 	def assessmentService
+	def currentUserService
 	
 	private Course getSelectedCourse() {
 		def courseId = session.current_course
@@ -81,11 +83,13 @@ class SubmissionController {
 		// well-specified in the previous implementation.
 		
 		Assignment assignment = Assignment.get(cmd.assignmentId)
+		String userName = currentUserService.currentUserName()
 		Submission sub = analyzerService.newSubmission(
 			assignment,
 			[cmd.studentIds] as Set<String>,
 			[cmd.tutorIds] as Set<String>,
 			cmd.grade,
+			userName,
 			cmd.dataFile.getOriginalFilename(),
 			cmd.dataFile.getBytes()
 		)

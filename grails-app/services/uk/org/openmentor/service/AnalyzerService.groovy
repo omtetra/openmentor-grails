@@ -37,14 +37,16 @@ class AnalyzerService {
                                     Set<String> students,
                                     Set<String> tutorIds,
                                     String grade,
-									String filename,
-                                    byte[] fileContents) throws Exception {
+									String username,
+                                    String filename,
+									byte[] fileContents) throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("Analyzing submission: grade: " + grade
                       + ", parameter filename: " + filename
                       + ", parameter assignment: " + assignment
                       + ", parameter students: " + students
-                      + ", parameter tutorIds: " + tutorIds);
+                      + ", parameter tutorIds: " + tutorIds
+					  + ", parameter username: " + username);
         }
 
         Submission sub = new Submission();
@@ -53,6 +55,7 @@ class AnalyzerService {
         sub.setTutorIds(tutorIds);
         sub.setGrade(grade);
 		sub.setFilename(filename);
+		sub.setUsername(username);
 		sub.setFileContents(fileContents)
 		
         Set<Comment> commentSet = new HashSet<Comment>();
