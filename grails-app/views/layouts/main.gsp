@@ -115,11 +115,13 @@
                     		Tutors
                     	    </g:link>
                     	</li>
+						<%--
                     	<li>
                     		<g:link action="index" controller="user">
                     		Users
                     		</g:link>
                     	</li>
+                    	--%>
                     </ul>
                     
                     </sec:ifAnyGranted>
