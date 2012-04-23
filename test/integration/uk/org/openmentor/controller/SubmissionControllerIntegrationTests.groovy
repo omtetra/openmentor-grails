@@ -50,7 +50,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 	}
 
     void testSubmission() {
-		def mockFile = getMockFile("test/resources/test1.doc")
+		def mockFile = getMockFile("test/resources/test1a.doc")
 		
 		def sc = new SubmissionCommand()
 		
