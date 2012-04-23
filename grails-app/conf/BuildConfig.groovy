@@ -29,7 +29,8 @@ grails.project.dependency.resolution = {
 
         runtime 'mysql:mysql-connector-java:5.1.18'
 		
-		compile 'org.apache.poi:poi:3.7'
+		compile 'org.apache.poi:poi:3.8'
+		compile 'org.apache.poi:poi-scratchpad:3.8'
 		
 		test    'org.htmlparser:htmlparser:1.6'
 		test    'org.gmock:gmock:0.8.2'
