@@ -8,6 +8,7 @@ import grails.plugins.springsecurity.Secured
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.domain.DataBook;
+import uk.org.openmentor.domain.Grade;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
 class ReportController {
@@ -17,7 +18,7 @@ class ReportController {
 	private Map getUploadModel() {
 		
 		def model = [
-			grades: ConfigurationHolder.config.openmentor.grades,
+			grades: Grade.getGrades(),
 			course: Course.findByCourseId(session.current_course)
 		]
 		
