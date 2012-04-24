@@ -6,6 +6,7 @@ import org.htmlparser.filters.TagNameFilter
 import uk.org.openmentor.courseinfo.Course
 import uk.org.openmentor.data.Submission
 import uk.org.openmentor.data.Assignment
+import uk.org.openmentor.controller.HistoryController;
 import uk.org.openmentor.controller.SubmissionController
 import org.apache.commons.io.IOUtils
 
@@ -26,6 +27,27 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	protected void tearDown() {
 		super.tearDown()
 	}
+	
+	private def Submission addSubmission(String courseCode, String assignmentCode, 
+		                                 String studentId, String tutorId, 
+										 String grade, String inputFile) {
+		
+		def course = Course.findByCourseId(courseCode)
+		assertTrue course != null
+		
+		Assignment assignment = Assignment.findByCode(assignmentCode)
+		Submission sub = analyzerService.newSubmission(
+			assignment,
+			[studentId] as Set<String>,
+			[tutorId] as Set<String>,
+			grade,
+			"admin",
+			inputFile,
+			IOUtils.toByteArray(new FileInputStream(inputFile))
+		)
+		
+		return sub
+	}
 
 	/**
 	 * Test the submission controller's ability to show a submission. To do this, 
@@ -33,22 +55,10 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	 */
 	void testSubmissionShow() {
 		def file = new File("grails-app/views/submission/show.gsp")
-		def inputFile = "test/resources/test1a.doc"
 
-		def course = Course.findByCourseId("CM2006")
-		assertTrue course != null
-		
-		Assignment assignment = Assignment.findByCode("TMA03")
-		Submission sub = analyzerService.newSubmission(
-			assignment,
-			['09000231'] as Set<String>,
-			['M4000061'] as Set<String>,
-			'A',
-			"admin",
-			inputFile,
-			IOUtils.toByteArray(new FileInputStream(inputFile))
-		)
+		Submission sub = addSubmission("CM2006", "TMA03", '09000231', 'M4000061', 'A', "test/resources/test1a.doc")
 		assertTrue sub != null
+
 		sub.save(flush: true, validate: true)
 		assertTrue sub.id != null
 
@@ -59,5 +69,27 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 
 		def htmlString = applyTemplate(file.text, model)
 		assertTrue(htmlString.contains("Not a word wasted here!"))
+	}
+
+	/**
+	 * Test the submission controller's ability to show a submission. To do this, 
+	 * of course, we actually need a submission that we can use. 
+	 */
+	void testHistoryList() {
+		def file = new File("grails-app/views/history/list.gsp")
+
+		Submission sub = addSubmission("CM2006", "TMA03", '09000231', 'M4000061', 'A', "test/resources/test1a.doc")
+		assertTrue sub != null
+
+		sub.save(flush: true, validate: true)
+		assertTrue sub.id != null
+
+		def controller = new HistoryController()
+		
+		def model = controller.list()
+
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains(sub.filename))
+		assertTrue(htmlString.contains("admin"))
 	}
 }
