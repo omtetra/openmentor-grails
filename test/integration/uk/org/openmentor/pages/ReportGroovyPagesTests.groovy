@@ -51,7 +51,7 @@ class ReportGroovyPagesTests extends GroovyPagesTestCase {
 	}
 
 	/**
-	 * Test the submission controller's ability to show a submission. To do this, 
+	 * Test the report controller's ability to show a report. To do this, 
 	 * of course, we actually need a submission that we can use. 
 	 */
 	void testReportCourse() {
