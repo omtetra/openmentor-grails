@@ -14,10 +14,12 @@ class UserController {
 	
 	def springSecurityService
 
+	@Secured(['ROLE_OPENMENTOR-ADMIN'])
     def index = { 
 		redirect(action: "list", params: params)
 	}
 
+	@Secured(['ROLE_OPENMENTOR-ADMIN'])
     def list = { 
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		params.sort = params.sort ?: 'username'
@@ -37,8 +39,10 @@ class UserController {
 		[userInstanceList: userList, userInstanceTotal: userCount]
 	}
 
+	@Secured(['ROLE_OPENMENTOR-ADMIN'])
 	def create = { }
 	
+	@Secured(['ROLE_OPENMENTOR-ADMIN'])
 	def save = { UserCommand cmd ->
 		
 		def model = [:]
@@ -97,6 +101,31 @@ class UserController {
         }
 	}
 	
+	@Secured(['ROLE_OPENMENTOR-ADMIN'])
+	def edit = {
+		
+		log.trace("Request user/edit: " + params.id)
+		
+		def username = params.id
+		
+		def userInstance = User.findByUsername(username)
+		def allRoles = userInstance ? userInstance.getAuthorities().collect { it.authority } : [] as Set<String>
+		
+		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>
+		
+		log.trace("Found user: " + userInstance)
+		log.trace("Found roles: " + allRoles)
+		log.trace("Found possible roles: " + allPossibleRoles)
+		
+		if (!userInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
+			redirect(action: "list")
+		}
+		else {
+			[userInstance: userInstance, userRoles: allRoles, availableRoles: allPossibleRoles]
+		}
+	}
+
 	@Secured(['ROLE_OPENMENTOR-USER'])
 	def password = { 
 		def username = params.id
