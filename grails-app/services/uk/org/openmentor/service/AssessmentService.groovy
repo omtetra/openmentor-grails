@@ -112,7 +112,7 @@ class AssessmentService {
 		
 		int submissionCount = 0;
 		submissionCounts.each { key, value -> submissionCount += value }
-		Double factor = commentCount / submissionCount;
+		Double factor = (submissionCount == 0) ? 0.0 : commentCount / submissionCount;
 		
 		Map<String, Number> idealAggregateCounts = new HashMap<String, Number>();
 		idealCounts.each { key, value -> idealAggregateCounts.put(key, value * factor) }
