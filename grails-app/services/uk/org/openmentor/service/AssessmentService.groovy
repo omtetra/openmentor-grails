@@ -98,14 +98,6 @@ class AssessmentService {
 		List<String> bands = Category.getBands()
 		Map<String, String> categoryBandMap = Category.getCategoryBandMap()
 		
-		Map<String, List<String>> comments = new HashMap<String, List<String>>();
-		for (String category: categories) {
-			log.debug("Comment: " + category + ", " + ctgz.getComments(category))
-			comments.put(category, ctgz.getComments(category));
-		}
-		Map<String, List<String>> aggregateComments = aggregateComments(comments);
-		List<List<String>> commentsList = bands.collect { a -> aggregateComments.get(a) }
-		
 		Map<String, Integer> submissionCounts = ctgz.getSubmissionCounts();
 		Map<String, Number> idealCounts = weightedIdealCounts(submissionCounts);
 		Map<String, Number> actualAggregateCounts = aggregateBands(actualCounts);
@@ -116,6 +108,14 @@ class AssessmentService {
 		
 		Map<String, Number> idealAggregateCounts = new HashMap<String, Number>();
 		idealCounts.each { key, value -> idealAggregateCounts.put(key, value * factor) }
+		
+		Map<String, List<String>> comments = new HashMap<String, List<String>>();
+		for (String category: categories) {
+			log.debug("Comment: " + category + ", " + ctgz.getComments(category))
+			comments.put(category, ctgz.getComments(category));
+		}
+		Map<String, List<String>> aggregateComments = aggregateComments(comments);
+		List<List<String>> commentsList = bands.collect { a -> aggregateComments.get(a) }
 		
 		dataBook.setDataPoints(bands);
 		dataBook.setDataSeries("IdealCounts", toList(bands, idealAggregateCounts));
@@ -176,7 +176,7 @@ class AssessmentService {
     /**
      * Returns a list of Submissions which will be used to build the
      * report.  This is the *only* place the submissionId, id and
-     * reportFor parameters are now to be used.
+     * reportFor parameters are now to be used. 
      *
      * @return a <code>List</code> value
      */

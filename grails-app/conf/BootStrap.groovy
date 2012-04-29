@@ -14,6 +14,7 @@ class BootStrap {
 	static final Logger log = Logger.getLogger(this)
 	
 	def springSecurityService
+	def initializationService
 
 	def init = { servletContext ->
 		DataSourceUtils.tune(servletContext)
@@ -33,6 +34,9 @@ class BootStrap {
 		}
 
 		seedUserData()
+
+		initializationService.deletePreviousConfiguration()
+		initializationService.initializeConfiguration()
 	}
 
 	def destroy = {
@@ -56,6 +60,16 @@ class BootStrap {
 		if (! adminUser.authorities.contains(adminRole)) {
 			UserRole.create adminUser, adminRole
 		}
+	}
+	
+	/**
+	 * Analysis is assisted by having the category and band data in the database. This
+	 * allows joins to be used with aggregate functions to build summary data for a 
+	 * larger collection with decent performance. The data is added on boot-time
+	 * from the configuration data. 
+	 */
+	private void seedCategoryData() {
+		
 	}
 	
 	/**

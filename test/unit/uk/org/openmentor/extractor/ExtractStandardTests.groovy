@@ -13,6 +13,21 @@ class ExtractStandardTests extends GrailsUnitTestCase {
         super.tearDown()
     }
 
+    void testExtractorTestSimple() {
+		Extractor ext = new ExtractStandard()
+		
+		File fileName = new File("test/resources/testza.doc")
+		InputStream input = new FileInputStream(fileName)
+		
+		ext.extract(input)
+		
+		String text = ext.getBody()
+		assertTrue text.contains("Dell Support")
+		
+		Set<String> annotations = ext.getAnnotations()
+		assertTrue annotations.find { it.contains("Balloon here!") } != null
+    }
+
     void testExtractorTest1() {
 		Extractor ext = new ExtractStandard()
 		
@@ -58,7 +73,7 @@ class ExtractStandardTests extends GrailsUnitTestCase {
 		assertTrue annotations.find { it.contains("So you are aiming to offer a blended approach") } != null
     }
 
-    void testExtractorTest4() {
+	void testExtractorTest4() {
 		Extractor ext = new ExtractStandard()
 		
 		File fileName = new File("test/resources/test4a.doc")
@@ -67,9 +82,24 @@ class ExtractStandardTests extends GrailsUnitTestCase {
 		ext.extract(input)
 		
 		String text = ext.getBody()
-		assertTrue text.contains("Dell Support")
+		assertTrue text.contains("Paragraph 2")
 		
 		Set<String> annotations = ext.getAnnotations()
-		assertTrue annotations.find { it.contains("Balloon here!") } != null
-    }
+		assertTrue annotations.find { it.contains("All this could be said of H801") } != null
+	}
+
+	void testExtractorTest5() {
+		Extractor ext = new ExtractStandard()
+		
+		File fileName = new File("test/resources/test5a.doc")
+		InputStream input = new FileInputStream(fileName)
+		
+		ext.extract(input)
+		
+		String text = ext.getBody()
+		assertTrue text.contains("Paragraph 2")
+		
+		Set<String> annotations = ext.getAnnotations()
+		assertTrue annotations.find { it.contains("I have genuine sympathy here.") } != null
+	}
 }

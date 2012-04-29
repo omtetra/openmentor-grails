@@ -6,6 +6,10 @@ import uk.org.openmentor.data.Comment;
 import uk.org.openmentor.data.Submission;
 
 class Categorization {
+	
+	/**
+	 * Logger for the Categorization class
+	 */
 	static final Logger log = Logger.getLogger(this)
 	
 	/**

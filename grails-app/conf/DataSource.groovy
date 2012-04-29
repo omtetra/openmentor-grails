@@ -16,7 +16,9 @@ environments {
     development {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:h2:mem:devDB"
+            url = "jdbc:mysql://localhost:3306/openmentor?characterEncoding=UTF-8"
+			username='root'
+			password=''
         }
     }
     test {
