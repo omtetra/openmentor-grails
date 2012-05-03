@@ -42,6 +42,6 @@ class StandardEvaluationSchemeTests {
         evaluationScheme = new StandardEvaluationScheme()
 		
 		def value = evaluationScheme.getIdealProportion("A", "B")
-		assertEquals 0.4, value, 0.001
+		assertEquals 0.25, value, 0.001
     }
 }

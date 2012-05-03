@@ -15,11 +15,10 @@ class CategoryTests {
 
     void testBasicCategoryBehaviour() {
 
-		Category cat = new Category(band: "A", category: "A1")
+		Category cat = new Category(id: "A1", band: "A")
 		cat.save()
 		
+		assertEquals "A1", cat.id
 		assertEquals "A", cat.band
-		assertEquals "A1", cat.category
-		assertNotNull cat.id
     }
 }

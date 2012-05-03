@@ -11,15 +11,15 @@ import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Assignment;
 import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.domain.Categorization
-import uk.org.openmentor.domain.DataBook;
 import uk.org.openmentor.domain.Grade;
+import uk.org.openmentor.domain.Summary;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
 class SubmissionController {
 
 	def analyzerService
-	def assessmentService
 	def currentUserService
+	def summarizationService
 	
 	private Course getSelectedCourse() {
 		def courseId = session.current_course
@@ -46,18 +46,15 @@ class SubmissionController {
 	
 	/**
 	 * The show action for the submission controller. This generates a Categorization
-	 * of the comments, and then uses that to build a DataBook. The Submission, along
-	 * with the DataBook and the categorization, are passed into the view. The 
-	 * assessmentService is used for the underlying work. 
+	 * of the comments, and then uses that to build a Summary. The Submission, along
+	 * with the Summary, is passed into the view. The SummarizationService is used for
+	 * the underlying work. 
 	 */
 	def show = {
 		
 		Submission sub = Submission.get(params.id)
-		
-		Categorization ctgz = assessmentService.getCategorization(sub)
-		DataBook book = assessmentService.buildDataBook(ctgz)
-		
-		return [book: book, submissionInstance: sub, categorization: ctgz]
+		Summary summary = summarizationService.getSubmissionSummary(sub, true)
+		return [summary: summary, submissionInstance: sub]
 	}
 	
 	def save = { SubmissionCommand cmd ->

@@ -1,5 +1,7 @@
 package uk.org.openmentor.data
 
+import uk.org.openmentor.config.Category;
+
 class Comment {
 	
 	/**
@@ -17,7 +19,7 @@ class Comment {
 	 * We don't use comment numeric identifiers, as that is less obvious in the 
 	 * database, and is harder to respond to a changing coding scheme. 
 	 */
-	static hasMany = [ classes: String ]
+	static hasMany = [ categories: Category ]
 
     static constraints = {
 		text(nullable: false, maxSize: 4*1024)

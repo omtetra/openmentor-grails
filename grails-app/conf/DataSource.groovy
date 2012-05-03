@@ -15,16 +15,18 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://localhost:3306/openmentor?characterEncoding=UTF-8"
+            dbCreate = "update" // one of 'create', 'create-drop','update'
+            url = "jdbc:mysql://localhost:3306/test_openmentor?characterEncoding=UTF-8"
 			username='root'
 			password=''
         }
     }
     test {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:h2:mem:testDB"
+            dbCreate = "update" // one of 'create', 'create-drop','update'
+            url = "jdbc:mysql://localhost:3306/test_openmentor?characterEncoding=UTF-8"
+			username='root'
+			password=''
         }
     }
     staging {

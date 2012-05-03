@@ -1,10 +1,20 @@
 package uk.org.openmentor.config
 
+import java.util.List;
+
 class Grade {
-	
-	String grade
+		
+	String id
 
     static constraints = {
-		grade(nullable: false, blank: false, unique: true, maxSize: 2)
+		id(nullable: false, blank: false, unique: true, maxSize: 2)
     }
+	
+	static mapping = {
+		id column:'grade', generator: 'assigned'
+	}
+
+	static List<Grade> getGrades() {
+		return Grade.findAll()
+	}
 }

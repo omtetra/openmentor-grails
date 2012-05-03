@@ -2,6 +2,7 @@ package uk.org.openmentor.data
 
 import grails.test.*
 import groovy.util.GroovyTestCase;
+import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.data.Assignment
 
 class SubmissionIntegrationTests extends GroovyTestCase {
@@ -24,7 +25,8 @@ class SubmissionIntegrationTests extends GroovyTestCase {
 		def testFile = new File(testFileName)
 		
 		// Write the submission
-		def submission = new Submission(filename: "foo.doc", grade: "A", username: "admin", fileContents: testFile.getBytes())
+		def grade = Grade.get("A")
+		def submission = new Submission(filename: "foo.doc", grade: grade, username: "admin", fileContents: testFile.getBytes())
 		assignment.addToSubmissions(submission)
 		assignment.save(validate: true, flush: true)
 		

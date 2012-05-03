@@ -6,7 +6,6 @@ import org.apache.commons.io.IOUtils
 import uk.org.openmentor.data.Assignment
 import uk.org.openmentor.data.Submission
 import uk.org.openmentor.domain.Categorization;
-import uk.org.openmentor.service.AssessmentService;
 import uk.org.openmentor.service.CurrentUserService;
 
 import org.gmock.WithGMock
@@ -15,14 +14,11 @@ import org.gmock.WithGMock
 class ReportControllerIntegrationTests extends GroovyTestCase {
 	
 	private def controller
-	private def assessmentService
 	
     protected void setUp() {
         super.setUp()
 		
 		controller = new SubmissionController()
-		
-		assessmentService = new AssessmentService()
     }
 
     protected void tearDown() {

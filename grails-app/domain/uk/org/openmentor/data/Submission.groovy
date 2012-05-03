@@ -1,5 +1,7 @@
 package uk.org.openmentor.data
 
+import uk.org.openmentor.config.Grade
+
 class Submission {
 	
 	/**
@@ -10,7 +12,7 @@ class Submission {
 	/** 
 	 * The grade associated with this submission
 	 */
-	String grade
+	Grade grade
 	
 	/**
 	 * Optionally, and by default, stores the file binary contents
