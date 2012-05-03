@@ -51,12 +51,18 @@ class ReportController {
     def student = { 
 		def model = getUploadModel()
 		
+		Summary studentSummary = summarizationService.getCourseSummaryByStudent(model.course.courseId)
+		model.studentSummary = studentSummary
+
 		model
 	}
 
 	def tutor = { 
 		def model = getUploadModel()
 		
+		Summary tutorSummary = summarizationService.getCourseSummaryByTutor(model.course.courseId)
+		model.tutorSummary = tutorSummary
+
 		model
 	}
 }
