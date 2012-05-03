@@ -36,6 +36,9 @@ class ReportController {
 		Summary summary = summarizationService.getCourseSummary(model.course.courseId)
 		model.summary = summary
 		
+		Summary assignmentSummary = summarizationService.getCourseSummaryByAssignment(model.course.courseId)
+		model.assignmentSummary = assignmentSummary
+
 		return model
 	}
 

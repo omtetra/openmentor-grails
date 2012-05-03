@@ -38,7 +38,6 @@ class BootStrap {
 				break;
 		}
 		
-		deletePreviousConfiguration()
 		initializeConfiguration()
 	}
 
@@ -156,35 +155,37 @@ class BootStrap {
 		}
 	}
 	
-	private void deletePreviousConfiguration() {
-		
-		Weight.executeUpdate("delete Weight w")
-		Grade.executeUpdate("delete Grade g")
-		Category.executeUpdate("delete Category c")
-	}
-
 	
    /**
 	* Called at boot time, and possibly at other times, to set up the configuration.
 	* Primarily, this reads configuration data from wherever, and creates the
 	* database tables that are needed to do sensible calculations.
+	* 
+	* NOTE: This doesn't change existing grades and categories. It is best to delete
+	* them all before starting. Since submissions and comments key into the existing
+	* grades and categories, mucking about with them is going to be an issue. 
 	*/
     private void initializeConfiguration() {
-		
-		Grade.withTransaction { status ->
-		    List<String> grades = grailsApplication.config.openmentor.grades
-			grades.each { value ->
+				
+	    List<String> grades = grailsApplication.config.openmentor.grades
+		grades.each { value ->
+			if (Grade.get(value) == null) {
 				Grade instance = new Grade(id: value)
 				instance.save(insert: true, failOnError: true, flush: true)
 			}
-		   
-		    Map<String, String> categoryBands = grailsApplication.config.openmentor.categoryBands	   
-		    categoryBands.each { key, value ->
-			    Category instance = new Category(id: key, band: value)
-				instance.save(insert: true, failOnError: true, flush: true)
-		    }
 		}
+	   
+	    Map<String, String> categoryBands = grailsApplication.config.openmentor.categoryBands	   
+	    categoryBands.each { key, value ->
+			if (Category.get(key) == null) {
+				Category instance = new Category(id: key, band: value)
+				instance.save(insert: true, failOnError: true, flush: true)
+			}
+	    }
 	 
+		// Nothing keys off weights, and they are more likely to change
+		Weight.executeUpdate("delete Weight w")
+		
 	    Map<String, Map<String, Double>> weights = grailsApplication.config.openmentor.weights
 	    weights.each { grade, values ->
 		    values.each { band, weight ->

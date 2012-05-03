@@ -12,8 +12,8 @@
             <h1><g:message code="report.summary.label" args="[entityName]" /></h1>
             
             <p>
-            OpenMentor has currently recorded <%-- ${book.getProperty('SubmissionCount')} --%> submissions
-            containing <%-- ${book.getProperty('CommentCount')} --%> comments for the 
+            OpenMentor has currently recorded ${summary.submissionCount} submissions
+            containing ${summary.commentCount} unique comments for the 
             course ${entityName}.
             </p>
             
@@ -21,10 +21,18 @@
             The following chart shows the expected versus actual comment counts for this course.
             </p>
                         
-            <div id="placeholder" style="width:600px;height:300px"></div>
+            <div id="course_placeholder" style="width:600px;height:300px"></div>
                 
-            <g:courseChart ref="placeholder" summary="${summary}"/>
+            <g:courseChart ref="course_placeholder" summary="${summary}"/>
 
+			<p>
+            The following chart shows the actual comment counts for the different assignments
+            within this course. 
+            </p>
+
+            <div id="assignment_placeholder" style="width:600px;height:300px"></div>
+                
+            <g:clusteredActualChart ref="assignment_placeholder" summary="${assignmentSummary}"/>
         </div>
         </div>
     </body>
