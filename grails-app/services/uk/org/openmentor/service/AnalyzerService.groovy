@@ -6,6 +6,8 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import uk.org.openmentor.classifier.Classifier;
+import uk.org.openmentor.config.Category;
+import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.data.Assignment;
 import uk.org.openmentor.data.Comment;
 import uk.org.openmentor.data.Submission;
@@ -48,12 +50,14 @@ class AnalyzerService {
                       + ", parameter tutorIds: " + tutorIds
 					  + ", parameter username: " + username);
         }
+		
+		Grade gradeInstance = Grade.get(grade)
 
         Submission sub = new Submission();
 		sub.setAssignment(assignment);
         sub.setStudentIds(students);
         sub.setTutorIds(tutorIds);
-        sub.setGrade(grade);
+        sub.setGrade(gradeInstance);
 		sub.setFilename(filename);
 		sub.setUsername(username);
 		sub.setFileContents(fileContents)
@@ -71,8 +75,11 @@ class AnalyzerService {
                 log.debug("Comment: " + comment);
             }
             Comment comm = new Comment();
+			Set<String> classes = classifierComponent.classifyString((String) comment);
+			Set<Category> categories = classes.collect { Category.get(it) }
+			
             comm.setText(comment);
-            comm.setClasses(classifierComponent.classifyString((String) comment));
+            comm.setCategories(categories);
 			comm.setSubmission(sub);
             commentSet.add(comm);
         }

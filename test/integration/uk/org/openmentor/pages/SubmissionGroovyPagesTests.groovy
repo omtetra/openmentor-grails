@@ -6,6 +6,7 @@ import org.htmlparser.filters.TagNameFilter
 import uk.org.openmentor.courseinfo.Course
 import uk.org.openmentor.data.Submission
 import uk.org.openmentor.data.Assignment
+import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.controller.HistoryController;
 import uk.org.openmentor.controller.SubmissionController
 import org.apache.commons.io.IOUtils
@@ -68,7 +69,8 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		def model = controller.show()
 
 		def htmlString = applyTemplate(file.text, model)
-		assertTrue(htmlString.contains("Not a word wasted here!"))
+		assertTrue(htmlString.contains("Submission for test/resources/test1a.doc"))
+		assertTrue(htmlString.contains("Its good to see you found this resource useful."))
 	}
 
 	/**

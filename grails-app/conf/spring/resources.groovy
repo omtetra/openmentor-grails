@@ -11,10 +11,6 @@ beans = {
 		bean.autowire = 'byName'
 	}
 	
-	categorizationComponent(uk.org.openmentor.domain.Categorization) { bean ->
-		bean.autowire = 'byName'
-	}
-	
 	evaluationComponent(uk.org.openmentor.domain.StandardEvaluationScheme) { bean ->
 		bean.autowire = 'byName'
 	}

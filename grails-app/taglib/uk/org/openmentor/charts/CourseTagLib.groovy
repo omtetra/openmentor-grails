@@ -1,17 +1,20 @@
 package uk.org.openmentor.charts
 
-import uk.org.openmentor.domain.DataBook;
+import uk.org.openmentor.config.Category;
+import uk.org.openmentor.domain.Summary
+import uk.org.openmentor.util.MultiMap;
 
 import grails.converters.JSON
 
 class CourseTagLib {
 	def courseChart = { attrs, body ->
-		DataBook dataBook = attrs.book
+		Summary summary = attrs.summary
 		String ref = attrs.ref
 		
-		List<String> bands = dataBook.getDataPoints()
-		List<Number> idealValues = dataBook.getDataSeries("IdealCounts")
-		List<Number> actualValues = dataBook.getDataSeries("ActualCounts")
+		List<String> bands = Category.getBands()
+		MultiMap data = summary.data
+		List<Number> idealValues = bands.collect { data.getAt(it).ideal }
+		List<Number> actualValues = bands.collect { data.getAt(it).actual }
 		
 		JSON writer = new JSON()
 		writer.setTarget([bands: bands, ideal: idealValues, actual: actualValues])

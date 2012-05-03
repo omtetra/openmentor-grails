@@ -3,11 +3,14 @@ package uk.org.openmentor.controller
 import grails.test.*
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.IOUtils
+
+import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.data.Assignment
 import uk.org.openmentor.data.Submission
 import uk.org.openmentor.domain.Categorization;
-import uk.org.openmentor.service.AssessmentService;
+import uk.org.openmentor.domain.Summary
 import uk.org.openmentor.service.CurrentUserService;
+import uk.org.openmentor.service.SummarizationService
 
 import org.gmock.WithGMock
 
@@ -15,7 +18,7 @@ import org.gmock.WithGMock
 class SubmissionControllerIntegrationTests extends GroovyTestCase {
 	
 	private def controller
-	private def assessmentService
+	private def summarizationService
 	
 	Map savedMetaClasses = [:]
 	Map renderMap
@@ -34,7 +37,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		
 		controller = new SubmissionController()
 		
-		assessmentService = new AssessmentService()
+		summarizationService = new SummarizationService()
     }
 
     protected void tearDown() {
@@ -64,7 +67,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		controller.session.putAt('current_course', 'CM2006')
 		play {
 			sc.dataFile = mockFile
-			sc.grade = 'A'
+			sc.grade = "A"
 			sc.courseId = 'CM2006'
 			sc.studentIds = '09000231'
 			sc.tutorIds = 'M4000061'
@@ -81,14 +84,11 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		
 		assertNotNull(submissionInstance)
 		
-		Categorization ctgz = assessmentService.getCategorization(submissionInstance)
-		assertNotNull ctgz
+		Summary summary = summarizationService.getSubmissionSummary(submissionInstance, true)
+		assertNotNull summary
 		
-		List<String> comments = ctgz.getComments("B1")
+		List<String> comments = summary.data.getAt("B").comments
 		assertNotNull comments.find { it.contains("Not a word wasted here!") }
-
-		List<String> bandComments = ctgz.getBandComments("B")
-		assertNotNull bandComments.find { it.contains("Not a word wasted here!") }
     }
 	
 	// Stolen from GrailsUnitTestCase

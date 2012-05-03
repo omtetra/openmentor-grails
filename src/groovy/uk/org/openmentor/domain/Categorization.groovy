@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 
 import uk.org.openmentor.data.Comment;
 import uk.org.openmentor.data.Submission;
+import uk.org.openmentor.config.Grade;
+import uk.org.openmentor.config.Category;
 
 class Categorization {
 	
@@ -22,20 +24,18 @@ class Categorization {
      * category because a given submission is associated
      * with a single Grade but may have comments in all categories.
      **/
-    private Map<String, Map> gradeMap = new HashMap<String, Map>();
+    private Map<Grade, Map> gradeMap = new HashMap<Grade, Map>();
 	
 	/**
 	 * Stores the number of submissions of each grade.
 	 **/
-    private Map<String, Integer> submissionCount = new HashMap<String, Integer>();
+    private Map<Grade, Integer> submissionCount = new HashMap<Grade, Integer>();
    
 	/**
      * Constructor sets submissions counts to zero.
      */
 	Categorization() {
-		for (String grade: Grade.getGrades()) {
-			submissionCount.put(grade, 0);
-		}
+
 	}
 	
 	/**
@@ -162,18 +162,18 @@ class Categorization {
 		}
 		// Increment the appropriate submission count
 		submissionCount.put(gradeName, submissionCount.get(gradeName) + 1);
-		Map<String, List> categoryMap = (Map) gradeMap.get(gradeName);
+		Map<Category, List> categoryMap = (Map) gradeMap.get(gradeName);
 		if (categoryMap == null ) {
 			categoryMap = new HashMap<Category,List>();
 		}
 
 		Set<Comment> comments = submission.getComments();
 		for (Comment comment: comments) {
-			Set<String> ruleCategories = comment.getClasses();
+			Set<Category> ruleCategories = comment.getCategories();
 			// Different ruleCategories may generate the same category;
 			// avoid adding the comment twice to the same list.
-			Set<String> categorySet = new HashSet<String>();
-			for (String category: ruleCategories) {
+			Set<Category> categorySet = new HashSet<String>();
+			for (Category category: ruleCategories) {
 				List<String> commentList = categoryMap.get(category);
 				if (commentList == null) { //First such comment
 					commentList = new ArrayList<String>();

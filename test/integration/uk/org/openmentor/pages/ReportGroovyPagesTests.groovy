@@ -6,6 +6,7 @@ import org.htmlparser.filters.TagNameFilter
 import uk.org.openmentor.courseinfo.Course
 import uk.org.openmentor.data.Submission
 import uk.org.openmentor.data.Assignment
+import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.controller.HistoryController;
 import uk.org.openmentor.controller.ReportController;
 import uk.org.openmentor.controller.SubmissionController

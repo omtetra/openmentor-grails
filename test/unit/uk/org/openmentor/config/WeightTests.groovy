@@ -11,15 +11,16 @@ class WeightTests {
 
 	void setUp() {
 		mockDomain(Weight)
+		mockDomain(Grade)
 	}
 
     void testBasicWeightBehaviour() {
 
-		Weight wgt = new Weight(band: "A", grade: "F", weight: 0.25)
+		Weight wgt = new Weight(band: "A", grade: new Grade(id: "F"), weight: 0.25)
 		wgt.save()
 		
 		assertEquals "A", wgt.band
-		assertEquals "F", wgt.grade
+		assertEquals "F", wgt.grade.id
 		assertEquals 0.25, wgt.weight, 0.00001
 		assertNotNull wgt.id
     }

@@ -12,8 +12,8 @@
             <h1><g:message code="report.summary.label" args="[entityName]" /></h1>
             
             <p>
-            OpenMentor has currently recorded ${book.getProperty('SubmissionCount')} submissions
-            containing ${book.getProperty('CommentCount')} comments for the 
+            OpenMentor has currently recorded <%-- ${book.getProperty('SubmissionCount')} --%> submissions
+            containing <%-- ${book.getProperty('CommentCount')} --%> comments for the 
             course ${entityName}.
             </p>
             
@@ -23,7 +23,7 @@
                         
             <div id="placeholder" style="width:600px;height:300px"></div>
                 
-            <g:courseChart ref="placeholder" book="${book}"/>
+            <g:courseChart ref="placeholder" summary="${summary}"/>
 
         </div>
         </div>

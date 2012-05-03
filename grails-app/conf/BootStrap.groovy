@@ -1,3 +1,6 @@
+import uk.org.openmentor.config.Grade
+import uk.org.openmentor.config.Weight
+import uk.org.openmentor.config.Category
 import uk.org.openmentor.courseinfo.Course
 import uk.org.openmentor.courseinfo.Student
 import uk.org.openmentor.courseinfo.Tutor
@@ -14,10 +17,12 @@ class BootStrap {
 	static final Logger log = Logger.getLogger(this)
 	
 	def springSecurityService
-	def initializationService
+	def grailsApplication
 
 	def init = { servletContext ->
 		DataSourceUtils.tune(servletContext)
+				
+		seedUserData()
 		
 		switch (Environment.current) {
 			
@@ -32,11 +37,9 @@ class BootStrap {
 			case Environment.PRODUCTION:
 				break;
 		}
-
-		seedUserData()
-
-		initializationService.deletePreviousConfiguration()
-		initializationService.initializeConfiguration()
+		
+		deletePreviousConfiguration()
+		initializeConfiguration()
 	}
 
 	def destroy = {
@@ -60,16 +63,6 @@ class BootStrap {
 		if (! adminUser.authorities.contains(adminRole)) {
 			UserRole.create adminUser, adminRole
 		}
-	}
-	
-	/**
-	 * Analysis is assisted by having the category and band data in the database. This
-	 * allows joins to be used with aggregate functions to build summary data for a 
-	 * larger collection with decent performance. The data is added on boot-time
-	 * from the configuration data. 
-	 */
-	private void seedCategoryData() {
-		
 	}
 	
 	/**
@@ -162,4 +155,44 @@ class BootStrap {
 			def assignment6 = new Assignment(courseId: courseAA1003.courseId, code: "TMA01").save(failOnError:true)
 		}
 	}
+	
+	private void deletePreviousConfiguration() {
+		
+		Weight.executeUpdate("delete Weight w")
+		Grade.executeUpdate("delete Grade g")
+		Category.executeUpdate("delete Category c")
+	}
+
+	
+   /**
+	* Called at boot time, and possibly at other times, to set up the configuration.
+	* Primarily, this reads configuration data from wherever, and creates the
+	* database tables that are needed to do sensible calculations.
+	*/
+    private void initializeConfiguration() {
+		
+		Grade.withTransaction { status ->
+		    List<String> grades = grailsApplication.config.openmentor.grades
+			grades.each { value ->
+				Grade instance = new Grade(id: value)
+				instance.save(insert: true, failOnError: true, flush: true)
+			}
+		   
+		    Map<String, String> categoryBands = grailsApplication.config.openmentor.categoryBands	   
+		    categoryBands.each { key, value ->
+			    Category instance = new Category(id: key, band: value)
+				instance.save(insert: true, failOnError: true, flush: true)
+		    }
+		}
+	 
+	    Map<String, Map<String, Double>> weights = grailsApplication.config.openmentor.weights
+	    weights.each { grade, values ->
+		    values.each { band, weight ->
+		 	    Grade gradeInstance = Grade.get(grade)
+				Float weightValue = new Float(weight.floatValue())
+			    Weight instance = new Weight(grade: gradeInstance, band: band, weight: weightValue)
+			    instance.save(insert: true, failOnError: true, flush: true)
+		    }
+	    }
+    }
 }

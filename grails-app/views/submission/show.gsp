@@ -1,4 +1,5 @@
 <%@ page import="uk.org.openmentor.data.Submission" %>
+<%@ page import="uk.org.openmentor.config.Category" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,26 +18,26 @@
 			<table>
 				<thead>
 					<tr>
-						<th><g:message code="databook.category.label"/></th>
-						<th><g:message code="databook.actual.label"/></th>
-						<th><g:message code="databook.ideal.label"/></th>
-						<th><g:message code="databook.commentText.label"/></th>
+						<th><g:message code="summary.category.label"/></th>
+						<th><g:message code="summary.actual.label"/></th>
+						<th><g:message code="summary.ideal.label"/></th>
+						<th><g:message code="summary.commentText.label"/></th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<g:each var="band" in="${book.getDataPoints()}" status="bandIndex">
+					<g:each var="band" in="${Category.getBands()}" status="bandIndex">
 						<tr>
 							<td>
 								<p>
 									<em>${band}</em>
 								</p>
 							</td>
-							<td class="number"><p>${book.getDataSeries("ActualCounts")[bandIndex]}</p></td>
-							<td class="number"><p>${book.getDataSeries("IdealCounts")[bandIndex]}</p></td>
+							<td class="number"><p>${summary.data.getAt(band).actual}</p></td>
+							<td class="number"><p>${summary.data.getAt(band).ideal}</p></td>
 							<td>
 								<g:set var="limit" value="3"/>
-								<g:each var="comment" in="${categorization.getBandComments(band)}" status="commentIndex">
+								<g:each var="comment" in="${summary.data.getAt(band).comments}" status="commentIndex">
 									<p>
 										<g:if test="${commentIndex <= limit}">
 											${comment}
