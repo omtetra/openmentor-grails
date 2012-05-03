@@ -10,7 +10,15 @@
         <div id="page">
         <div class="body">
             <h1><g:message code="report.student.label" args="[entityName]" /></h1>
-                        
+                   
+			<p>
+            The following chart shows the actual comment counts for the different tutors
+            within this course. 
+            </p>
+
+            <div id="student_placeholder" style="width:600px;height:300px"></div>
+                
+            <g:clusteredActualChart ref="student_placeholder" summary="${studentSummary}"/>     
         </div>
         </div>
     </body>
