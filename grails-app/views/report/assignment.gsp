@@ -10,7 +10,39 @@
         <div id="page">
         <div class="body">
             <h1><g:message code="report.assignment.label" args="[entityName]" /></h1>
+            
+            <h2>Positive comments</h2>
+            
+            <div id="placeholder_positive" style="width:600px;height:300px"></div>
+			<g:differenceChart 
+				ref="placeholder_positive" 
+				summary="${summary}"
+				band="${"A"}"/>
+			 
+            <h2>Teaching points</h2>
+            
+            <div id="placeholder_teaching" style="width:600px;height:300px"></div>
+			<g:differenceChart 
+				ref="placeholder_teaching" 
+				summary="${summary}"
+				band="${"B"}"/>
+
+			<h2>Questions</h2>
+			
+            <div id="placeholder_questions" style="width:600px;height:300px"></div>
+			<g:differenceChart 
+				ref="placeholder_questions" 
+				summary="${summary}"
+				band="${"C"}"/>
+
+			<h2>Negative comments</h2>
                         
+            <div id="placeholder_negative" style="width:600px;height:300px"></div>
+			<g:differenceChart 
+				ref="placeholder_negative" 
+				summary="${summary}"
+				band="${"D"}"/>
+
         </div>
         </div>
     </body>

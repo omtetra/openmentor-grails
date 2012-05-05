@@ -24,15 +24,6 @@
             <div id="course_placeholder" style="width:600px;height:300px"></div>
                 
             <g:courseChart ref="course_placeholder" summary="${summary}"/>
-
-			<p>
-            The following chart shows the actual comment counts for the different assignments
-            within this course. 
-            </p>
-
-            <div id="assignment_placeholder" style="width:600px;height:300px"></div>
-                
-            <g:clusteredActualChart ref="assignment_placeholder" summary="${assignmentSummary}"/>
         </div>
         </div>
     </body>

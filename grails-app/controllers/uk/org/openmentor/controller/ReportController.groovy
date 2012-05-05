@@ -36,15 +36,15 @@ class ReportController {
 		Summary summary = summarizationService.getCourseSummary(model.course.courseId)
 		model.summary = summary
 		
-		Summary assignmentSummary = summarizationService.getCourseSummaryByAssignment(model.course.courseId)
-		model.assignmentSummary = assignmentSummary
-
 		return model
 	}
 
     def assignment = { 
 		def model = getUploadModel()
 		
+		Summary summary = summarizationService.getCourseSummaryByAssignment(model.course.courseId)
+		model.summary = summary
+
 		model
 	}
 
