@@ -1,8 +1,9 @@
-package uk.org.openmentor.charts
+package uk.org.openmentor.auth
 
 import grails.test.*
 
-class CourseTagLibTests extends TagLibUnitTestCase {
+class RoleTests extends GroovyTestCase {
+	
     protected void setUp() {
         super.setUp()
     }

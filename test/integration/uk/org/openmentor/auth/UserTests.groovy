@@ -2,7 +2,8 @@ package uk.org.openmentor.auth
 
 import grails.test.*
 
-class RoleTests extends GrailsUnitTestCase {
+class UserTests extends GroovyTestCase {
+	
     protected void setUp() {
         super.setUp()
     }
