@@ -25,17 +25,17 @@
             		</g:link>
             	</li>
             	<li>
-            		<g:link action="assignment"> 
+            		<g:link action="assignments"> 
             		Show assignment report
             		</g:link>
             	</li>
             	<li>
-            		<g:link action="tutor"> 
+            		<g:link action="tutors"> 
             		Show tutor reports
             		</g:link>
             	</li>
             	<li>
-	            	<g:link action="student"> 
+	            	<g:link action="students"> 
             		Show student reports
             		</g:link>
             	</li>

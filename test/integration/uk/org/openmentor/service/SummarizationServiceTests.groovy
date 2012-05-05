@@ -60,4 +60,25 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
         assertTrue result != null
 		assertTrue result.data != null
     }
+
+    void testCourseAndAssignmentSummary() {
+
+		Summary result = summarizationService.getCourseAndAssignmentSummary("CM2006", "TMA01")
+        assertTrue result != null
+		assertTrue result.data != null
+    }
+
+    void testCourseAndTutorSummary() {
+
+		Summary result = summarizationService.getCourseAndTutorSummary("CM2006", "M4000061")
+        assertTrue result != null
+		assertTrue result.data != null
+    }
+
+    void testCourseAndStudentSummary() {
+
+		Summary result = summarizationService.getCourseAndStudentSummary("CM2006", "09000231")
+        assertTrue result != null
+		assertTrue result.data != null
+    }
 }

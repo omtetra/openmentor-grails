@@ -39,7 +39,7 @@ class ReportController {
 		return model
 	}
 
-    def assignment = { 
+    def assignments = { 
 		def model = getUploadModel()
 		
 		Summary summary = summarizationService.getCourseSummaryByAssignment(model.course.courseId)
@@ -47,8 +47,18 @@ class ReportController {
 
 		model
 	}
+	
+	def assignment = {
+		assert params.id != null
+		def model = getUploadModel()
+		
+		Summary summary = summarizationService.getCourseAndAssignmentSummary(model.course.courseId, params.id)
+		model.summary = summary
 
-    def student = { 
+		model
+	}
+
+    def students = { 
 		def model = getUploadModel()
 		
 		Summary summary = summarizationService.getCourseSummaryByStudent(model.course.courseId)
@@ -57,7 +67,17 @@ class ReportController {
 		model
 	}
 
-	def tutor = { 
+    def student = { 
+		assert params.id != null
+		def model = getUploadModel()
+		
+		Summary summary = summarizationService.getCourseAndStudentSummary(model.course.courseId, params.id)
+		model.summary = summary
+
+		model
+	}
+
+	def tutors = { 
 		def model = getUploadModel()
 		
 		Summary summary = summarizationService.getCourseSummaryByTutor(model.course.courseId)
@@ -65,4 +85,15 @@ class ReportController {
 
 		model
 	}
+
+    def tutor = { 
+		assert params.id != null
+		def model = getUploadModel()
+		
+		Summary summary = summarizationService.getCourseAndTutorSummary(model.course.courseId, params.id)
+		model.summary = summary
+
+		model
+	}
+
 }
