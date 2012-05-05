@@ -20,6 +20,9 @@ class DifferenceChartTagLib {
 		Summary summary = attrs.summary
 		String ref = attrs.ref
 		String band = attrs.band
+		String action = attrs.action
+		
+		assert action != null
 		
 		MultiMap data = summary.data
 		List<String> categories = data.keySet() as List<String>
@@ -70,6 +73,12 @@ jQuery(function () {
 		var ideal = table[item.dataIndex].ideal;
 		return "Actual: " + actual + ", ideal: " + ideal;
 	}
+
+	jQuery("#${ref}").bind("plotclick", function (event, pos, item) {
+		if (item) {
+			window.location.href = "${action}/" + categories[item.dataIndex];
+		}
+	});
 
     jQuery("#${ref}").bind("plothover", function (event, pos, item) {
         if (item) {

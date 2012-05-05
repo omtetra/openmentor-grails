@@ -23,7 +23,7 @@
                         
             <div id="course_placeholder" style="width:600px;height:300px"></div>
                 
-            <g:courseChart ref="course_placeholder" summary="${summary}"/>
+            <g:actualIdealChart ref="course_placeholder" summary="${summary}"/>
         </div>
         </div>
     </body>

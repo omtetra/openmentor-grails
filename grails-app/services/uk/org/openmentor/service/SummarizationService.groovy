@@ -70,6 +70,30 @@ class SummarizationService {
 	}
 
 	/**
+	 * Returns a Summary for a specified course and assignment.
+	 * @return
+	 */
+	def getCourseAndAssignmentSummary(String courseId, String assignment, Boolean comments = false) {
+		makeSummary([], ["sub.assignment as ass"], ["ass.courseId = :courseId", "ass.code = :code"], ["courseId": courseId, "code": assignment], comments)
+	}
+
+	/**
+	 * Returns a Summary for a specified course and student.
+	 * @return
+	 */
+	def getCourseAndStudentSummary(String courseId, String studentId, Boolean comments = false) {
+		makeSummary([], ["sub.assignment as ass", "sub.studentIds as student_id"], ["ass.courseId = :courseId", "student_id = :studentId"], ["courseId": courseId, "studentId": studentId], comments)
+	}
+
+	/**
+	 * Returns a Summary for a specified course and tutor.
+	 * @return
+	 */
+	def getCourseAndTutorSummary(String courseId, String tutorId, Boolean comments = false) {
+		makeSummary([], ["sub.assignment as ass", "sub.tutorIds as tutor_id"], ["ass.courseId = :courseId", "tutor_id = :tutorId"], ["courseId": courseId, "tutorId": tutorId], comments)
+	}
+
+	/**
 	 * Generates HQL for the actual and ideal queries, based on a key submission,
 	 * which will be labelled as 'sub'. To augment that, the queries can add
 	 * additional where clause filters, and additional group by values, both of

@@ -6,8 +6,8 @@ import uk.org.openmentor.util.MultiMap;
 
 import grails.converters.JSON
 
-class CourseTagLib {
-	def courseChart = { attrs, body ->
+class ActualIdealTagLib {
+	def actualIdealChart = { attrs, body ->
 		Summary summary = attrs.summary
 		String ref = attrs.ref
 		
