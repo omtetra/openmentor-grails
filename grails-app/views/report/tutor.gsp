@@ -10,16 +10,39 @@
         <div id="page">
         <div class="body">
             <h1><g:message code="report.tutor.label" args="[entityName]" /></h1>
-               
-            <p>
-            The following chart shows the actual comment counts for the different tutors
-            within this course. 
-            </p>
+            
+            <h2>Positive comments</h2>
+            
+            <div id="placeholder_positive" style="width:600px;height:300px"></div>
+			<g:differenceChart 
+				ref="placeholder_positive" 
+				summary="${summary}"
+				band="${"A"}"/>
+			 
+            <h2>Teaching points</h2>
+            
+            <div id="placeholder_teaching" style="width:600px;height:300px"></div>
+			<g:differenceChart 
+				ref="placeholder_teaching" 
+				summary="${summary}"
+				band="${"B"}"/>
 
-            <div id="tutor_placeholder" style="width:600px;height:300px"></div>
-                
-            <g:clusteredActualChart ref="tutor_placeholder" summary="${tutorSummary}"/>
-                     
+			<h2>Questions</h2>
+			
+            <div id="placeholder_questions" style="width:600px;height:300px"></div>
+			<g:differenceChart 
+				ref="placeholder_questions" 
+				summary="${summary}"
+				band="${"C"}"/>
+
+			<h2>Negative comments</h2>
+                        
+            <div id="placeholder_negative" style="width:600px;height:300px"></div>
+			<g:differenceChart 
+				ref="placeholder_negative" 
+				summary="${summary}"
+				band="${"D"}"/>
+
         </div>
         </div>
     </body>
