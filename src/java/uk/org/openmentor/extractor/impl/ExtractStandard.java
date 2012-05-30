@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -83,9 +84,44 @@ public class ExtractStandard implements Extractor {
     	inputStream.close();
     	
     	String[] commentsArray = extractor.getCommentsText();
+    	List<String> commentList = Arrays.asList(commentsArray);
+
     	comments.clear();
-    	comments.addAll(Arrays.asList(commentsArray));
+    	for(String comment : commentList) {
+    		comments.add(stripFields(comment));
+    	}    	
     	body = extractor.getText();
+    }
+    
+    /*
+     * Annotations in a few cases may contain fields. Actually, so may all the
+     * text, which is irritating. So we need a way of skipping out all the
+     * field stuff, and for this, regular expressions are a good solution.
+     * Essentially, we should look for ASCII 19, which starts a field, and
+     * ASCII 21, which ends the field. Delete these, and all other text, except
+     * stuff which follows ASCII 20, which is the text view.
+     */
+    private static Pattern fieldPattern = Pattern.compile("\\x13[^\\x14\\x15]*(?:\\x14([^\\x15]*))?\\x15");
+    
+    private static Pattern cleanPattern = Pattern.compile("\\x0b");
+    
+    /*
+     * TODO Make this handle nested fields, which can occur according to POI documentation 
+     */
+    private static String stripFields(String text) {
+        /*
+         * Amended to remove all field information - even the visible text. This
+         * is a bad idea in one sense - strictly it is invalid, as we are not
+         * really correct about annotation boundaries. But in another sense,
+         * fields are not written by people, so we can probably ignore them
+         * validly anyway.
+         */
+        String result = fieldPattern.matcher(text).replaceAll("");
+        result = cleanPattern.matcher(result).replaceAll("");
+        if (log.isTraceEnabled()) {
+            log.trace("Removed field: " + result);
+        }
+        return result;
     }
 
     public String getBody() {
