@@ -1,425 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>uk.org.openmentor</groupId>
-  <artifactId>openmentor-web</artifactId>
-  <packaging>war</packaging>
-  <version>0.1</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>uk.org.openmentor</groupId>
+	<artifactId>openmentor-web</artifactId>
+	<packaging>grails-app</packaging>
+	<version>0.1-SNAPSHOT</version>
+
+	<name>Open Mentor</name>
+	<description>
+    An open source tool providing feedback to tutors 
+    on comment usage in assessments.</description>
+	<url>http://www.openmentor.org.uk</url>
+
+	<properties>
+		<grails.version>2.0.4</grails.version>
+                <org.springframework.version>3.1.0.RELEASE</org.springframework.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>The OpenMentor Team</name>
+		<url>http://www.openmentor.org.uk</url>
+	</organization>
+
+	<inceptionYear>2004</inceptionYear>
+	
+	
+	<issueManagement>
+	    <system>GitHub</system>
+    	<url>https://github.com/omtetra/openmentor-grails/issues</url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<name>Denise Whitelock</name>
+			<id>denise</id>
+			<email>D.M.Whitelock@open.ac.uk</email>
+			<organization>Institute of Educational Technology, The Open University</organization>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Stuart Watt</name>
+			<id>stuart</id>
+			<email>S.N.K.Watt@rgu.ac.uk</email>
+			<organization>School of Computing, The Robert Gordon University, Aberdeen</organization>
+			<url>http://www.comp.rgu.ac.uk/staff/sw</url>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Jan Rae</name>
+			<id>jan</id>
+			<email>J.L.Rae@open.ac.uk</email>
+			<organization>Institute of Educational Technology, The Open University</organization>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Ian Craw</name>
+			<id>ian</id>
+			<email>Ian.Craw@openability.co.uk</email>
+			<organization>Openability Consulting</organization>
+			<url>www.openability.co.uk</url>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Colin Beagrie</name>
+			<id>colin</id>
+			<email>cb@comp.rgu.ac.uk</email>
+			<organization>School of Computing, The Robert Gordon University</organization>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Will Woods</name>
+			<id>will</id>
+			<email>W.I.S.Woods@open.ac.uk</email>
+			<organization>Institute of Educational Technology, The Open University</organization>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Maggie Nicol</name>
+			<id>maggie</id>
+			<email>mn@comp.rgu.ac.uk</email>
+			<organization>School of Computing, The Robert Gordon University</organization>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Hassan Sheikh</name>
+			<id>hassan</id>
+			<email>M.U.H.Sheikh@open.ac.uk</email>
+			<organization>Institute of Educational Technology, The Open University</organization>
+			<timezone>0</timezone>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-dependencies</artifactId>
+			<version>${grails.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-plugin-testing</artifactId>
+			<version>${grails.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>tomcat</artifactId>
+			<version>${grails.version}</version>
+			<type>zip</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>${grails.version}</version>
+			<type>zip</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement />
+
+		<plugins>
+			<!-- Disables the Maven surefire plugin for Grails applications, as we 
+				have our own test runner -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<id>surefire-it</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>plugins</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.grails</groupId>
+				<artifactId>grails-maven-plugin</artifactId>
+				<version>${grails.version}</version>
+				<configuration>
+					<!-- Whether for Fork a JVM to run Grails commands -->
+					<fork>true</fork>
+				</configuration>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.danielflower.mavenplugins</groupId>
+				<artifactId>maven-gitlog-plugin</artifactId>
+				<version>1.4.11</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.1-alpha-1</version>
+                <extensions>true</extensions>
+				<executions>
+					<execution>
+						<goals>
+							<goal>attached-rpm</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+                    <copyright>OpenMentor</copyright>
+                    <distribution>Trash 2005</distribution>
+                    <group>Application/Collectors</group>
+                    <icon>src/main/resources/icon.gif</icon>
+                    <packager>SWWDC</packager>
+                    <prefix>/usr/local</prefix>
+                    <changelogFile>src/changelog</changelogFile>
+                    <defineStatements>
+                       <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+                    </defineStatements>
+                    <mappings>
+                         <mapping>
+                            <directory>/usr/local/log/landfill</directory>
+                            <filemode>750</filemode>
+                            <username>dumper</username>
+                            <groupname>dumpgroup</groupname>
+                        </mapping>
+                    </mappings>
+                    <preinstallScriptlet>
+                        <script>echo "installing now"</script>
+                    </preinstallScriptlet>
+                    <postinstallScriptlet>
+                        <scriptFile>src/main/scripts/postinstall</scriptFile>
+                        <fileEncoding>utf-8</fileEncoding>
+                    </postinstallScriptlet>
+                    <preremoveScriptlet>
+                        <scriptFile>src/main/scripts/preremove</scriptFile>
+                        <fileEncoding>utf-8</fileEncoding>
+                    </preremoveScriptlet>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+		</plugins>
+	</reporting>
   
-  <name>Open Mentor</name>
-  <description>
-  An open source tool providing feedback to tutors 
-  on comment usage in assessments.</description>
-  <url>http://www.openmentor.org.uk</url>
-  
-  <properties>
-    <grails.version>1.3.7</grails.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  
-  <organization>
-    <name>The OpenMentor Team</name>
-    <url>http://www.openmentor.org.uk</url>
-  </organization>
-  
-  <inceptionYear>2004</inceptionYear>
-  
-  <developers>
-    <developer>
-      <name>Denise Whitelock</name>
-      <id>denise</id>
-      <email>D.M.Whitelock@open.ac.uk</email>
-      <organization>Institute of Educational Technology, The Open University</organization>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <name>Stuart Watt</name>
-      <id>stuart</id>
-      <email>S.N.K.Watt@rgu.ac.uk</email>
-      <organization>School of Computing, The Robert Gordon University, Aberdeen</organization>
-      <url>http://www.comp.rgu.ac.uk/staff/sw</url>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <name>Jan Rae</name>
-      <id>jan</id>
-      <email>J.L.Rae@open.ac.uk</email>
-      <organization>Institute of Educational Technology, The Open University</organization>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <name>Ian Craw</name>
-      <id>ian</id>
-      <email>Ian.Craw@openability.co.uk</email>
-      <organization>Openability Consulting</organization>
-      <url>www.openability.co.uk</url>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <name>Colin Beagrie</name>
-      <id>colin</id>
-      <email>cb@comp.rgu.ac.uk</email>
-      <organization>School of Computing, The Robert Gordon University</organization>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <name>Will Woods</name>
-      <id>will</id>
-      <email>W.I.S.Woods@open.ac.uk</email>
-      <organization>Institute of Educational Technology, The Open University</organization>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <name>Maggie Nicol</name>
-      <id>maggie</id>
-      <email>mn@comp.rgu.ac.uk</email>
-      <organization>School of Computing, The Robert Gordon University</organization>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <name>Hassan Sheikh</name>
-      <id>hassan</id>
-      <email>M.U.H.Sheikh@open.ac.uk</email>
-      <organization>Institute of Educational Technology, The Open University</organization>
-      <timezone>0</timezone>
-    </developer>
-  </developers>
-  
-  <dependencies>
-    <dependency>
-      <groupId>org.grails</groupId>
-      <artifactId>grails-bootstrap</artifactId>
-      <version>${grails.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.codehaus.gpars</groupId>
-          <artifactId>gpars</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.gant</groupId>
-          <artifactId>gant_groovy1.7</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.gparallelizer</groupId>
-          <artifactId>GParallelizer</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.gant</groupId>
-          <artifactId>gant_groovy1.6</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.ant</groupId>
-          <artifactId>ant</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.ant</groupId>
-          <artifactId>ant-launcher</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.ivy</groupId>
-          <artifactId>ivy</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.grails</groupId>
-      <artifactId>grails-crud</artifactId>
-      <version>${grails.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.grails</groupId>
-          <artifactId>grails-docs</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.ant</groupId>
-          <artifactId>ant</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.ant</groupId>
-          <artifactId>ant-launcher</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-test</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>radeox</groupId>
-          <artifactId>radeox</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-digester</groupId>
-          <artifactId>commons-digester</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.persistence</groupId>
-          <artifactId>persistence-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.grails</groupId>
-      <artifactId>grails-gorm</artifactId>
-      <version>${grails.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.ant</groupId>
-          <artifactId>ant</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.ant</groupId>
-          <artifactId>ant-launcher</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>commons-digester</groupId>
-          <artifactId>commons-digester</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-annotations</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-commons-annotations</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>antlr</groupId>
-          <artifactId>antlr</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.grails</groupId>
-      <artifactId>grails-test</artifactId>
-      <version>${grails.version}</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <version>1.1.2</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>taglibs</groupId>
-      <artifactId>standard</artifactId>
-      <version>1.1.2</version>
-    </dependency>
-    
-    <!-- Grails defaults to Ehache for the second-level Hibernate cache. -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-ehcache</artifactId>
-      <version>3.3.1.GA</version>
-        <exclusions>
-          <!-- See http://www.slf4j.org/faq.html#IllegalAccessError -->
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-          </exclusion>
-          
-          <!-- We are pulling in ehcache-core below -->
-          <exclusion>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-          </exclusion>
-        </exclusions>
-    </dependency>
-        
-    <dependency>
-      <groupId>net.sf.ehcache</groupId>
-      <artifactId>ehcache-core</artifactId>
-      <version>1.7.1</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    
-    <!-- Use Log4J for logging. This artifact also pulls in the Log4J JAR. -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.5.8</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.5.8</version>
-      <scope>runtime</scope>
-    </dependency>
-    
-    <!-- Needed in the case of AOP usage -->
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-      <version>1.6.8</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjrt</artifactId>
-      <version>1.6.8</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.3</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.1</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>commons-pool</groupId>
-      <artifactId>commons-pool</artifactId>
-      <version>1.5.3</version>
-    </dependency>
-    
-    <dependency>
-    	<groupId>org.springframework.security</groupId>
-    	<artifactId>spring-security-core</artifactId>
-    	<version>3.0.5.RELEASE</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.springframework.security</groupId>
-    	<artifactId>spring-security-web</artifactId>
-    	<version>3.0.5.RELEASE</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.springframework.security</groupId>
-    	<artifactId>spring-security-ldap</artifactId>
-    	<version>3.0.5.RELEASE</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.apache.poi</groupId>
-    	<artifactId>poi</artifactId>
-    	<version>3.7</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>mysql</groupId>
-    	<artifactId>mysql-connector-java</artifactId>
-    	<version>5.1.18</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-  </dependencies>
-  
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.16</version>
-        <scope>runtime</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  
-  <repositories>
-	  <!-- Required to get hold of javassist:javassist -->
-    <repository>
-      <id>jboss.org</id>
-      <name>jboss.org</name>
-      <url>http://repository.jboss.com/maven2/</url>
-    </repository>
-  </repositories>
-  
-  <build>
-    <pluginManagement />
-    
-    <plugins>
-      <plugin>
-        <groupId>org.grails</groupId>
-        <artifactId>grails-maven-plugin</artifactId>
-        <version>${grails.version}</version>
-        <extensions>true</extensions>
-        <executions>
-          <execution>
-            <goals>
-              <goal>init</goal>
-              <goal>maven-clean</goal>
-              <goal>validate</goal>
-              <goal>config-directories</goal>
-              <goal>maven-compile</goal>
-              <goal>maven-test</goal>
-              <goal>maven-war</goal>
-              <goal>maven-functional-test</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      
-      <plugin>
-      	<groupId>org.apache.maven.plugins</groupId>
-      	<artifactId>maven-compiler-plugin</artifactId>
-      	<version>2.3.2</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  
-  <profiles>
-    <profile>
-      <id>tools</id>
-      <activation>
-        <property>
-          <name>java.vendor</name>
-          <value>Sun Microsystems Inc.</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>com.sun</groupId>
-          <artifactId>tools</artifactId>
-          <version>${java.version}</version>
-          <scope>system</scope>
-          <systemPath>${java.home}/../lib/tools.jar</systemPath>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
+  	<repositories>
+		<repository>
+			<id>grails</id>
+			<name>grails</name>
+			<url>http://repo.grails.org/grails/core</url>
+		</repository>
+		<repository>
+			<id>grails-plugins</id>
+			<name>grails-plugins</name>
+			<url>http://repo.grails.org/grails/plugins</url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.bundles.release</id>
+			<name>EBR Spring Release Repository</name>
+			<url>http://repository.springsource.com/maven/bundles/release</url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.bundles.external</id>
+			<name>EBR External Release Repository</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
+		</repository>
+	</repositories>
+
+	<profiles>
+		<profile>
+			<id>tools</id>
+			<activation>
+				<property>
+					<name>java.vendor</name>
+					<value>Sun Microsystems Inc.</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.sun</groupId>
+					<artifactId>tools</artifactId>
+					<version>${java.version}</version>
+					<scope>system</scope>
+					<systemPath>${java.home}/../lib/tools.jar</systemPath>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>

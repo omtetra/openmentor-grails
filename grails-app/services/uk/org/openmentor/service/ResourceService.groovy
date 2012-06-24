@@ -9,9 +9,9 @@ class ResourceService implements ApplicationContextAware, ResourceOpener {
 
     static transactional = false
 	
-	ApplicationContext applicationContext
+    ApplicationContext applicationContext
 
     public InputStream openResource(String resource) {
-		return applicationContext.getResource("/WEB-INF/" + resource).getInputStream()
+        return applicationContext.getResource("/WEB-INF/" + resource).getInputStream()
     }
 }

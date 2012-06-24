@@ -15,12 +15,12 @@ import uk.org.openmentor.extractor.Extractor;
 
 class AnalyzerService {
 
-	static final Logger log = Logger.getLogger(this)
+    static final Logger log = Logger.getLogger(this)
 
     static transactional = true
-	
-	Classifier classifierComponent
-	Extractor extractorComponent
+    
+    Classifier classifierComponent
+    Extractor extractorComponent
 
     /**
      * Analyses a file, and returns the new submission.
@@ -39,32 +39,32 @@ class AnalyzerService {
                                     Set<String> students,
                                     Set<String> tutorIds,
                                     String grade,
-									String username,
+                                    String username,
                                     String filename,
-									byte[] fileContents) throws Exception {
+                                    byte[] fileContents) throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("Analyzing submission: grade: " + grade
                       + ", parameter filename: " + filename
                       + ", parameter assignment: " + assignment
                       + ", parameter students: " + students
                       + ", parameter tutorIds: " + tutorIds
-					  + ", parameter username: " + username);
+                      + ", parameter username: " + username);
         }
-		
-		Grade gradeInstance = Grade.get(grade)
+        
+        Grade gradeInstance = Grade.get(grade)
 
         Submission sub = new Submission();
-		sub.setAssignment(assignment);
+        sub.setAssignment(assignment);
         sub.setStudentIds(students);
         sub.setTutorIds(tutorIds);
         sub.setGrade(gradeInstance);
-		sub.setFilename(filename);
-		sub.setUsername(username);
-		sub.setFileContents(fileContents)
-		
+        sub.setFilename(filename);
+        sub.setUsername(username);
+        sub.setFileContents(fileContents)
+        
         Set<Comment> commentSet = new HashSet<Comment>();
-		
-		InputStream theInput = new ByteArrayInputStream(fileContents);
+        
+        InputStream theInput = new ByteArrayInputStream(fileContents);
 
         extractorComponent.extract(theInput);
         Set comments = extractorComponent.getAnnotations();
@@ -75,12 +75,12 @@ class AnalyzerService {
                 log.debug("Comment: " + comment);
             }
             Comment comm = new Comment();
-			Set<String> classes = classifierComponent.classifyString((String) comment);
-			Set<Category> categories = classes.collect { Category.get(it) }
-			
+            Set<String> classes = classifierComponent.classifyString((String) comment);
+            Set<Category> categories = classes.collect { Category.get(it) }
+            
             comm.setText(comment);
             comm.setCategories(categories);
-			comm.setSubmission(sub);
+            comm.setSubmission(sub);
             commentSet.add(comm);
         }
 

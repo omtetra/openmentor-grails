@@ -13,12 +13,12 @@ class CurrentUserService {
 
     static transactional = false
 
-        /**
-         * Returns the current user name, or null if none
-         * @return the user name
-         */
+    /**
+     * Returns the current user name, or null if none
+     * @return the user name
+     */
     def currentUserName() {
-		def context = SecurityContextHolder.getContext()
+        def context = SecurityContextHolder.getContext()
         def authentication = context.getAuthentication()
         return authentication?.principal?.getUsername()
     }
