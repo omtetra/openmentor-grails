@@ -19,7 +19,7 @@ class TagLibTests extends LoadedSubmissionsTestCase {
 		def result = taglib.actualIdealChart([summary: summary, ref: "ref"])
 		
 		assertTrue result.contains("""<script type="text/javascript">""")
-		assertTrue result.contains(""""ideal":[50,101,40,10]""")
+		assertTrue result.contains(""""ideal":[4,53,32,9]""")
     }
 	
 	void testAssignmentDifferenceChartTagLib() {
@@ -49,6 +49,6 @@ class TagLibTests extends LoadedSubmissionsTestCase {
 		def result = taglib.differenceChart([summary: summary, ref: "ref", band: "B", action: "student"])
 		
 		assertTrue result.contains("""<script type="text/javascript">""")
-		assertTrue result.contains(""""categories":["09000231","09000232","09000237"]""")
+		assertTrue result.contains(""""categories":["09000231","09000232"]""")
 	}
 }
