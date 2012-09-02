@@ -54,6 +54,8 @@ grails.exceptionresolver.params.exclude = ['password']
 grails.config.locations = [ 
 	"classpath:${appName}-config.properties",
 	"classpath:${appName}-config.groovy",
+	"file:/etc/${appName}/${appName}-config.properties",
+	"file:/etc/${appName}/${appName}-config.groovy",
 	"file:${userHome}/.grails/${appName}-config.properties",
 	"file:${userHome}/.grails/${appName}-config.groovy"
 ]
@@ -71,17 +73,21 @@ environments {
     }
 }
 
+def catalinaBase = System.env.CATALINA_BASE ?: "."
+def logDirectory = "${catalinaBase}/logs"
+
 // log4j configuration
 log4j = {
     
 	appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+        rollingFile name: "stdout",     maxFileSize: 1024, file: "${logDirectory}/${appName}-output.log"
+		rollingFile name: "stacktrace", maxFileSize: 1024, file: "${logDirectory}/${appName}-stacktrace.log"
     }
 	
 	debug  'grails.app.controller',
            'grails.app.domain'
 
-    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
+    debug  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
@@ -91,9 +97,8 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate'
-
-    warn   'org.mortbay.log'
+           'net.sf.ehcache.hibernate',
+		   'org.eclipse'
 }
 
 //grails.plugins.springsecurity.rejectIfNoRule = true
