@@ -29,8 +29,8 @@ environments {
         dataSource {
             dbCreate = "update"
             url = "jdbc:mysql://localhost:3306/openmentor?characterEncoding=UTF-8"
-	    username='root'
-   	    password=''
+	        username='root'
+   	        password=''
         }
     }
 }
