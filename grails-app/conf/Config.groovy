@@ -75,13 +75,14 @@ environments {
 
 def catalinaBase = System.env.CATALINA_BASE ?: "."
 def logDirectory = "${catalinaBase}/logs"
+def applicationName = appName
 
 // log4j configuration
 log4j = {
     
 	appenders {
-        rollingFile name: "stdout",     maxFileSize: 1024, file: "${logDirectory}/${appName}-output.log"
-		rollingFile name: "stacktrace", maxFileSize: 1024, file: "${logDirectory}/${appName}-stacktrace.log"
+        rollingFile name: "stdout",     maxFileSize: 1024, file: "${logDirectory}/${applicationName}-output.log"
+		rollingFile name: "stacktrace", maxFileSize: 1024, file: "${logDirectory}/${applicationName}-stacktrace.log"
     }
 	
 	debug  'grails.app.controller',

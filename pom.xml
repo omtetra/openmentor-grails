@@ -14,8 +14,8 @@
 	<url>http://www.openmentor.org.uk</url>
 
 	<properties>
-		<grails.version>2.0.4</grails.version>
-                <org.springframework.version>3.1.0.RELEASE</org.springframework.version>
+		<grails.version>2.1.0</grails.version>
+		<org.springframework.version>3.1.0.RELEASE</org.springframework.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -33,11 +33,11 @@
 	</organization>
 
 	<inceptionYear>2004</inceptionYear>
-	
-	
+
+
 	<issueManagement>
-	    <system>GitHub</system>
-    	<url>https://github.com/omtetra/openmentor-grails/issues</url>
+		<system>GitHub</system>
+		<url>https://github.com/omtetra/openmentor-grails/issues</url>
 	</issueManagement>
 
 	<developers>
@@ -162,7 +162,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
@@ -203,12 +203,12 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>rpm-maven-plugin</artifactId>
-                <version>2.1-alpha-1</version>
-                <extensions>true</extensions>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>rpm-maven-plugin</artifactId>
+				<version>2.1-alpha-1</version>
+				<extensions>true</extensions>
 				<executions>
 					<execution>
 						<goals>
@@ -217,37 +217,37 @@
 					</execution>
 				</executions>
 				<configuration>
-                    <copyright>OpenMentor</copyright>
-                    <distribution>Trash 2005</distribution>
-                    <group>Application/Collectors</group>
-                    <icon>src/main/resources/icon.gif</icon>
-                    <packager>SWWDC</packager>
-                    <prefix>/usr/local</prefix>
-                    <changelogFile>src/changelog</changelogFile>
-                    <defineStatements>
-                       <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
-                    </defineStatements>
-                    <mappings>
-                         <mapping>
-                            <directory>/usr/local/log/landfill</directory>
-                            <filemode>750</filemode>
-                            <username>dumper</username>
-                            <groupname>dumpgroup</groupname>
-                        </mapping>
-                    </mappings>
-                    <preinstallScriptlet>
-                        <script>echo "installing now"</script>
-                    </preinstallScriptlet>
-                    <postinstallScriptlet>
-                        <scriptFile>src/main/scripts/postinstall</scriptFile>
-                        <fileEncoding>utf-8</fileEncoding>
-                    </postinstallScriptlet>
-                    <preremoveScriptlet>
-                        <scriptFile>src/main/scripts/preremove</scriptFile>
-                        <fileEncoding>utf-8</fileEncoding>
-                    </preremoveScriptlet>
-                </configuration>
-            </plugin>
+					<copyright>OpenMentor</copyright>
+					<distribution>Trash 2005</distribution>
+					<group>Application/Collectors</group>
+					<icon>src/main/resources/icon.gif</icon>
+					<packager>SWWDC</packager>
+					<prefix>/usr/local</prefix>
+					<changelogFile>src/changelog</changelogFile>
+					<defineStatements>
+						<defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+					</defineStatements>
+					<mappings>
+						<mapping>
+							<directory>/usr/local/log/landfill</directory>
+							<filemode>750</filemode>
+							<username>dumper</username>
+							<groupname>dumpgroup</groupname>
+						</mapping>
+					</mappings>
+					<preinstallScriptlet>
+						<script>echo "installing now"</script>
+					</preinstallScriptlet>
+					<postinstallScriptlet>
+						<scriptFile>src/main/scripts/postinstall</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</postinstallScriptlet>
+					<preremoveScriptlet>
+						<scriptFile>src/main/scripts/preremove</scriptFile>
+						<fileEncoding>utf-8</fileEncoding>
+					</preremoveScriptlet>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -260,8 +260,8 @@
 			</plugin>
 		</plugins>
 	</reporting>
-  
-  	<repositories>
+
+	<repositories>
 		<repository>
 			<id>grails</id>
 			<name>grails</name>
@@ -286,18 +286,17 @@
 
 	<profiles>
 		<profile>
-			<id>tools</id>
+			<id>mac</id>
 			<activation>
-				<property>
-					<name>java.vendor</name>
-					<value>Sun Microsystems Inc.</value>
-				</property>
+				<os>
+					<family>mac</family>
+				</os>
 			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>com.sun</groupId>
 					<artifactId>tools</artifactId>
-					<version>${java.version}</version>
+					<version>1.6</version>
 					<scope>system</scope>
 					<systemPath>${java.home}/../lib/tools.jar</systemPath>
 				</dependency>
