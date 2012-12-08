@@ -10,7 +10,7 @@ class Student implements Comparable<Student>{
     static belongsTo = Course
     
     static constraints = {
-        studentId(nullable: false, unique: true)
+        studentId(nullable: false, blank:false, unique: true)
         givenName(blank: true)
         familyName(blank: true)
     }
@@ -30,7 +30,28 @@ class Student implements Comparable<Student>{
     }
 
     int compareTo(Student other) {
-        int familyCompared = familyName.compareTo(other.familyName)
-        return (familyCompared != 0) ? familyCompared : givenName.compareTo(other.givenName)
+		int result = 0
+		
+		if (familyName != other.familyName) {
+			if (familyName == null) {
+				result = 1
+			} else if (other.familyName == null) {
+				result = -1
+			} else {
+				result = familyName.compareTo(other.familyName)
+			}
+		}
+		
+		if (result == 0 && givenName != other.givenName) {
+			if (givenName == null) {
+				result = 1
+			} else if (other.givenName == null) {
+				result = -1
+			} else {
+				result = givenName.compareTo(other.givenName)
+			}
+		}
+			
+		return result
     }
 }
