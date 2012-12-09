@@ -3,7 +3,7 @@ package uk.org.openmentor.courseinfo
 import uk.org.openmentor.data.Assignment;
 import grails.test.*
 
-class CourseIntegrationTestTests extends GroovyTestCase {
+class CourseIntegrationTests extends GroovyTestCase {
     protected void setUp() {
         super.setUp()
     }
