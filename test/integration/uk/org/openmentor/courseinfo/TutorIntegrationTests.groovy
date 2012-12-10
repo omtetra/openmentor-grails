@@ -16,12 +16,12 @@ class TutorIntegrationTests extends GroovyTestCase {
 	 * Simple check we can read a student from the test data
 	 */
     void testFirstTutor() {
-		def tutorM4000062 = Tutor.findByTutorId("M4000062")
+		def tutorM4000062 = Tutor.findById("M4000062")
 		assertNotNull(tutorM4000062)
     }
 
 	void testTutorProperties() {
-		def tutorM4000062 = Tutor.findByTutorId("M4000062")
+		def tutorM4000062 = Tutor.findById("M4000062")
 		
 		assertEquals "Levi", tutorM4000062.givenName
 		assertEquals "Evert", tutorM4000062.familyName

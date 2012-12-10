@@ -16,20 +16,20 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <g:form action="update" method="post">
-            <g:hiddenField name="id" value="${studentInstance.studentId}" />
+            <g:hiddenField name="id" value="${studentInstance.id}" />
             <g:hiddenField name="version" value="${studentInstance?.version}" />
             <div>
                 <table>
                     <tbody>
                         <tr class="prop">
                         	<td valign="top" class="name">
-                            	<label for="studentId"><g:message code="student.studentId.label" default="Student ID" />:</label>
+                            	<label for="id"><g:message code="student.id.label" default="Student ID" />:</label>
                         	</td>
-                            <td valign="top" class="value ${hasErrors(bean: studentInstance, field: 'studentId', 'errors')}">
-                                <g:hasErrors bean="${studentInstance}" field="studentId">
-                            	<g:renderErrors bean="${studentInstance}" as="list" field="studentId"/>
+                            <td valign="top" class="value ${hasErrors(bean: studentInstance, field: 'id', 'errors')}">
+                                <g:hasErrors bean="${studentInstance}" field="id">
+                            	<g:renderErrors bean="${studentInstance}" as="list" field="id"/>
                             	</g:hasErrors>
-                                <g:textField disabled="disabled" name="studentId" value="${studentInstance?.studentId}" />
+                                <g:textField disabled="disabled" name="id" value="${studentInstance?.id}" />
                             </td>
                         </tr>
                         <tr class="prop">
@@ -62,7 +62,7 @@
                                 <g:hasErrors bean="${studentInstance}" field="courses">
                             	<g:renderErrors bean="${studentInstance}" as="list" field="courses"/>
                             	</g:hasErrors>
-                                <g:select id="courses" name="courses" optionKey="courseId" optionValue="courseId" multiple="${true}"
+                                <g:select id="courses" name="courses" optionKey="id" optionValue="id" multiple="${true}"
                                           from="${Course.findAll()}" 
                                           value="${studentInstance?.courses}"/>
                             </td>

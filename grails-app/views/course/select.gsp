@@ -17,14 +17,14 @@
             	<table>
                 <tr class="prop">
                   	<td class="name">
-                        <label for="courseIdPicker"><g:message code="course.courseId.label" default="Course Code" /></label>
+                        <label for="courseIdPicker"><g:message code="course.id.label" default="Course Code" /></label>
                     </td>
-                    <td class="value ${hasErrors(bean: course, field: 'courseId', 'errors')}">
+                    <td class="value ${hasErrors(bean: course, field: 'id', 'errors')}">
                     	<g:select 
               			    noSelection="['':'-Choose course-']"
-              				name="courseId" 
+              				name="id" 
               				from="${Course.findAll().sort()}" 
-              				optionKey="courseId" 
+              				optionKey="id" 
               				optionValue="idAndTitle" />
                     </td>
                 </tr>

@@ -43,7 +43,7 @@ class LoadedSubmissionsTestCase extends GroovyTestCase {
 										String studentId, String tutorId,
 										String grade, String inputFile) {
 
-	   def course = Course.findByCourseId(courseCode)
+	   def course = Course.findById(courseCode)
 	   assertTrue course != null
 	   
 	   Assignment assignment = Assignment.findByCode(assignmentCode)

@@ -21,13 +21,13 @@
                     <tbody>
                         <tr class="prop">
                         	<td valign="top" class="name">
-                            	<label for="tutorId"><g:message code="tutor.tutorId.label" default="Tutor ID" />:</label>
+                            	<label for="id"><g:message code="tutor.id.label" default="Tutor ID" />:</label>
                         	</td>
-                            <td valign="top" class="value ${hasErrors(bean: tutorInstance, field: 'tutorId', 'errors')}">
-                                <g:hasErrors bean="${tutorInstance}" field="studentId">
-                            	<g:renderErrors bean="${tutorInstance}" as="list" field="studentId"/>
+                            <td valign="top" class="value ${hasErrors(bean: tutorInstance, field: 'id', 'errors')}">
+                                <g:hasErrors bean="${tutorInstance}" field="id">
+                            	<g:renderErrors bean="${tutorInstance}" as="list" field="id"/>
                             	</g:hasErrors>
-                                <g:textField name="tutorId" value="${tutorInstance?.tutorId}" />
+                                <g:textField name="id" value="${tutorInstance?.id}" />
                             </td>
                         </tr>
                         <tr class="prop">
@@ -62,7 +62,7 @@
                                 <g:hasErrors bean="${tutorInstance}" field="courses">
                             	<g:renderErrors bean="${tutorInstance}" as="list" field="courses"/>
                             	</g:hasErrors>
-                                <g:select id="courses" name="courses" optionKey="courseId" optionValue="courseId" multiple="${true}"
+                                <g:select id="courses" name="courses" optionKey="id" optionValue="id" multiple="${true}"
                                           from="${Course.findAll()}" 
                                           value="${tutorInstance?.courses}"/>
                             </td>

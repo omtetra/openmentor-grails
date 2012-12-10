@@ -2,7 +2,7 @@ package uk.org.openmentor.courseinfo
 
 class Tutor implements Comparable<Tutor>{
     
-    String tutorId
+    String id
     String givenName
     String familyName
 
@@ -10,13 +10,13 @@ class Tutor implements Comparable<Tutor>{
     static belongsTo = Course
 
     static constraints = {
-        tutorId(nullable: false, blank: false, unique: true)
+        id(nullable: false, blank: false, unique: true)
         givenName(blank: true)
         familyName(blank: true)
     }
 
     static mapping = {
-        id generator:'assigned', name:'tutorId'
+        id generator:'assigned', column:'tutor_id'
     }
 
     static transients = ['name', 'idAndName']
@@ -26,7 +26,7 @@ class Tutor implements Comparable<Tutor>{
     }
 
     String getIdAndName() {
-        return tutorId + " - " + givenName + " " + familyName
+        return id + " - " + givenName + " " + familyName
     }
 
     int compareTo(Tutor other) {

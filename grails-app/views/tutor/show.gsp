@@ -18,8 +18,8 @@
                 <table>
                     <tbody>
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="tutor.tutorId.label" default="Tutor ID" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: tutorInstance, field: "tutorId")}</td>
+                            <td valign="top" class="name"><g:message code="tutor.id.label" default="Tutor ID" />:</td>
+                            <td valign="top" class="value">${fieldValue(bean: tutorInstance, field: "id")}</td>
                         </tr>
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="tutor.givenName.label" default="Given Name" />:</td>
@@ -31,13 +31,13 @@
                         </tr>
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="tutor.courses.label" default="Courses" />:</td>
-                            <td valign="top" class="value"><%= tutorInstance.courses.collect { it.courseId }.sort().join(', ') %></td>
+                            <td valign="top" class="value"><%= tutorInstance.courses.collect { it.id }.sort().join(', ') %></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="nav">
-            	<span class="menuButton"><g:link class="edit" action="edit" id="${tutorInstance.tutorId}"><g:message code="default.button.edit.label" default="Edit" /></g:link></span>
+            	<span class="menuButton"><g:link class="edit" action="edit" id="${tutorInstance.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link></span>
             </div>
         </div>
         </div>

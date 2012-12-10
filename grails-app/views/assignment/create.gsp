@@ -6,12 +6,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'assignment.label', default: 'Assignment')}" />
-        <title><g:message code="assignment.create.label" args="${[courseInstance.courseId]}" /></title>
+        <title><g:message code="assignment.create.label" args="${[courseInstance.id]}" /></title>
     </head>
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="assignment.create.label" args="${[courseInstance.courseId]}" /></h1>
+            <h1><g:message code="assignment.create.label" args="${[courseInstance.id]}" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -24,7 +24,7 @@
                             	<label for="courseId"><g:message code="assignment.courseId.label" default="Course ID" />:</label>
                         	</td>
                             <td valign="top" class="value ${hasErrors(bean: assignmentInstance, field: 'courseId', 'errors')}">
-                                <g:textField name="courseId" value="${courseInstance.courseId}" readonly="readonly" />
+                                <g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
                             </td>
                         </tr>
                         <tr class="prop">

@@ -13,7 +13,7 @@ class StudentController {
 
 	def list = {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		params.sort = params.sort ?: 'studentId'
+		params.sort = params.sort ?: 'id'
 		params.order = params.order ?: 'asc'
 		params.offset = params.offset ?: '0'
 				
@@ -34,8 +34,8 @@ class StudentController {
 		def studentInstance = new Student(params)
 		
 		if (studentInstance.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.studentId])}"
-			redirect(action: "list", id: studentInstance.studentId)
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.id])}"
+			redirect(action: "list", id: studentInstance.id)
 		}
 		else {
 			log.info("Failed to create new sample: returning to dialog")
@@ -44,7 +44,7 @@ class StudentController {
 	}
 	
 	def show = {
-		def studentInstance = Student.findByStudentId(params.id)
+		def studentInstance = Student.findById(params.id)
         if (!studentInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
             redirect(action: "list")
@@ -55,7 +55,7 @@ class StudentController {
 	}
 	
 	def edit = {
-		def studentInstance = Student.findByStudentId(params.id)
+		def studentInstance = Student.findById(params.id)
 		if (!studentInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
 			redirect(action: "list")
@@ -68,42 +68,51 @@ class StudentController {
 	def create = { }
 	
 	def update = {
-        def studentInstance = Student.findByStudentId(params.id)
-		
-		if (studentInstance) {
-			log.info("Updating student: studentId: " + studentInstance.studentId)
-            if (params.version) {
-                def version = params.version.toLong()
-                if (studentInstance.version > version) {
-                    
-                    studentInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'student.label', default: 'Student')] as Object[], "Another user has updated this student while you were editing")
-                    render(view: "edit", model: [studentInstance: studentInstance])
-                    return
-                }
-            }
+		Student.withSession { session ->
+	        def studentInstance = Student.findById(params.id)
 			
-			studentInstance.properties = params
-
-            if (!studentInstance.hasErrors() && studentInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.studentId])}"
-                redirect(action: "list")
-            }
-            else {
-                render(view: "edit", model: [studentInstance: studentInstance])
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
-            redirect(action: "list")
-        }
+			if (studentInstance) {
+				log.info("Updating student: id: " + studentInstance.id)
+	            if (params.version) {
+	                def version = params.version.toLong()
+	                if (studentInstance.version > version) {
+	                    
+	                    studentInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'student.label', default: 'Student')] as Object[], "Another user has updated this student while you were editing")
+	                    render(view: "edit", model: [studentInstance: studentInstance])
+	                    return
+	                }
+	            }
+				
+				// When handling an update, we need to deal with the issues for the
+				// associated courses and other components. For that reason, we block
+				// changes to the identifier.
+				
+				studentInstance.givenName = params.givenName
+				studentInstance.familyName = params.familyName
+				studentInstance.id = params.id
+				studentInstance.save()
+				
+	            if (!studentInstance.hasErrors() && studentInstance.save(flush: true)) {
+	                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.id])}"
+	                redirect(action: "list")
+	            }
+	            else {
+	                render(view: "edit", model: [studentInstance: studentInstance])
+	            }
+	        }
+	        else {
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
+	            redirect(action: "list")
+	        }
+		}
     }
 
 	def query = {
-		def studentList = Student.findAllByStudentIdIlike("%" + params.term + "%")
-		studentList.sort { it.studentId }
+		def studentList = Student.findAllByIdIlike("%" + params.term + "%")
+		studentList.sort { it.id }
 		
 		render(contentType: "text/json") {
-			studentList.collect { [studentId: it.studentId] };
+			studentList.collect { [id: it.id] };
 		}
 	}
 }

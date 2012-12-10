@@ -38,7 +38,6 @@ class SubmissionController {
 	}
 
 	def upload = { 
-		
 		def courseInstance = getSelectedCourse()
 		def grades = Grade.getGrades()
 		[grades: grades, courseInstance: courseInstance]

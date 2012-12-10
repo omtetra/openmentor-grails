@@ -12,7 +12,7 @@ class TutorTests extends GrailsUnitTestCase {
 		mockDomain(Tutor)
 		tutor = new Tutor()
 
-		tutor.tutorId = '0000000'
+		tutor.id = '0000000'
 		tutor.givenName = 'Morag'
 		tutor.familyName = 'Mungo'
 
@@ -35,14 +35,14 @@ class TutorTests extends GrailsUnitTestCase {
 	/**
 	 * Checks that invalid sample types fail validation
 	 */
-	void testTutorId() {
-		def old = tutor.tutorId
+	void testId() {
+		def old = tutor.id
 		
-		tutor.tutorId = ''
+		tutor.id = ''
 		assertFalse tutor.validate()
 		assertTrue tutor.hasErrors()
 		
-		tutor.tutorId = old
+		tutor.id = old
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class TutorTests extends GrailsUnitTestCase {
 	 */
     void testCompareOrdering() {
 		def other = new Tutor()
-		other.tutorId = '00000001'
+		other.id = '00000001'
 		other.givenName = 'Morag'
 		other.familyName = 'Nunavut'
 		
@@ -70,7 +70,7 @@ class TutorTests extends GrailsUnitTestCase {
 	 */
 	void testCompareBlank() {
 		def other = new Tutor()
-		other.tutorId = '00000001'
+		other.id = '00000001'
 		
 		assertEquals(-1, tutor.compareTo(other))
 		assertEquals(1, other.compareTo(tutor))
@@ -81,7 +81,7 @@ class TutorTests extends GrailsUnitTestCase {
 	 */
 	void testCompareTwoBlank() {
 		def other = new Tutor()
-		other.tutorId = '00000001'
+		other.id = '00000001'
 		
 		assertEquals(0, other.compareTo(other))
 	}
