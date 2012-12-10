@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="stuart (generated)" id="1355110093613-1">
+        <createTable tableName="assignment">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="assignmentPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-2">
+        <createTable tableName="category">
+            <column name="category" type="varchar(8)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="categoryPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="band" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-3">
+        <createTable tableName="comment">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="commentPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="submission_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="varchar(4096)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-4">
+        <createTable tableName="comment_category">
+            <column name="comment_categories_id" type="bigint"/>
+            <column name="category_id" type="varchar(8)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-5">
+        <createTable tableName="course">
+            <column name="course_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="coursePK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-6">
+        <createTable tableName="course_students">
+            <column name="student_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-7">
+        <createTable tableName="course_tutors">
+            <column name="tutor_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-8">
+        <createTable tableName="grade">
+            <column name="grade" type="varchar(2)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="gradePK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-9">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rolePK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-10">
+        <createTable tableName="student">
+            <column name="student_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="studentPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="family_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="given_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-11">
+        <createTable tableName="submission">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="submissionPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assignment_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_submitted" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_contents" type="binary(8388608)"/>
+            <column name="filename" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="grade_id" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-12">
+        <createTable tableName="submission_student_ids">
+            <column name="submission_id" type="bigint"/>
+            <column name="student_ids_string" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-13">
+        <createTable tableName="submission_tutor_ids">
+            <column name="submission_id" type="bigint"/>
+            <column name="tutor_ids_string" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-14">
+        <createTable tableName="tutor">
+            <column name="tutor_id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tutorPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="family_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="given_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-15">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="userPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_expired" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_locked" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_expired" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-16">
+        <createTable tableName="user_role">
+            <column name="role_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-17">
+        <createTable tableName="weight">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="weightPK"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="band" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="grade" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="float(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-18">
+        <addPrimaryKey columnNames="course_id, student_id" tableName="course_students"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-19">
+        <addPrimaryKey columnNames="course_id, tutor_id" tableName="course_tutors"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-20">
+        <addPrimaryKey columnNames="role_id, user_id" constraintName="user_rolePK" tableName="user_role"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-21">
+        <addForeignKeyConstraint baseColumnNames="submission_id" baseTableName="comment" constraintName="FK38A5EE5FB5AFCD5D" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="submission" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-22">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="comment_category" constraintName="FKA7CEBADE4866F885" deferrable="false" initiallyDeferred="false" referencedColumnNames="category" referencedTableName="category" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-23">
+        <addForeignKeyConstraint baseColumnNames="comment_categories_id" baseTableName="comment_category" constraintName="FKA7CEBADE4D411E5A" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="comment" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-24">
+        <addForeignKeyConstraint baseColumnNames="course_id" baseTableName="course_students" constraintName="FKD6EF053CF6F414BE" deferrable="false" initiallyDeferred="false" referencedColumnNames="course_id" referencedTableName="course" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-25">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="course_students" constraintName="FKD6EF053C6C6E4376" deferrable="false" initiallyDeferred="false" referencedColumnNames="student_id" referencedTableName="student" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-26">
+        <addForeignKeyConstraint baseColumnNames="course_id" baseTableName="course_tutors" constraintName="FK6C8A28A1F6F414BE" deferrable="false" initiallyDeferred="false" referencedColumnNames="course_id" referencedTableName="course" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-27">
+        <addForeignKeyConstraint baseColumnNames="tutor_id" baseTableName="course_tutors" constraintName="FK6C8A28A195B1496" deferrable="false" initiallyDeferred="false" referencedColumnNames="tutor_id" referencedTableName="tutor" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-28">
+        <addForeignKeyConstraint baseColumnNames="assignment_id" baseTableName="submission" constraintName="FK84363B4C37E291BD" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="assignment" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-29">
+        <addForeignKeyConstraint baseColumnNames="grade_id" baseTableName="submission" constraintName="FK84363B4CB7A962AF" deferrable="false" initiallyDeferred="false" referencedColumnNames="grade" referencedTableName="grade" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-30">
+        <addForeignKeyConstraint baseColumnNames="submission_id" baseTableName="submission_student_ids" constraintName="FK4BE1BA41B5AFCD5D" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="submission" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-31">
+        <addForeignKeyConstraint baseColumnNames="submission_id" baseTableName="submission_tutor_ids" constraintName="FK2E2A58FCB5AFCD5D" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="submission" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-32">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role" constraintName="FK143BF46AD9ABBC1F" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="role" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-33">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="FK143BF46A7ED67FFF" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-34">
+        <addForeignKeyConstraint baseColumnNames="grade" baseTableName="weight" constraintName="FKD0D14278B8341403" deferrable="false" initiallyDeferred="false" referencedColumnNames="grade" referencedTableName="grade" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-35">
+        <createIndex indexName="unique-code" tableName="assignment" unique="true">
+            <column name="course_id"/>
+            <column name="code"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-36">
+        <createIndex indexName="band_index" tableName="category">
+            <column name="band"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-37">
+        <createIndex indexName="authority_unique_1355110093444" tableName="role" unique="true">
+            <column name="authority"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-38">
+        <createIndex indexName="username_unique_1355110093467" tableName="user" unique="true">
+            <column name="username"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="stuart (generated)" id="1355110093613-39">
+        <createIndex indexName="band_grade_index" tableName="weight">
+            <column name="band"/>
+            <column name="grade"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
