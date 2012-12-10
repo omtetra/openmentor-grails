@@ -72,39 +72,39 @@ class BootStrap {
         // Seed only when there's no data
         if (Course.count() == 0) {
             
-            def courseCM2006 = new Course(courseId: "CM2006", courseTitle: "Interface Design")
-            def courseCM2007 = new Course(courseId: "CM2007", courseTitle: "Intranet Systems Development")
-            def courseCM3010 = new Course(courseId: "CM3010", courseTitle: "Information Retrieval")
-            def courseAA1003 = new Course(courseId: "AA1003", courseTitle: "Multimedia Programming")
+            def courseCM2006 = new Course(id: "CM2006", courseTitle: "Interface Design")
+            def courseCM2007 = new Course(id: "CM2007", courseTitle: "Intranet Systems Development")
+            def courseCM3010 = new Course(id: "CM3010", courseTitle: "Information Retrieval")
+            def courseAA1003 = new Course(id: "AA1003", courseTitle: "Multimedia Programming")
 
-            def student09000231 = new Student(studentId: "09000231", givenName: "Gwenda", familyName: "Blane")
+            def student09000231 = new Student(id: "09000231", givenName: "Gwenda", familyName: "Blane")
             student09000231.save(failOnError:true)
 
-            def student09000232 = new Student(studentId: "09000232", givenName: "Fred", familyName: "Zucker")
+            def student09000232 = new Student(id: "09000232", givenName: "Fred", familyName: "Zucker")
             student09000232.save(failOnError:true)
 
-            def student09000233 = new Student(studentId: "09000233", givenName: "Caitlyn", familyName: "Respass")
+            def student09000233 = new Student(id: "09000233", givenName: "Caitlyn", familyName: "Respass")
             student09000233.save(failOnError:true)
 
-            def student09000234 = new Student(studentId: "09000234", givenName: "Luke", familyName: "Naccarato")
+            def student09000234 = new Student(id: "09000234", givenName: "Luke", familyName: "Naccarato")
             student09000234.save(failOnError:true)
 
-            def student09000235 = new Student(studentId: "09000235", givenName: "Pierre", familyName: "Busse")
+            def student09000235 = new Student(id: "09000235", givenName: "Pierre", familyName: "Busse")
             student09000235.save(failOnError:true)
 
-            def student09000236 = new Student(studentId: "09000236", givenName: "Ami", familyName: "Montalvo")
+            def student09000236 = new Student(id: "09000236", givenName: "Ami", familyName: "Montalvo")
             student09000236.save(failOnError:true)
 
-            def student09000237 = new Student(studentId: "09000237", givenName: "Jackie", familyName: "Nicolas")
+            def student09000237 = new Student(id: "09000237", givenName: "Jackie", familyName: "Nicolas")
             student09000237.save(failOnError:true)
 
-            def tutorM4000061 = new Tutor(tutorId: "M4000061", givenName: "Zena", familyName: "Beatrice")
+            def tutorM4000061 = new Tutor(id: "M4000061", givenName: "Zena", familyName: "Beatrice")
             tutorM4000061.save(failOnError:true)
 
-            def tutorM4000062 = new Tutor(tutorId: "M4000062", givenName: "Levi", familyName: "Evert")
+            def tutorM4000062 = new Tutor(id: "M4000062", givenName: "Levi", familyName: "Evert")
             tutorM4000062.save(failOnError:true)
 
-            def tutorM4000063 = new Tutor(tutorId: "M4000063", givenName: "Jeanie", familyName: "Denman")
+            def tutorM4000063 = new Tutor(id: "M4000063", givenName: "Jeanie", familyName: "Denman")
             tutorM4000063.save(failOnError:true)
             
             courseCM2006.addToStudents(student09000231)
@@ -139,12 +139,12 @@ class BootStrap {
             courseAA1003.addToTutors(tutorM4000061)
             courseAA1003.save(failOnError:true)
             
-            def assignment1 = new Assignment(courseId: courseCM2006.courseId, code: "TMA01").save(failOnError:true)
-            def assignment2 = new Assignment(courseId: courseCM2006.courseId, code: "TMA02").save(failOnError:true)
-            def assignment3 = new Assignment(courseId: courseCM2006.courseId, code: "TMA03").save(failOnError:true)
-            def assignment4 = new Assignment(courseId: courseCM2007.courseId, code: "TMA01").save(failOnError:true)
-            def assignment5 = new Assignment(courseId: courseCM3010.courseId, code: "TMA01").save(failOnError:true)
-            def assignment6 = new Assignment(courseId: courseAA1003.courseId, code: "TMA01").save(failOnError:true)
+            def assignment1 = new Assignment(courseId: courseCM2006.id, code: "TMA01").save(failOnError:true)
+            def assignment2 = new Assignment(courseId: courseCM2006.id, code: "TMA02").save(failOnError:true)
+            def assignment3 = new Assignment(courseId: courseCM2006.id, code: "TMA03").save(failOnError:true)
+            def assignment4 = new Assignment(courseId: courseCM2007.id, code: "TMA01").save(failOnError:true)
+            def assignment5 = new Assignment(courseId: courseCM3010.id, code: "TMA01").save(failOnError:true)
+            def assignment6 = new Assignment(courseId: courseAA1003.id, code: "TMA01").save(failOnError:true)
         }
     }
     

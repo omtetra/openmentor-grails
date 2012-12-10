@@ -13,7 +13,7 @@ class CourseController {
 	
 	def list = {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		params.sort = params.sort ?: 'courseId'
+		params.sort = params.sort ?: 'id'
 		params.order = params.order ?: 'asc'
 		params.offset = params.offset ?: '0'
 				
@@ -34,8 +34,8 @@ class CourseController {
 		def courseInstance = new Course(params)
 		
 		if (courseInstance.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.courseId])}"
-			redirect(action: "list", id: courseInstance.courseId)
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.id])}"
+			redirect(action: "list", id: courseInstance.id)
 		}
 		else {
 			log.info("Failed to create new sample: returning to dialog")
@@ -71,7 +71,7 @@ class CourseController {
         def courseInstance = Course.get(params.id)
 		
 		if (courseInstance) {
-			log.info("Updating course: courseId: " + courseInstance.courseId)
+			log.info("Updating course: id: " + courseInstance.id)
             if (params.version) {
                 def version = params.version.toLong()
                 if (courseInstance.version > version) {
@@ -86,7 +86,7 @@ class CourseController {
 
             if (!courseInstance.hasErrors() && courseInstance.save(flush: true)) {
 				
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.courseId])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.id])}"
                 redirect(action: "list")
             }
             else {
@@ -101,19 +101,19 @@ class CourseController {
 
 	def select = {
 		if (request.method == 'POST') {
-			def course = Course.findByCourseId(params.courseId)
+			def course = Course.findById(params.id)
 			if (course) {
-				session.current_course = course.courseId
+				session.current_course = course.id
 			}
 		}
 	}
 	
 	def query = {
-		def courseList = Course.findAllByCourseIdIlike("%" + params.term + "%")
-		courseList.sort { it.courseId }
+		def courseList = Course.findAllByIdIlike("%" + params.term + "%")
+		courseList.sort { it.id }
 		
 		render(contentType: "text/json") {
-			courseList.collect { [courseId: it.courseId] };
+			courseList.collect { [id: it.id] };
 		}
 	}
 }

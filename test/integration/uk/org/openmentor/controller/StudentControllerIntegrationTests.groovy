@@ -51,7 +51,7 @@ class StudentControllerIntegrationTests extends GroovyTestCase {
 		controller.params.id = '09000231'
 		def model = controller.edit()
 		
-		assertEquals '09000231', model.studentInstance?.studentId
+		assertEquals '09000231', model.studentInstance?.id
 	}
 
 	/**
@@ -61,7 +61,7 @@ class StudentControllerIntegrationTests extends GroovyTestCase {
 		controller.params.id = '09000231'
 		def model = controller.show()
 		
-		assertEquals '09000231', model.studentInstance?.studentId
+		assertEquals '09000231', model.studentInstance?.id
 	}
 
 	/**
@@ -72,6 +72,32 @@ class StudentControllerIntegrationTests extends GroovyTestCase {
 		
 		assertEquals 7, model.studentInstanceTotal
 		assertTrue model.studentInstanceList.every { it instanceof Student }
+	}
+	
+	/**
+	 * Test the update action
+	 */
+	void testUpdateAction() {
+		controller.params.id = '09000231'
+		controller.params.givenName = 'Given'
+		controller.params.familyName = 'Family'
+		controller.update()
+		
+		if (renderMap?.view == "edit") {
+			def errors = renderMap.model.studentInstance.errors
+			errors.allErrors.each { System.err.println(it.toString()) }
+		}
+		
+		assertNull(renderMap)
+		assertNotNull(redirectMap)
+		
+		assertEquals 'list', redirectMap.action
+		
+		// And check the saved data
+		Student found = Student.findById('09000231')
+		assertNotNull found
+		assertEquals 'Given', found.givenName
+		assertEquals 'Family', found.familyName
 	}
 
 	// Stolen from GrailsUnitTestCase

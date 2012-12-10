@@ -33,7 +33,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		                                 String studentId, String tutorId, 
 										 String grade, String inputFile) {
 		
-		def course = Course.findByCourseId(courseCode)
+		def course = Course.findById(courseCode)
 		assertTrue course != null
 		
 		Assignment assignment = Assignment.findByCode(assignmentCode)
@@ -48,6 +48,21 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		)
 		
 		return sub
+	}
+										 
+	/**
+	 * Test the submission controller's upload page.
+	 */
+	void testSubmissionUpload() {
+		def file = new File("grails-app/views/submission/upload.gsp")
+
+		def controller = new SubmissionController()
+		controller.session.putAt('current_course', 'CM2006')
+		
+		def model = controller.upload()
+		
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains("CM2006"))
 	}
 
 	/**

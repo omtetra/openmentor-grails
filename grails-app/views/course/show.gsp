@@ -18,8 +18,8 @@
                 <table>
                     <tbody>
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="course.courseId.label" default="Course Code" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: courseInstance, field: "courseId")}</td>
+                            <td valign="top" class="name"><g:message code="course.id.label" default="Course Code" />:</td>
+                            <td valign="top" class="value">${fieldValue(bean: courseInstance, field: "id")}</td>
                         </tr>
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="course.courseTitle.label" default="Course Title" />:</td>
@@ -29,7 +29,7 @@
                 </table>
             </div>
             <div class="nav">
-            	<span class="menuButton"><g:link class="edit" action="edit" id="${courseInstance.courseId}"><g:message code="default.button.edit.label" default="Edit" /></g:link></span>
+            	<span class="menuButton"><g:link class="edit" action="edit" id="${courseInstance.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link></span>
             </div>
         </div>
         </div>

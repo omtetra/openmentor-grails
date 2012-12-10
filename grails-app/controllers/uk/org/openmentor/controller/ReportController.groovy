@@ -18,7 +18,7 @@ class ReportController {
 		
 		def model = [
 			grades: Grade.getGrades(),
-			course: Course.findByCourseId(session.current_course)
+			course: Course.findById(session.current_course)
 		]
 		
 		return model
@@ -33,7 +33,7 @@ class ReportController {
     def course = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummary(model.course.courseId)
+		Summary summary = summarizationService.getCourseSummary(model.course.id)
 		model.summary = summary
 		
 		return model
@@ -42,7 +42,7 @@ class ReportController {
     def assignments = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummaryByAssignment(model.course.courseId)
+		Summary summary = summarizationService.getCourseSummaryByAssignment(model.course.id)
 		model.summary = summary
 
 		model
@@ -52,7 +52,7 @@ class ReportController {
 		assert params.id != null
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseAndAssignmentSummary(model.course.courseId, params.id)
+		Summary summary = summarizationService.getCourseAndAssignmentSummary(model.course.id, params.id)
 		model.summary = summary
 
 		model
@@ -61,7 +61,7 @@ class ReportController {
     def students = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummaryByStudent(model.course.courseId)
+		Summary summary = summarizationService.getCourseSummaryByStudent(model.course.id)
 		model.summary = summary
 
 		model
@@ -71,7 +71,7 @@ class ReportController {
 		assert params.id != null
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseAndStudentSummary(model.course.courseId, params.id)
+		Summary summary = summarizationService.getCourseAndStudentSummary(model.course.id, params.id)
 		model.summary = summary
 
 		model
@@ -80,7 +80,7 @@ class ReportController {
 	def tutors = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummaryByTutor(model.course.courseId)
+		Summary summary = summarizationService.getCourseSummaryByTutor(model.course.id)
 		model.summary = summary
 
 		model
@@ -90,7 +90,7 @@ class ReportController {
 		assert params.id != null
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseAndTutorSummary(model.course.courseId, params.id)
+		Summary summary = summarizationService.getCourseAndTutorSummary(model.course.id, params.id)
 		model.summary = summary
 
 		model

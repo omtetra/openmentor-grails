@@ -27,10 +27,10 @@
                         <tbody>
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="courseId"><g:message code="course.courseId.label" default="Course ID" />:</label>
+                                    <label for="courseId"><g:message code="course.id.label" default="Course ID" />:</label>
                                 </td>
                                 <td class="value ${hasErrors(bean: cmd, field: 'courseId', 'errors')}">
-                                	<g:textField name="courseId" value="${courseInstance?.courseId}" readonly="readonly" />
+                                	<g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
                                 </td>
                             </tr>
                             <tr class="prop">
@@ -44,7 +44,7 @@
                                     <g:select 
                          			    noSelection="['':'-Choose assignment-']"
                          				name="assignmentId" 
-                         				from="${Assignment.findAllByCourseId(courseInstance?.courseId)}" 
+                         				from="${Assignment.findAllByCourseId(courseInstance.id)}" 
                          				optionKey="id" 
                          				value="${cmd?.assignmentId}"
                          				optionValue="code" />
@@ -89,7 +89,7 @@
                          				name="tutorIds" 
                          				from="${courseInstance.tutors}" 
                           				value="${cmd?.tutorIds}"
-                         				optionKey="tutorId" 
+                         				optionKey="id" 
                          				optionValue="idAndName" />
                     			</td>
                             </tr>
@@ -106,7 +106,7 @@
                          				name="studentIds" 
                          				from="${courseInstance.students}" 
                           				value="${cmd?.studentIds}"
-                         				optionKey="studentId" 
+                         				optionKey="id" 
                          				optionValue="idAndName" />
                     			</td>
                             </tr>

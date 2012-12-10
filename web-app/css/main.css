@@ -97,6 +97,11 @@ input:focus, select:focus, textarea:focus {
     color: #333;
     padding-left: 23px;
 }
+.menuButton a.delete {
+    background: url(../images/skin/database_delete.png) center left no-repeat;
+    color: #333;
+    padding-left: 23px;
+}
 .menuButton a.edit {
     background: url(../images/skin/database_edit.png) center left no-repeat;
     color: #333;

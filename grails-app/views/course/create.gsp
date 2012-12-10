@@ -20,13 +20,13 @@
                     <tbody>
                         <tr class="prop">
                         	<td valign="top" class="name">
-                            	<label for="courseId"><g:message code="course.courseId.label" default="Course Code" />:</label>
+                            	<label for="id"><g:message code="course.id.label" default="Course Code" />:</label>
                         	</td>
-                            <td valign="top" class="value ${hasErrors(bean: courseInstance, field: 'courseId', 'errors')}">
-                            	<g:hasErrors bean="${courseInstance}" field="courseId">
-                            	<g:renderErrors bean="${courseInstance}" as="list" field="courseId"/>
+                            <td valign="top" class="value ${hasErrors(bean: courseInstance, field: 'id', 'errors')}">
+                            	<g:hasErrors bean="${courseInstance}" field="id">
+                            	<g:renderErrors bean="${courseInstance}" as="list" field="id"/>
                             	</g:hasErrors>
-                                <g:textField name="courseId" value="${courseInstance?.courseId}" />
+                                <g:textField name="id" value="${courseInstance?.id}" />
                             </td>
                         </tr>
                         <tr class="prop">

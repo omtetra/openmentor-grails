@@ -20,7 +20,7 @@
                 <table>
                     <thead>
                         <tr>         
-                            <g:sortableColumn property="courseId" title="${message(code: 'course.courseId.label', default: 'Course Code')}" />
+                            <g:sortableColumn property="id" title="${message(code: 'course.id.label', default: 'Course Code')}" />
                             <g:sortableColumn property="courseTitle" title="${message(code: 'course.courseTitle.label', default: 'Course Title')}" />
                 			<th>Actions</th>
 						</tr>
@@ -28,10 +28,10 @@
                     <tbody>
                     <g:each in="${courseInstanceList}" status="i" var="courseInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td><g:link action="show" id="${fieldValue(bean: courseInstance, field: 'courseId')}">${fieldValue(bean: courseInstance, field: "courseId")}</g:link></td>
+                            <td><g:link action="show" id="${fieldValue(bean: courseInstance, field: 'id')}">${fieldValue(bean: courseInstance, field: "id")}</g:link></td>
                             <td>${fieldValue(bean: courseInstance, field: "courseTitle")}</td>
                             <td>
-                                <g:link action="show" id="${fieldValue(bean: courseInstance, field: 'courseId')}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
+                                <g:link action="show" id="${fieldValue(bean: courseInstance, field: 'id')}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
                            	</td>
                         </tr>
                     </g:each>

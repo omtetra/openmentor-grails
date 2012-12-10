@@ -32,7 +32,7 @@ class AssignmentController {
 		def criteria = Assignment.createCriteria()
 		
 		def assignmentList = criteria.list {
-			eq('courseId', courseInstance.courseId)
+			eq('courseId', courseInstance.id)
 			order(params.sort, params.order)
 		}
 		

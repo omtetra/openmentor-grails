@@ -4,12 +4,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <title><g:message code="assignment.list.label" args="${[courseInstance.courseId]}" /></title>
+        <title><g:message code="assignment.list.label" args="${[courseInstance.id]}" /></title>
     </head>
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="assignment.list.label" args="${[courseInstance.courseId]}" /></h1>
+            <h1><g:message code="assignment.list.label" args="${[courseInstance.id]}" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
