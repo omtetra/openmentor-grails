@@ -14,6 +14,8 @@ and analyzing the results.
 
 This should build using either Grails directly, or Maven. 
 
-Maven is not currently viable on OSX 10.8, due to a problem in the Maven
-plugin for Grails, which only works on JDK6. JDK6 is not supported on OSX
-10.8 (Mountain Lion). On this platform, use Grails directly.
+Maven build now restored. Use the following command to build the code, test
+it, and build a set of Maven web pages containing some useful-ish reports
+on the code, how well it tested, and so on. 
+
+ mvn integration-test site
