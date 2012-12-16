@@ -1,8 +1,8 @@
 Summary: A web-based application to help support tutor feedback
 Name: openmentor
-Version: 1.0.M3
+Version: 1.0.M4
 Release: 1
-Source0: openmentor-1.0.M3.tar.gz
+Source0: openmentor-1.0.M4.tar.gz
 License: ASL 2.0
 Group: Applications/Internet
 Packager: Stuart Watt <stuart@morungos.com>
@@ -26,7 +26,7 @@ grails war
 install -m 0755 -d $RPM_BUILD_ROOT/var/lib/tomcat6/webapps/
 install -m 0755 -d $RPM_BUILD_ROOT/var/log/openmentor
 install -m 0755 -d $RPM_BUILD_ROOT/etc/openmentor
-install -m 0755 target/openmentor-1.0.M3.war $RPM_BUILD_ROOT/var/lib/tomcat6/webapps/
+install -m 0755 target/openmentor-1.0.M4.war $RPM_BUILD_ROOT/var/lib/tomcat6/webapps/
 install -m 0755 src/templates/conf/openmentor-config.groovy $RPM_BUILD_ROOT/etc/openmentor/openmentor-config.groovy
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -37,5 +37,5 @@ echo "OpenMentor web application installed OK"
 %dir /var/lib/tomcat6/webapps/
 %dir /var/log/openmentor
 %dir %attr(0555, -, -) /etc/openmentor
-/var/lib/tomcat6/webapps/openmentor-1.0.M3.war
+/var/lib/tomcat6/webapps/openmentor-1.0.M4.war
 /etc/openmentor/openmentor-config.groovy
