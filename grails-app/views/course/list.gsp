@@ -10,14 +10,17 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h2><g:message code="default.list.label" args="[entityName]" /></h2>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+              <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Note:</strong> ${flash.message}
+              </div>
             </g:if>
             <div class="buttons">
             </div>
             <div class="list">
-                <table>
+                <table class="table table-striped">
                     <thead>
                         <tr>         
                             <g:sortableColumn property="id" title="${message(code: 'course.id.label', default: 'Course Code')}" />
@@ -31,7 +34,7 @@
                             <td><g:link action="show" id="${fieldValue(bean: courseInstance, field: 'id')}">${fieldValue(bean: courseInstance, field: "id")}</g:link></td>
                             <td>${fieldValue(bean: courseInstance, field: "courseTitle")}</td>
                             <td>
-                                <g:link action="show" id="${fieldValue(bean: courseInstance, field: 'id')}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
+                                <g:link class="btn btn-small" action="show" id="${fieldValue(bean: courseInstance, field: 'id')}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
                            	</td>
                         </tr>
                     </g:each>
@@ -43,7 +46,7 @@
             </div>
             
             <div class="nav">
-            	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.button.create.label" default="Create" /></g:link></span>
+            	<span class="menuButton"><g:link class="btn create" action="create"><g:message code="default.button.create.label" default="Create" /></g:link></span>
             </div>
         </div>
         </div>

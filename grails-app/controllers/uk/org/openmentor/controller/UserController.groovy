@@ -40,30 +40,72 @@ class UserController {
 	}
 
 	@Secured(['ROLE_OPENMENTOR-ADMIN'])
-	def create = { }
+	def create = { 
+		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>		
+		[availableRoles: allPossibleRoles]
+	}
 	
 	@Secured(['ROLE_OPENMENTOR-ADMIN'])
-	def save = { UserCommand cmd ->
+	def set_password = { 
+		def userInstance = User.findByUsername(params.id)
+		[userInstance: userInstance]
+	}
+	
+	@Secured(['ROLE_OPENMENTOR-ADMIN'])
+	def save = { 
 		
-		def model = [:]
-		model.cmd = cmd
+		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>		
 
-		if (cmd.hasErrors()) {
+		log.error("Ready to save and start processing")
+		
+		User user = new User()
+		user.username = params.username
+		if (params.password == null || params.password.length() < 8) {
+			user.errors.rejectValue('password', 'user.password.blankortooshort')
+		} else {
+			user.password = springSecurityService.encodePassword(params.password)
+		}
+		if (params.confirm == null || params.confirm.length() < 8) {
+			user.errors.rejectValue('confirm', 'user.password.blankortooshort')
+		} else {
+			user.confirm = springSecurityService.encodePassword(params.confirm)
+		}
+		
+		user.enabled = true
+		user.validate()
+		
+		// Validation can't be delegated to the domain object, as the confirm is a transient
+		// and we can't do it in a command, because roles are open-ended. Also, the value
+		// stored is actually encoded. Fortunately, we can signal errors on transient fields,
+		// even if we can't validate them.
+		
+		def model = [userInstance: user, availableRoles: allPossibleRoles]
+
+		if (params.confirm == null) {
+			user.errors.rejectValue('confirm', 'user.password.blankortooshort')
+		} else if (params.password != params.confirm) {
+			user.errors.rejectValue('confirm', 'user.password.confirm.mismatch')
+		}
+		
+		if (user.hasErrors()) {
 			render(view: "create", model: model)
 			return
 		}
 		
-		log.error("Ready to save and start processing")
-		User user = new User()
-		user.username = cmd.username
-		user.password = springSecurityService.encodePassword(cmd.password)
-		user.enabled = true
+		// Roles need to be handled here. They are harder, as we don't actually have them
+		// wired into the code anywhere. 
 		
 		if (user.validate() && user.save(flush: true)) {
 			
-			def userRole = Role.findByAuthority('ROLE_OPENMENTOR-USER')
-			assert userRole
-			UserRole.create user, userRole
+			Set<Role> newRoles = [] as List<Role>
+			for(String propertyKey in params.keySet().toList()) {
+				if (propertyKey.startsWith("role_")) {
+					def roleName = params.get(propertyKey)
+					def role = Role.findByAuthority(roleName)
+					assert role != null
+					user.addRole(role)
+				}
+			}
 			
 			flash.message = "${message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User')])}"
 			redirect(action: "list")
@@ -84,6 +126,7 @@ class UserController {
 
 	@Secured(['ROLE_OPENMENTOR-USER'])
 	def show = {
+		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>		
 		def username = params.id
 		def currentUser = springSecurityService.currentUser		
 		if (! isAdministrator() && username != currentUser.username) {
@@ -97,20 +140,25 @@ class UserController {
             redirect(action: "list")
         }
         else {
-            [userInstance: userInstance]
+			def allRoles = userInstance ? userInstance.getAuthorities().collect { it.authority } : [] as Set<String>
+            [userInstance: userInstance, userRoles: allRoles, availableRoles: allPossibleRoles]
         }
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-ADMIN'])
+	@Secured(['ROLE_OPENMENTOR-USER'])
 	def edit = {
 		
 		log.trace("Request user/edit: " + params.id)
 		
 		def username = params.id
-		
+		def currentUser = springSecurityService.currentUser
+		if (! isAdministrator() && username != currentUser.username) {
+			flash.message = "${message(code: 'user.invalid', default: 'Invalid user access for {0}', args: [username])}"
+			redirect(action: "show", id: currentUser.username)
+		}
+
 		def userInstance = User.findByUsername(username)
 		def allRoles = userInstance ? userInstance.getAuthorities().collect { it.authority } : [] as Set<String>
-		
 		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>
 		
 		log.trace("Found user: " + userInstance)
@@ -127,44 +175,81 @@ class UserController {
 	}
 
 	@Secured(['ROLE_OPENMENTOR-USER'])
-	def password = { 
-		def username = params.id
-		def currentUser = springSecurityService.currentUser		
-		if (! isAdministrator() && username != currentUser.username) {
-			flash.message = "${message(code: 'user.invalid', default: 'Invalid user access for {0}', args: [username])}"
-            redirect(action: "show", id: currentUser.username)
-		}
+	def update = { 
 		
-		def userInstance = User.findByUsername(username)
-		[userInstance: userInstance]
-	}
-	
-	@Secured(['ROLE_OPENMENTOR-USER'])
-	def update = { UserCommand cmd ->
-		def username = cmd.username
+		def username = params.username
 		def currentUser = springSecurityService.currentUser
 		if (! isAdministrator() && username != currentUser.username) {
 			flash.message = "${message(code: 'user.invalid', default: 'Invalid user access for {0}', args: [username])}"
             redirect(action: "show", id: currentUser.username)
 		}
 		
-		def userInstance = User.findByUsername(cmd.username)
-		def model = [userInstance: userInstance, cmd: cmd]
+		def userInstance = User.get(params.id)
+		
+		def allRoles = userInstance ? userInstance.getAuthorities().collect { it.authority } : [] as Set<String>
+		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>
 
-		if (cmd.hasErrors()) {
-			render(view: "password", model: model)
-			return
+		def model = [userInstance: userInstance, userRoles: allRoles, availableRoles: allPossibleRoles]
+		
+		userInstance.username = params.username
+		
+		// If the confirmation and the password are both set, and match, then we can write
+		// both into the user instance. 
+
+		if (params.password || params.confirm) {
+			if (! params.confirm) {
+				userInstance.errors.rejectValue('confirm', 'user.password.blankortooshort')
+			} else if (params.password != params.confirm) {
+				userInstance.errors.rejectValue('confirm', 'user.password.confirm.mismatch')
+			} else {
+				userInstance.password = springSecurityService.encodePassword(params.password)
+				userInstance.confirm = springSecurityService.encodePassword(params.confirm)
+			}
 		}
 		
-		userInstance.password = springSecurityService.encodePassword(cmd.password)
+		if (userInstance.hasErrors()) {
+			render(view: "edit", model: model)
+			return
+		}
+
+		//		userInstance.password = springSecurityService.encodePassword(cmd.password)
+
 		if (userInstance.validate() && userInstance.save(flush: true)) {
-			flash.message = "${message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User')])}"
-			redirect(action: "show", id: username)
+			
+			// Only change roles if we're an administrator
+			if (isAdministrator()) {
+				Set<Role> newRoles = [] as List<Role>
+				for(String propertyKey in params.keySet().toList()) {
+					if (propertyKey.startsWith("role_")) {
+						def roleName = params.get(propertyKey)
+						def role = Role.findByAuthority(roleName)
+						assert role != null
+						newRoles.add(role)
+					}
+				}
+				
+				Set<Role> rolesToAdd = newRoles.minus(userInstance.getAuthorities())
+				Set<Role> rolesToRemove = userInstance.getAuthorities().minus(newRoles)
+				for(Role role in rolesToRemove) {
+					userInstance.removeRole(role)
+				}
+				for(Role role in rolesToAdd) {
+					userInstance.addRole(role)
+				}
+				
+
+				flash.message = "${message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User')])}"
+				redirect(action: "list")
+			} else {
+				flash.message = "${message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User')])}"
+				redirect(action: "show", id: userInstance.username)
+			}
+				
 		} else {
-			user.errors.each {
+			userInstance.errors.each {
 				log.error(it)
 			}
-			render(view: "password", model: model)
+			render(view: "edit", model: model)
 		}
 	}
 }

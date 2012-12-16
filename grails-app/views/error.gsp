@@ -1,6 +1,7 @@
 <html>
   <head>
 	  <title>Grails Runtime Exception</title>
+      <meta name="layout" content="main" />
 	  <style type="text/css">
 	  		.message {
 	  			border: 1px solid black;
@@ -24,8 +25,9 @@
   </head>
 
   <body>
-    <h1>Grails Runtime Exception</h1>
-    <h2>Error Details</h2>
+    <div class="body">
+    <h2>Grails Runtime Exception</h2>
+    <h3>Error Details</h3>
 
   	<div class="message">
 		<strong>Error ${request.'javax.servlet.error.status_code'}:</strong> ${request.'javax.servlet.error.message'.encodeAsHTML()}<br/>
@@ -36,19 +38,22 @@
 	  		<strong>Caused by:</strong> ${exception.cause?.message?.encodeAsHTML()} <br />
 	  		<strong>Class:</strong> ${exception.className} <br />
 	  		<strong>At Line:</strong> [${exception.lineNumber}] <br />
-	  		<strong>Code Snippet:</strong><br />
+	  		<g:if test="${exception.codeSnippet}">
+            <strong>Code Snippet:</strong><br />
 	  		<div class="snippet">
 	  			<g:each var="cs" in="${exception.codeSnippet}">
 	  				${cs?.encodeAsHTML()}<br />
 	  			</g:each>
 	  		</div>
+	  		</g:if>
 		</g:if>
   	</div>
 	<g:if test="${exception}">
 	    <h2>Stack Trace</h2>
 	    <div class="stack">
-	      <pre><g:each in="${exception.stackTraceLines}">${it.encodeAsHTML()}<br/></g:each></pre>
+	      <pre><small><g:each in="${exception.stackTraceLines}">${it.encodeAsHTML()}</g:each></small></pre>
 	    </div>
 	</g:if>
+	</div>
   </body>
 </html>

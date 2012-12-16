@@ -9,31 +9,47 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="assignment.show.label" args="${[assignmentInstance.code, courseInstance.id]}" /></h1>
+            <h2><g:message code="assignment.show.label" args="${[assignmentInstance.code, courseInstance.id]}" /></h2>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+              <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Note:</strong> ${flash.message}
+              </div>
             </g:if>
-            <div>
-                <table>
-                    <tbody>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="assignment.courseId.label" default="Course ID" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: assignmentInstance, field: "courseId")}</td>
-                        </tr>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="assignment.code.label" default="Code" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: assignmentInstance, field: "code")}</td>
-                        </tr>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="assignment.title.label" default="Title" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: assignmentInstance, field: "title")}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="nav">
-            	<span class="menuButton"><g:link class="edit" action="edit" id="${assignmentInstance.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link></span>
-            </div>
+            <form class="form-horizontal">
+              <div class="control-group  ${hasErrors(bean: assignmentInstance, field: 'courseId', 'error')}">
+                <label class="control-label" for="courseId"><g:message code="assignment.courseId.label" default="Course Code" />:</label>
+                <div class="controls">
+                  <g:textField name="courseId" value="${assignmentInstance.courseId}" readonly="readonly" />
+                  <g:hasErrors bean="${assignmentInstance}" field="courseId">
+                    <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="courseId"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'code', 'error')}">
+                <label class="control-label" for="code"><g:message code="assignment.code.label" default="Assignment Code" />:</label>
+                <div class="controls">
+                  <g:textField name="code" value="${assignmentInstance?.code}" readonly="readonly" />
+                  <g:hasErrors bean="${assignmentInstance}" field="code">
+                    <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="code"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'title', 'error')}">
+                <label class="control-label" for="title"><g:message code="assignment.title.label" default="Assignment Title" />:</label>
+                <div class="controls">
+                  <g:textField name="title" value="${assignmentInstance?.title}" readonly="readonly" />
+                  <g:hasErrors bean="${assignmentInstance}" field="title">
+                    <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="title"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <g:link class="edit btn btn-primary" name="edit" action="edit" id="${assignmentInstance?.id}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
+                </div>
+              </div>
+            </form>
         </div>
         </div>
     </body>

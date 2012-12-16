@@ -54,11 +54,16 @@ class BootStrap {
         def userRole = Role.findByAuthority('ROLE_OPENMENTOR-USER') ?: new Role(authority: 'ROLE_OPENMENTOR-USER').save(failOnError: true)
         def adminRole = Role.findByAuthority('ROLE_OPENMENTOR-ADMIN') ?: new Role(authority: 'ROLE_OPENMENTOR-ADMIN').save(failOnError: true)
 
+		def encodedPassword = springSecurityService.encodePassword('admin')
         def adminUser = User.findByUsername('admin') ?: new User(
             username: 'admin',
-            password: springSecurityService.encodePassword('admin'),
+            password: encodedPassword,
+			confirm: encodedPassword,
             enabled: true).save(failOnError: true)
             
+		if (! adminUser.authorities.contains(userRole)) {
+			UserRole.create adminUser, userRole
+		}
         if (! adminUser.authorities.contains(adminRole)) {
             UserRole.create adminUser, adminRole
         }
@@ -72,74 +77,66 @@ class BootStrap {
         // Seed only when there's no data
         if (Course.count() == 0) {
             
-            def courseCM2006 = new Course(id: "CM2006", courseTitle: "Interface Design")
-            def courseCM2007 = new Course(id: "CM2007", courseTitle: "Intranet Systems Development")
-            def courseCM3010 = new Course(id: "CM3010", courseTitle: "Information Retrieval")
-            def courseAA1003 = new Course(id: "AA1003", courseTitle: "Multimedia Programming")
+            def courseCM2006 = new Course(id: "CM2006", courseTitle: "Interface Design").save(failOnError:true)
+            def courseCM2007 = new Course(id: "CM2007", courseTitle: "Intranet Systems Development").save(failOnError:true)
+            def courseCM3010 = new Course(id: "CM3010", courseTitle: "Information Retrieval").save(failOnError:true)
+            def courseAA1003 = new Course(id: "AA1003", courseTitle: "Multimedia Programming").save(failOnError:true)
 
             def student09000231 = new Student(id: "09000231", givenName: "Gwenda", familyName: "Blane")
-            student09000231.save(failOnError:true)
+            student09000231.addToCourses(courseCM2006)
+			student09000231.addToCourses(courseCM2007)
+			student09000231.save(failOnError:true)
 
             def student09000232 = new Student(id: "09000232", givenName: "Fred", familyName: "Zucker")
-            student09000232.save(failOnError:true)
+            student09000232.addToCourses(courseCM2007)
+			student09000232.addToCourses(courseCM2006)
+			student09000232.addToCourses(courseAA1003)
+			student09000232.save(failOnError:true)
 
             def student09000233 = new Student(id: "09000233", givenName: "Caitlyn", familyName: "Respass")
-            student09000233.save(failOnError:true)
+            student09000233.addToCourses(courseCM2006)
+			student09000233.addToCourses(courseCM3010)
+			student09000233.addToCourses(courseAA1003)
+			student09000233.save(failOnError:true)
 
             def student09000234 = new Student(id: "09000234", givenName: "Luke", familyName: "Naccarato")
-            student09000234.save(failOnError:true)
+            student09000234.addToCourses(courseCM2006)
+			student09000234.addToCourses(courseCM2007)
+			student09000234.addToCourses(courseCM3010)
+			student09000234.addToCourses(courseAA1003)
+			student09000234.save(failOnError:true)
 
             def student09000235 = new Student(id: "09000235", givenName: "Pierre", familyName: "Busse")
-            student09000235.save(failOnError:true)
+            student09000235.addToCourses(courseCM3010)
+			student09000235.addToCourses(courseCM2006)
+			student09000235.save(failOnError:true)
 
             def student09000236 = new Student(id: "09000236", givenName: "Ami", familyName: "Montalvo")
-            student09000236.save(failOnError:true)
+            student09000236.addToCourses(courseCM2006)
+            student09000236.addToCourses(courseCM2007)
+			student09000236.addToCourses(courseAA1003)
+			student09000236.save(failOnError:true)
 
             def student09000237 = new Student(id: "09000237", givenName: "Jackie", familyName: "Nicolas")
+			student09000237.addToCourses(courseAA1003)
             student09000237.save(failOnError:true)
 
             def tutorM4000061 = new Tutor(id: "M4000061", givenName: "Zena", familyName: "Beatrice")
+			tutorM4000061.addToCourses(courseAA1003)
+			tutorM4000061.addToCourses(courseCM2006)
             tutorM4000061.save(failOnError:true)
 
             def tutorM4000062 = new Tutor(id: "M4000062", givenName: "Levi", familyName: "Evert")
+			tutorM4000062.addToCourses(courseCM2006)
+			tutorM4000062.addToCourses(courseCM2007)
             tutorM4000062.save(failOnError:true)
 
             def tutorM4000063 = new Tutor(id: "M4000063", givenName: "Jeanie", familyName: "Denman")
+			tutorM4000063.addToCourses(courseCM2006)
+			tutorM4000063.addToCourses(courseCM3010)
             tutorM4000063.save(failOnError:true)
             
-            courseCM2006.addToStudents(student09000231)
-            courseCM2006.addToStudents(student09000232)
-            courseCM2006.addToStudents(student09000233)
-            courseCM2006.addToStudents(student09000234)
-            courseCM2006.addToStudents(student09000235)
-            courseCM2006.addToStudents(student09000237)
-            courseCM2006.addToTutors(tutorM4000061)
-            courseCM2006.addToTutors(tutorM4000062)
-            courseCM2006.addToTutors(tutorM4000063)
-            courseCM2006.save(failOnError:true)
-            
-            courseCM2007.addToStudents(student09000231)
-            courseCM2007.addToStudents(student09000232)
-            courseCM2007.addToStudents(student09000234)
-            courseCM2007.addToStudents(student09000236)
-            courseCM2007.addToTutors(tutorM4000062)
-            courseCM2007.save(failOnError:true)
-            
-            courseCM3010.addToStudents(student09000233)
-            courseCM3010.addToStudents(student09000234)
-            courseCM3010.addToStudents(student09000235)
-            courseCM3010.addToTutors(tutorM4000063)
-            courseCM3010.save(failOnError:true)
-            
-            courseAA1003.addToStudents(student09000232)
-            courseAA1003.addToStudents(student09000233)
-            courseAA1003.addToStudents(student09000234)
-            courseAA1003.addToStudents(student09000236)
-            courseAA1003.addToStudents(student09000237)
-            courseAA1003.addToTutors(tutorM4000061)
-            courseAA1003.save(failOnError:true)
-            
-            def assignment1 = new Assignment(courseId: courseCM2006.id, code: "TMA01").save(failOnError:true)
+			def assignment1 = new Assignment(courseId: courseCM2006.id, code: "TMA01").save(failOnError:true)
             def assignment2 = new Assignment(courseId: courseCM2006.id, code: "TMA02").save(failOnError:true)
             def assignment3 = new Assignment(courseId: courseCM2006.id, code: "TMA03").save(failOnError:true)
             def assignment4 = new Assignment(courseId: courseCM2007.id, code: "TMA01").save(failOnError:true)

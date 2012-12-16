@@ -1,4 +1,5 @@
 
+<%@ page import="uk.org.openmentor.courseinfo.Course" %>
 <%@ page import="uk.org.openmentor.courseinfo.Student" %>
 <html>
     <head>
@@ -10,35 +11,47 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <h2><g:message code="default.show.label" args="[entityName]" /></h2>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+              <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Note:</strong> ${flash.message}
+              </div>
             </g:if>
-            <div>
-                <table>
-                    <tbody>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="student.id.label" default="Student ID" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: studentInstance, field: "id")}</td>
-                        </tr>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="student.givenName.label" default="Given Name" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: studentInstance, field: "givenName")}</td>
-                        </tr>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="student.familyName.label" default="Family Name" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: studentInstance, field: "familyName")}</td>
-                        </tr>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="student.courses.label" default="Courses" />:</td>
-                            <td valign="top" class="value"><%= studentInstance.courses.collect { it.id }.sort().join(', ') %></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="nav">
-            	<span class="menuButton"><g:link class="edit" action="edit" id="${studentInstance.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link></span>
-            </div>
+            <form class="form-horizontal">
+              <div class="control-group">
+                <label class="control-label" for="id"><g:message code="course.id.label" default="Student ID " />:</label>
+                <div class="controls">
+                  <g:textField name="id" value="${studentInstance?.id}" disabled="true" readonly="true" />
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="givenName"><g:message code="student.givenName.label" default="Given Name" />:</label>
+                <div class="controls">
+                  <g:textField name="givenName" value="${studentInstance?.givenName}" disabled="true" readonly="true" />
+                </div>
+              </div>              
+              <div class="control-group">
+                <label class="control-label" for="familyName"><g:message code="student.familyName.label" default="Family Name" />:</label>
+                <div class="controls">
+                  <g:textField name="familyName" value="${studentInstance?.familyName}" disabled="true" readonly="true" />
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
+                <div class="controls">
+                  <g:select id="courses" name="courses" optionKey="id" optionValue="id" multiple="${true}"
+                            from="${Course.findAll()}" 
+                            value="${studentInstance?.courses}"
+                            disabled="true" readonly="true"/>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <g:link class="edit btn btn-primary" name="edit" action="edit" id="${studentInstance?.id}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
+                </div>
+              </div>
+            </form>
         </div>
         </div>
     </body>

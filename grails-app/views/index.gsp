@@ -1,14 +1,12 @@
 <html>
     <head>
-        <title>Welcome to Grails</title>
+        <title>What is Open Mentor?</title>
         <meta name="layout" content="main" />
-        <style type="text/css" media="screen">
-        </style>
     </head>
     <body>
         <div id="page">
         	<div class="body">
-            <h1>What is Open Mentor?</h1>
+            <h2>What is Open Mentor?</h2>
             
             <p>
             Open Mentor is a learning support tool for tutors that provides
@@ -22,7 +20,7 @@
       			</g:link>
       		</p>
       		
-            <h2>How does it work in practice?</h2>
+            <h3>How does it work in practice?</h3>
             <p>
             Open Mentor provides tutors with guidance by analysing the
       		comments they make and grouping them in four major
@@ -40,7 +38,7 @@
       			</g:link>
       		</p>
       		
-      		<h2>What can it tell you?</h2>
+      		<h3>What can it tell you?</h3>
       		
       		<p>Open Mentor can provide you with indicators of the following relationships:</p>
       		<ul>
@@ -67,7 +65,7 @@
         		</li>
       		</ul>
       		
-      		<h2>When can it be used?</h2>
+      		<h3>When can it be used?</h3>
     
     		<p>
       			Open Mentor can be used for example to:

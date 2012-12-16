@@ -1,6 +1,7 @@
+/* jshint forin:true, noarg:true, noempty:true, eqeqeq:true, boss:true, undef:true, curly:true, browser:true, jquery:true */
 /*
- * jQuery MultiSelect UI Widget Filtering Plugin 1.3
- * Copyright (c) 2011 Eric Hynds
+ * jQuery MultiSelect UI Widget Filtering Plugin 1.4
+ * Copyright (c) 2012 Eric Hynds
  *
  * http://www.erichynds.com/jquery/jquery-ui-multiselect-widget/
  *
@@ -13,14 +14,15 @@
  *
 */
 (function($){
-	var rEscape = /[\-\[\]{}()*+?.,\\^$|#\s]/g;
+	var rEscape = /[\-\[\]{}()*+?.,\\\^$|#\s]/g;
 	
 	$.widget("ech.multiselectfilter", {
 		
 		options: {
 			label: "Filter:",
 			width: null, /* override default width set in css file (px). null will inherit */
-			placeholder: "Enter keywords"
+			placeholder: "Enter keywords",
+			autoReset: false
 		},
 		
 		_create: function(){
@@ -68,7 +70,7 @@
 						":disabled, :hidden" :
 						":disabled";
 
-				$inputs = $inputs.not( selector ).each(this._toggleCheckbox('checked', flag));
+				$inputs = $inputs.not( selector ).each(this._toggleState('checked', flag));
 				
 				// update text
 				this.update();
@@ -83,16 +85,21 @@
 					.find('option')
 					.filter(function(){
 						if( !this.disabled && $.inArray(this.value, values) > -1 ){
-							_self._toggleCheckbox('selected', flag).call( this );
+							_self._toggleState('selected', flag).call( this );
 						}
 					});
 			};
 			
 			// rebuild cache when multiselect is updated
-			$(document).bind("multiselectrefresh", function(){
+			var doc = $(document).bind("multiselectrefresh", function(){
 				self.updateCache();
 				self._handler();
 			});
+
+			// automatically reset the widget on close?
+			if(this.options.autoReset) {
+				doc.bind("multiselectclose", $.proxy(this._reset, this));
+			}
 		},
 		
 		// thx for the logic here ben alman
@@ -109,7 +116,7 @@
 				
 				var regex = new RegExp(term.replace(rEscape, "\\$&"), 'gi');
 				
-				this._trigger( "filter", e, $.map(cache, function(v,i){
+				this._trigger( "filter", e, $.map(cache, function(v, i){
 					if( v.search(regex) !== -1 ){
 						rows.eq(i).show();
 						return inputs.get(i);
@@ -122,8 +129,16 @@
 			// show/hide optgroups
 			this.instance.menu.find(".ui-multiselect-optgroup-label").each(function(){
 				var $this = $(this);
-				$this[ $this.nextUntil('.ui-multiselect-optgroup-label').filter(':visible').length ? 'show' : 'hide' ]();
+				var isVisible = $this.nextUntil('.ui-multiselect-optgroup-label').filter(function(){
+				  return $.css(this, "display") !== 'none';
+				}).length;
+				
+				$this[ isVisible ? 'show' : 'hide' ]();
 			});
+		},
+
+		_reset: function() {
+			this.input.val('').trigger('keyup');
 		},
 		
 		updateCache: function(){

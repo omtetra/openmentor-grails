@@ -86,10 +86,8 @@ class TutorController {
 				// associated courses and other components. For that reason, we block
 				// changes to the identifier.
 				
-				tutorInstance.givenName = params.givenName
-	        	tutorInstance.familyName = params.familyName
-	        	tutorInstance.id = params.id
-	        	tutorInstance.save()
+	        	tutorInstance.properties = params
+	    		tutorInstance.save()
 
 	        	if (!tutorInstance.hasErrors() && tutorInstance.save(flush: true)) {
 	        		flash.message = "${message(code: 'default.updated.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.id])}"
