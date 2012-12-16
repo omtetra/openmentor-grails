@@ -1,17 +1,21 @@
 package uk.org.openmentor.controller
 
-import grails.test.*
+import grails.test.mixin.*
+import org.junit.*
 
-class CourseControllerTests extends ControllerUnitTestCase {
-    protected void setUp() {
-        super.setUp()
-    }
+@TestFor(CourseController)
+class CourseControllerTests {
+	protected void setUp() {
+		super.setUp()
+	}
 
-    protected void tearDown() {
-        super.tearDown()
-    }
+	protected void tearDown() {
+		super.tearDown()
+	}
 
-    void testSomething() {
-
-    }
+	void testIndex() {
+		controller.index()
+		
+		assert response.redirectedUrl == '/course/list'
+	}
 }

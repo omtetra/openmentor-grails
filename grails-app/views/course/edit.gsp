@@ -10,43 +10,38 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
+            <h2><g:message code="default.edit.label" args="[entityName]" /></h2>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+              <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Note:</strong> ${flash.message}
+              </div>
             </g:if>
-            <g:form action="update" method="post">
-            <g:hiddenField name="version" value="${courseInstance?.version}" />
-            <div>
-                <table>
-                    <tbody>
-                        <tr class="prop">
-                        	<td valign="top" class="name">
-                            	<label for="id"><g:message code="course.id.label" default="Course Code" />:</label>
-                        	</td>
-                            <td valign="top" class="value ${hasErrors(bean: courseInstance, field: 'id', 'errors')}">
-                                <g:hasErrors bean="${courseInstance}" field="id">
-                            	<g:renderErrors bean="${courseInstance}" as="list" field="id"/>
-                            	</g:hasErrors>
-                                <g:textField disabled="disabled" name="id" value="${courseInstance.id}" />
-                            </td>
-                        </tr>
-                        <tr class="prop">
-                        	<td valign="top" class="name">
-                            	<label for="courseTitle"><g:message code="course.courseTitle.label" default="Course Title" />:</label>
-                        	</td>
-                            <td valign="top" class="value ${hasErrors(bean: courseInstance, field: 'courseTitle', 'errors')}">
-                                <g:hasErrors bean="${courseInstance}" field="courseTitle">
-                            	<g:renderErrors bean="${courseInstance}" as="list" field="courseTitle"/>
-                            	</g:hasErrors>
-                                <g:textField name="courseTitle" value="${courseInstance?.courseTitle}" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="buttons">
-                <span class="button"><g:submitButton name="save" class="save" value="${message(code: 'default.button.save.label', default: 'Save')}" /></span>
-            </div>
+            <g:form action="update" method="post" class="form-horizontal">
+              <g:hiddenField name="version" value="${courseInstance?.version}" />
+              <div class="control-group ${hasErrors(bean: courseInstance, field: 'id', 'error')}">
+                <label class="control-label" for="id"><g:message code="course.id.label" default="Course Code" />:</label>
+                <div class="controls">
+                  <g:textField name="id" value="${courseInstance?.id}" readonly="true" />
+                  <g:hasErrors bean="${courseInstance}" field="id">
+                    <span class="help-inline"><g:renderErrors bean="${courseInstance}" as="list" field="id"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: courseInstance, field: 'courseTitle', 'error')}">
+                <label class="control-label" for="courseTitle"><g:message code="course.courseTitle.label" default="Course Title" />:</label>
+                <div class="controls">
+                  <g:textField name="courseTitle" value="${courseInstance?.courseTitle}" placeholder="Course Title" />
+                  <g:hasErrors bean="${courseInstance}" field="courseTitle">
+                    <span class="help-inline"><g:renderErrors bean="${courseInstance}" as="list" field="courseTitle"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <g:submitButton class="save btn btn-primary" name="save" value="${message(code: 'default.button.save.label', default: 'Save')}" />
+                </div>
+              </div>
             </g:form>
         </div>
         </div>

@@ -9,14 +9,17 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="default.history.label" args="[entityName]" /></h1>
+            <h2><g:message code="default.history.label" args="[entityName]" /></h2>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+              <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Note:</strong> ${flash.message}
+              </div>
             </g:if>
             <div class="buttons">
             </div>
             <div class="list">
-                <table>
+                <table class="table table-striped">
                     <thead>
                         <tr>         
                             <g:sortableColumn property="dateSubmitted" title="${message(code: 'submission.date.label', default: 'Date submitted')}" />

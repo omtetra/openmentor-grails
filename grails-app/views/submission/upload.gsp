@@ -10,7 +10,7 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="assignment.upload.label" /></h1>
+            <h2><g:message code="assignment.upload.label" /></h2>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -21,103 +21,96 @@
             </div>
             </g:hasErrors>
             
-            <g:uploadForm action="save" method="post">
-                <div>
-                    <table>
-                        <tbody>
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="courseId"><g:message code="course.id.label" default="Course ID" />:</label>
-                                </td>
-                                <td class="value ${hasErrors(bean: cmd, field: 'courseId', 'errors')}">
-                                	<g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
-                                </td>
-                            </tr>
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="assignment"><g:message code="assignment.label" default="Assignment" />:</label>
-                                </td>
-                                <td class="value ${hasErrors(bean: cmd, field: 'assignmentId', 'errors')}">
-                         			<g:hasErrors bean="${cmd}" field="assignmentId">
-                            	    <g:renderErrors bean="${cmd}" as="list" field="assignmentId"/>
-                            	    </g:hasErrors>
-                                    <g:select 
-                         			    noSelection="['':'-Choose assignment-']"
-                         				name="assignmentId" 
-                         				from="${Assignment.findAllByCourseId(courseInstance.id)}" 
-                         				optionKey="id" 
-                         				value="${cmd?.assignmentId}"
-                         				optionValue="code" />
-                    			</td>
-                            </tr>
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="assignment"><g:message code="assignment.dataFile.label" default="File" />:</label>
-                                </td>
-                                <td class="value ${hasErrors(bean: cmd, field: 'dataFile', 'errors')}">
-                         			<g:hasErrors bean="${cmd}" field="dataFile">
-                            	    <g:renderErrors bean="${cmd}" as="list" field="dataFile"/>
-                            	    </g:hasErrors>
-                                    <input type="file" name="dataFile" />
-                    			</td>
-                            </tr>
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="assignment"><g:message code="assignment.grade.label" default="Marks category given" />:</label>
-                                </td>
-                                <td class="value ${hasErrors(bean: cmd, field: 'grade', 'errors')}">
-                         			<g:hasErrors bean="${cmd}" field="grade">
-                            	    <g:renderErrors bean="${cmd}" as="list" field="grade"/>
-                            	    </g:hasErrors>
-                                    <g:select 
-                         			    noSelection="['':'-Choose grade-']"
-                         				name="grade" 
-                         				value="${cmd?.grade}"
-                         				from="${grades}" />
-                    			</td>
-                    		</tr>
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="tutor"><g:message code="default.tutor.label" default="Tutor" />:</label>
-                                </td>
-                                <td class="value ${hasErrors(bean: cmd, field: 'tutorIds', 'errors')}">
-                         			<g:hasErrors bean="${cmd}" field="tutorIds">
-                            	    <g:renderErrors bean="${cmd}" as="list" field="tutorIds"/>
-                            	    </g:hasErrors>
-                                    <g:select 
-                         			    noSelection="['':'-Choose tutor-']"
-                         				name="tutorIds" 
-                         				from="${courseInstance.tutors}" 
-                          				value="${cmd?.tutorIds}"
-                         				optionKey="id" 
-                         				optionValue="idAndName" />
-                    			</td>
-                            </tr>
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="student"><g:message code="default.student.label" default="Student" />:</label>
-                                </td>
-                                <td class="value ${hasErrors(bean: cmd, field: 'studentIds', 'errors')}">
-                         			<g:hasErrors bean="${cmd}" field="studentIds">
-                            	    <g:renderErrors bean="${cmd}" as="list" field="studentIds"/>
-                            	    </g:hasErrors>
-                                    <g:select 
-                         			    noSelection="['':'-Choose student-']"
-                         				name="studentIds" 
-                         				from="${courseInstance.students}" 
-                          				value="${cmd?.studentIds}"
-                         				optionKey="id" 
-                         				optionValue="idAndName" />
-                    			</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <g:uploadForm action="save" method="post" class="form-horizontal">
+              <div class="control-group  ${hasErrors(bean: cmd, field: 'courseId', 'errors')}">
+                <label class="control-label" for="courseId"><g:message code="course.id.label" default="Course ID" />:</label>
+                <div class="controls">
+                  <g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
                 </div>
-                <div class="buttons">
-                    <span class="button"><g:submitButton name="upload" class="save" value="${message(code: 'default.button.upload.label', default: 'Upload')}" /></span>
+              </div>
+              <div class="control-group ${hasErrors(bean: cmd, field: 'assignmentId', 'error')}">
+                <label class="control-label" for="assignment"><g:message code="assignment.label" default="Assignment" />:</label>
+                <div class="controls">
+                  <g:select 
+                    noSelection="['':'-Choose assignment-']"
+                    name="assignmentId" 
+                    from="${Assignment.findAllByCourseId(courseInstance.id)}" 
+                    optionKey="id" 
+                    value="${cmd?.assignmentId}"
+                    optionValue="code" />
+                  <g:hasErrors bean="${cmd}" field="assignmentId">
+                  <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="assignmentId"/></span>
+                  </g:hasErrors>
                 </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: cmd, field: 'dataFile', 'error')}">
+                <label class="control-label" for="dataFile"><g:message code="assignment.dataFile.label" default="File" />:</label>
+                <div class="controls">
+                  <input type="file" name="dataFile" id="file" />
+                  <g:hasErrors bean="${cmd}" field="dataFile">
+                  <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="dataFile"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: cmd, field: 'grade', 'error')}">
+                <label class="control-label" for="grade"><g:message code="assignment.grade.label" default="Marks category given" />:</label>
+                <div class="controls">
+                  <g:select 
+                    noSelection="['':'-Choose grade-']"
+                    name="grade" 
+                    value="${cmd?.grade}"
+                    from="${grades}" />
+                  <g:hasErrors bean="${cmd}" field="grade">
+                  <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="grade"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: cmd, field: 'tutorIds', 'error')}">
+                <label class="control-label" for="tutorIds"><g:message code="default.tutor.label" default="Tutor" />:</label>
+                <div class="controls">
+                  <g:select 
+                    noSelection="['':'-Choose tutor-']"
+                    name="tutorIds" 
+                    from="${courseInstance.tutors}" 
+                    value="${cmd?.tutorIds}"
+                    optionKey="id" 
+                    optionValue="idAndName" />
+                  <g:hasErrors bean="${cmd}" field="tutorIds">
+                  <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="tutorIds"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: cmd, field: 'studentIds', 'error')}">
+                <label class="control-label" for="studentIds"><g:message code="default.student.label" default="Student" />:</label>
+                <div class="controls">
+                  <g:select 
+	                 noSelection="['':'-Choose student-']"
+	                 name="studentIds" 
+	                 from="${courseInstance.students}" 
+	                 value="${cmd?.studentIds}"
+	                 optionKey="id" 
+	                 optionValue="idAndName" />
+                  <g:hasErrors bean="${cmd}" field="studentIds">
+                  <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="studentIds"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <g:submitButton class="save btn btn-primary" name="upload" value="${message(code: 'default.button.upload.label', default: 'Upload')}" />
+                </div>
+              </div>
             </g:uploadForm>
 		</div>
 		</div>
+        <content tag="postJQuery">
+            <g:javascript>
+jQuery(document).ready(function() {
+  jQuery('#file').customFileInput({
+    button_position: 'right'
+  });
+});
+            </g:javascript>
+        </content>
 	</body>
 </html>

@@ -87,9 +87,7 @@ class StudentController {
 				// associated courses and other components. For that reason, we block
 				// changes to the identifier.
 				
-				studentInstance.givenName = params.givenName
-				studentInstance.familyName = params.familyName
-				studentInstance.id = params.id
+				studentInstance.properties = params
 				studentInstance.save()
 				
 	            if (!studentInstance.hasErrors() && studentInstance.save(flush: true)) {

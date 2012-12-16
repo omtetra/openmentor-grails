@@ -79,27 +79,28 @@ def applicationName = appName
 
 // log4j configuration
 log4j = {
-    
-	appenders {
-        rollingFile name: "stdout",     maxFileSize: 1024, file: "${logDirectory}/${applicationName}-output.log"
-		rollingFile name: "stacktrace", maxFileSize: 1024, file: "${logDirectory}/${applicationName}-stacktrace.log"
-    }
 	
-	debug  'grails.app.controller',
-           'grails.app.domain'
+	appenders {
+		console name: "stdout",
+				layout: pattern(conversionPattern: "%r [%t] %p %c %x - %m%n")
+	}
+	
+	root {
+		debug 'stdout'
+	}
+    
+	info   'grails.app',
+	       'uk.org.openmentor'
 
-    debug  'org.codehaus.groovy.grails.web.servlet',  //  controllers
-           'org.codehaus.groovy.grails.web.pages', //  GSP
-           'org.codehaus.groovy.grails.web.sitemesh', //  layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping', // URL mapping
-           'org.codehaus.groovy.grails.commons', // core / classloading
-           'org.codehaus.groovy.grails.plugins', // plugins
-           'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate',
-		   'org.eclipse'
+    warn   'grails.plugin',
+		   'grails.spring',
+	       'org.apache',
+	       'org.springframework',
+		   'org.hibernate',
+           'org.eclipse'
+		   
+	error  'net.sf.ehcache',
+		   'org.codehaus.groovy.grails'
 }
 
 //grails.plugins.springsecurity.rejectIfNoRule = true

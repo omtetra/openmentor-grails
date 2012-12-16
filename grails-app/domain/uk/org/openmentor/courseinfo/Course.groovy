@@ -8,6 +8,7 @@ class Course implements Comparable<Course> {
 	SortedSet students
 	SortedSet tutors
 	
+	static belongsTo = [ Student, Tutor ]
 	static hasMany = [ students: Student, tutors: Tutor ]
 
     static constraints = {

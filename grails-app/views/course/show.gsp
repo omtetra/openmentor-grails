@@ -10,27 +10,32 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <h2><g:message code="default.show.label" args="[entityName]" /></h2>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+              <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Note:</strong> ${flash.message}
+              </div>
             </g:if>
-            <div>
-                <table>
-                    <tbody>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="course.id.label" default="Course Code" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: courseInstance, field: "id")}</td>
-                        </tr>
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="course.courseTitle.label" default="Course Title" />:</td>
-                            <td valign="top" class="value">${fieldValue(bean: courseInstance, field: "courseTitle")}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="nav">
-            	<span class="menuButton"><g:link class="edit" action="edit" id="${courseInstance.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link></span>
-            </div>
+            <form class="form-horizontal">
+              <div class="control-group">
+                <label class="control-label" for="id"><g:message code="course.id.label" default="Course Code" />:</label>
+                <div class="controls">
+                  <g:textField name="id" value="${courseInstance?.id}" disabled="true" />
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="courseTitle"><g:message code="course.courseTitle.label" default="Course Title" />:</label>
+                <div class="controls">
+                  <g:textField name="courseTitle" value="${courseInstance?.courseTitle}" disabled="true" />
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <g:link class="edit btn btn-primary" name="edit" action="edit" id="${courseInstance?.id}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
+                </div>
+              </div>
+            </form>
         </div>
         </div>
     </body>

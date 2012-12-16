@@ -7,7 +7,6 @@ class Student implements Comparable<Student>{
     String familyName
     
     static hasMany = [ courses: Course ]
-    static belongsTo = Course
     
     static constraints = {
         id(nullable: false, blank:false, unique: true)

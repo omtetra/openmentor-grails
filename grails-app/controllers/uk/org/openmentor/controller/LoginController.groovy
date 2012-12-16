@@ -120,7 +120,7 @@ class LoginController {
 			}
 		}
 
-		log.error(SpringSecurityUtils.securityConfig)
+		log.trace(SpringSecurityUtils.securityConfig)
 		log.error("Authentication failed: username: " + username + ", reason: " + msg)
 
 		if (springSecurityService.isAjax(request)) {

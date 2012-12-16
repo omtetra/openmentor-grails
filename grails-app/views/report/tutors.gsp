@@ -9,9 +9,9 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="report.tutor.label" args="[entityName]" /></h1>
+            <h2><g:message code="report.tutor.label" args="[entityName]" /></h2>
             
-            <h2>Positive comments</h2>
+            <h3>Positive comments</h3>
             
             <div id="placeholder_positive" style="width:600px;height:300px"></div>
 			<g:differenceChart 
@@ -20,7 +20,7 @@
 				band="${"A"}"
 				action="tutor" />
 			 
-            <h2>Teaching points</h2>
+            <h3>Teaching points</h3>
             
             <div id="placeholder_teaching" style="width:600px;height:300px"></div>
 			<g:differenceChart 
@@ -29,7 +29,7 @@
 				band="${"B"}"
 				action="tutor" />
 
-			<h2>Questions</h2>
+			<h3>Questions</h3>
 			
             <div id="placeholder_questions" style="width:600px;height:300px"></div>
 			<g:differenceChart 
@@ -38,7 +38,7 @@
 				band="${"C"}"
 				action="tutor" />
 
-			<h2>Negative comments</h2>
+			<h3>Negative comments</h3>
                         
             <div id="placeholder_negative" style="width:600px;height:300px"></div>
 			<g:differenceChart 

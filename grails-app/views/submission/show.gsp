@@ -10,12 +10,15 @@
 	<body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="submission.show.label" args="${[submissionInstance.filename]}" /></h1>
+            <h2><g:message code="submission.show.label" args="${[submissionInstance.filename, submissionInstance.assignment.courseId, submissionInstance.grade.id]}" /></h2>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+              <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Note:</strong> ${flash.message}
+              </div>
             </g:if>
 
-			<table>
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th><g:message code="summary.category.label"/></th>
@@ -29,26 +32,17 @@
 					<g:each var="band" in="${Category.getBands()}" status="bandIndex">
 						<tr>
 							<td>
-								<p>
-									<em>${band}</em>
-								</p>
+								<p><em>${band}</em></p>
 							</td>
 							<td class="number"><p>${summary.data.getAt(band).actual}</p></td>
 							<td class="number"><p>${summary.data.getAt(band).ideal}</p></td>
 							<td>
 								<g:set var="limit" value="3"/>
 								<g:each var="comment" in="${summary.data.getAt(band).comments}" status="commentIndex">
-									<p>
-										<g:if test="${commentIndex <= limit}">
-											${comment}
-										</g:if>
-									</p>
+									<p><g:if test="${commentIndex <= limit}">${comment}</g:if></p>
 								</g:each>
 								<g:if test="${commentIndex > (limit + 1)}">
-									<p>
-										<i>...(and ${commentIndex - limit - 1} more)
-										</i>
-									</p>
+									<p><i>...(and ${commentIndex - limit - 1} more)</i></p>
 								</g:if></td>
 						</tr>
 					</g:each>

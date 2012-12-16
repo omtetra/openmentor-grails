@@ -8,7 +8,7 @@
     </head>
     <body>
         <div id="pageBody">
-            <h1>What is Open Mentor?</h1>
+            <h2>What is Open Mentor?</h2>
             
     <p>
       The teaching model underlying the system recognises that
@@ -38,7 +38,7 @@
     </p>
     
     <a name="workinpractice"></a>
-    <h2>How does it work in practice?</h2>
+    <h3>How does it work in practice?</h3>
     <p>
       OpenMentor analyses the tutors comments and sifts them to see if
       the underlying teaching model applies.  In fact there are four
@@ -65,145 +65,129 @@
     </p>
         
     <!--Neat table background -->
-    <table style="width:50em">
-      <caption>Table 1: Bales' Interaction
-      Process used for the analysis in OpenMentor</caption>
-      <tr class="NeatBG" >
-        <td>
-          <table>
-            <tr class="OffWhiteBG">
-              <td width="50%" colspan="2" class="Help">
+    <table class="table table-striped">
+      <caption><strong>Table 1: Bales' Interaction
+      Process used for the analysis in OpenMentor</strong></caption>
+            <tr>
+              <td colspan="2">
                 <strong>Categories</strong>
               </td>
-              <td width="50%" class="Help">
+              <td>
                 <strong>Specific Examples</strong>
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td colspan="3" class="Help">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <tr>
+              <td colspan="3">
                 <strong>Positive Reactions</strong>
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">A1</td>
-              <td width="50%" class="Help">
-                9. Shows solidarity 
+            <tr>
+              <td>A1</td>
+              <td>
+                1. Shows solidarity 
               </td>
-              <td width="50%" class="Help">
+              <td>
                 Jokes, gives help, rewards others
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">A2</td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>A2</td>
+              <td>
                 2. Shows tension release
               </td>
-              <td width="50%" class="Help">
+              <td>
                 Laughs, shows satisfaction
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">A3</td>
-              <td width="50%" class="Help">3. Shows agreement</td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>A3</td>
+              <td>3. Shows agreement</td>
+              <td>
                 Understands, concurs, complies, passively accepts
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td colspan="3" class="Help">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <tr>
+              <td colspan="3">
                 <strong>Teaching Points</strong>
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">B1</td>
-              <td width="50%" class="Help">4. Gives suggestion</td>
-              <td width="50%" class="Help">Directs, proposes, controls</td>
+            <tr>
+              <td>B1</td>
+              <td>4. Gives suggestion</td>
+              <td>Directs, proposes, controls</td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">B2</td>
-              <td width="50%" class="Help">5. Gives opinion</td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>B2</td>
+              <td>5. Gives opinion</td>
+              <td>
                 Evaluates, analyses, expresses feelings or wishes
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">B3</td>
-              <td width="50%" class="Help">6. Gives information</td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>B3</td>
+              <td>6. Gives information</td>
+              <td>
                 Orients, repeats, clarifies, confirms
               </td>
             </tr>
-          </table>
-        </td>
-      </tr>
-      <tr class="NeatBG" >
-        <td>
-          <table border="0" cellpadding="2" cellspacing="1">
-            <tr class="OffWhiteBG">
-              <td colspan="3" class="Help">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <tr>
+              <td colspan="3">
                 <strong>Questions</strong>
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">C1</td>
-              <td width="50%" class="Help">7. Asks for information</td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>C1</td>
+              <td>7. Asks for information</td>
+              <td>
                 Requests orientation, repetition, confirmation,
                 clarification
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">C2</td>
-              <td width="50%" class="Help">8. Asks for opinion</td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>C2</td>
+              <td>8. Asks for opinion</td>
+              <td>
                 Requests evaluation, analysis, expression of feeling
                 or wishes
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">C3</td>
-              <td width="50%" class="Help">9. Asks for suggestion</td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>C3</td>
+              <td>9. Asks for suggestion</td>
+              <td>
                 Requests directions, proposals
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td colspan="3" class="Help">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <tr>
+              <td colspan="3">
                 <strong>Negative Reactions</strong>
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">D1</td>
-              <td width="50%" class="Help">10. Shows disagreement </td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>D1</td>
+              <td>10. Shows disagreement </td>
+              <td>
                 Passively rejects, resorts to formality, withholds
                 help
               </td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">D2</td>
-              <td width="50%" class="Help">11. Shows tension</td>
-              <td width="50%" class="Help">Asks for help, withdraws</td>
+            <tr>
+              <td>D2</td>
+              <td>11. Shows tension</td>
+              <td>Asks for help, withdraws</td>
             </tr>
-            <tr class="OffWhiteBG">
-              <td class="Help">D3</td>
-              <td width="50%" class="Help">12. Shows antagonism</td>
-              <td width="50%" class="Help">
+            <tr>
+              <td>D3</td>
+              <td>12. Shows antagonism</td>
+              <td>
                 Deflates others, defends or asserts self
               </td>
             </tr>
-          </table>
-        </td>
-      </tr>
     </table> 
     
-    <h2>What can it tell you?</h2>
+    <h3>What can it tell you?</h3>
     <a name="groupA"></a>
-    <h3>Evidence of praise and marks awarded - Group A comments </h3>
+    <h4>Evidence of praise and marks awarded - Group A comments </h4>
     <p>
       Peter White is a tutor on a science course.  He sent four
       student assignments to OpenMentor for analysis.  First of all he
@@ -214,7 +198,7 @@
       OpenMentor produced a graph as shown below.
     </p>
     <p>
-      <img src="${createLinkTo(dir:'/images/help',file:'commentA_graph_1.jpg')}" 
+      <img src="${resource(dir:'/images/help',file:'commentA_graph_1.jpg')}" 
            alt="Group A comments - example graph"/>
     </p>
     <p>
@@ -240,8 +224,8 @@
       </li>
     </ul>
     <a name="groupB"></a>
-    <h3>Identify the percentage of teaching points of student
-    improvement - Group B comments</h3>
+    <h4>Identify the percentage of teaching points of student
+    improvement - Group B comments</h4>
     <p>	
       Adam Grey is a tutor on a business studies course.  He sent
       five student assignments to OpenMentor for analysis. He
@@ -252,7 +236,7 @@
       OpenMentor produced a graph as shown below.
     </p>
     <p>
-      <img src="${createLinkTo(dir:'/images/help',file:'commentB_graph_1.jpg')}" 
+      <img src="${resource(dir:'/images/help',file:'commentB_graph_1.jpg')}" 
            alt="Group B comments - example graph"/>
     </p>
     <p>
@@ -282,8 +266,8 @@
       </li>
     </ul>
     <a name="groupC"></a>
-    <h3>The use of questioning as a teaching strategy - Group C
-    comments</h3>
+    <h4>The use of questioning as a teaching strategy - Group C
+    comments</h4>
     <p>
       Karen Green is a tutor on an education course. She sent 13
       assignments to OpenMentor for analysis. After inspection of the
@@ -292,7 +276,7 @@
       assist her students. OpenMentor produced a graph as shown below.
     </p>
     <p>
-      <img src="${createLinkTo(dir:'/images/help',file:'commentC_graph_1.jpg')}" 
+      <img src="${resource(dir:'/images/help',file:'commentC_graph_1.jpg')}" 
            alt="Group C comments - example graph"/>
     </p>
     <p>
@@ -324,8 +308,8 @@
     </ul>
     <a name="groupD"></a>
         
-    <h3>The propotion of negative feedback recorded - Group D
-    comments</h3>
+    <h4>The propotion of negative feedback recorded - Group D
+    comments</h4>
     <p>
       Mary Black is a tutor on an Arts course.  She sent five student
       assignments to OpenMentor for analysis. She asked to see if she
@@ -336,7 +320,7 @@
       OpenMentor produced a graph as shown below.
     </p>
     <p>
-      <img src="${createLinkTo(dir:'/images/help',file:'commentD_graph_1.jpg')}" 
+      <img src="${resource(dir:'/images/help',file:'commentD_graph_1.jpg')}" 
            alt="Group D comments - example graph"/>
     </p>
     <p>
@@ -356,10 +340,10 @@
       <li>'This is not a genuine conclusion.'</li>
     </ul>
         
-    <h2>When can it be used?</h2>
+    <h3>When can it be used?</h3>
         
     <a name="scenario1"></a>
-    <h3>Help train novice tutors</h3>
+    <h4>Help train novice tutors</h4>
     <p>
       Here is an example scenario of how OpenMentor can be used to
       help train novice tutors.
@@ -407,8 +391,8 @@
       mentor at their next meeting.
     </p>
     <a name="scenario2"></a>
-    <h3>Encourage best practice between a group of tutors supporting a
-    course</h3>
+    <h4>Encourage best practice between a group of tutors supporting a
+    course</h4>
     <p>
       A group of tutors reviewed all the TMAs by tutor for their
       course.  They noticed that an interesting teaching pattern was
@@ -429,7 +413,7 @@
     </p>	
         
     <a name="scenario3"></a>
-    <h3>Provide professional development for individual tutors</h3>
+    <h4>Provide professional development for individual tutors</h4>
     <p>
       Sue Brown is a tutor on a psychology course and has just
       finished marking her latest batch of 43 course assessments.  On
@@ -470,7 +454,7 @@
     </p>
             
     <a name="scenario4"></a>
-    <h3>Support quality processes through use as a monitoring tool</h3>
+    <h4>Support quality processes through use as a monitoring tool</h4>
     <p>
       After Sue Brown has checked her marking in the OpenMentor system
       and makes a few changes to her assignments, she sends them to

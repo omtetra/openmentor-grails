@@ -11,50 +11,43 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="assignment.create.label" args="${[courseInstance.id]}" /></h1>
+            <h2><g:message code="assignment.create.label" args="${[courseInstance.id]}" /></h2>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+              <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Note:</strong> ${flash.message}
+              </div>
             </g:if>
-            <g:form action="save" method="post">
-            <div>
-                <table>
-                    <tbody>
-                        <tr class="prop">
-                        	<td valign="top" class="name">
-                            	<label for="courseId"><g:message code="assignment.courseId.label" default="Course ID" />:</label>
-                        	</td>
-                            <td valign="top" class="value ${hasErrors(bean: assignmentInstance, field: 'courseId', 'errors')}">
-                                <g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
-                            </td>
-                        </tr>
-                        <tr class="prop">
-                        	<td valign="top" class="name">
-                            	<label for="code"><g:message code="assignment.code.label" default="Code" />:</label>
-                        	</td>
-                            <td valign="top" class="value ${hasErrors(bean: assignmentInstance, field: 'code', 'errors')}">
-                            	<g:hasErrors bean="${assignmentInstance}" field="code">
-                            	<g:renderErrors bean="${assignmentInstance}" as="list" field="code"/>
-                            	</g:hasErrors>
-                                <g:textField name="code" value="${assignmentInstance?.code}" />
-                            </td>
-                        </tr>
-                        <tr class="prop">
-                        	<td valign="top" class="name">
-                            	<label for="title"><g:message code="assignment.title.label" default="Title" />:</label>
-                        	</td>
-                            <td valign="top" class="value ${hasErrors(bean: assignmentInstance, field: 'title', 'errors')}">
-                                <g:hasErrors bean="${assignmentInstance}" field="title">
-                            	<g:renderErrors bean="${assignmentInstance}" as="list" field="title"/>
-                            	</g:hasErrors>
-                                <g:textField name="title" value="${assignmentInstance?.title}" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="buttons">
-                <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
-            </div>
+            <g:form action="save" method="post" class="form-horizontal">
+              <div class="control-group">
+                <label class="control-label" for="courseId"><g:message code="assignment.courseId.label" default="Course Code" />:</label>
+                <div class="controls">
+                  <g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
+                </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'code', 'error')}">
+                <label class="control-label" for="code"><g:message code="assignment.code.label" default="Assignment Code" />:</label>
+                <div class="controls">
+                  <g:textField name="code" value="${assignmentInstance?.code}" placeholder="Assignment Code" />
+                  <g:hasErrors bean="${assignmentInstance}" field="code">
+                    <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="code"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'title', 'error')}">
+                <label class="control-label" for="title"><g:message code="assignment.title.label" default="Assignment Title" />:</label>
+                <div class="controls">
+                  <g:textField name="title" value="${assignmentInstance?.title}" placeholder="Assignment Title" />
+                  <g:hasErrors bean="${assignmentInstance}" field="title">
+                    <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="title"/></span>
+                  </g:hasErrors>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <g:submitButton class="save btn btn-primary" name="create" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                </div>
+              </div>
             </g:form>
         </div>
         </div>

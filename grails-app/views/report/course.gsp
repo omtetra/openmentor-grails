@@ -9,7 +9,7 @@
     <body>
         <div id="page">
         <div class="body">
-            <h1><g:message code="report.summary.label" args="[entityName]" /></h1>
+            <h2><g:message code="report.summary.label" args="[entityName]" /></h2>
             
             <p>
             OpenMentor has currently recorded ${summary.submissionCount} submissions
