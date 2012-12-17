@@ -50,7 +50,7 @@
               <div class="control-group ${hasErrors(bean: tutorInstance, field: 'courses', 'error')}">
                 <label class="control-label" for="courses"><g:message code="tutor.courses.label" default="Courses" />:</label>
                 <div class="controls">
-                  <g:select id="courses" name="courses" optionKey="id" optionValue="id" multiple="${true}"
+                  <g:select id="courses" name="courses" optionKey="id" optionValue="id" multiple="${true}" class="chzn-select"
                             from="${Course.findAll()}" 
                             value="${tutorInstance?.courses}"/>
                   <g:hasErrors bean="${tutorInstance}" field="courses">
@@ -66,5 +66,12 @@
             </g:form>
         </div>
         </div>
+        <content tag="postJQuery">
+            <g:javascript>
+jQuery(document).ready(function() {
+  jQuery(".chzn-select").chosen();
+});
+            </g:javascript>
+        </content>
     </body>
 </html>
