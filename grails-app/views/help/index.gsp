@@ -58,7 +58,7 @@
       Open Mentor works by
       stripping out the tutor comments on an electronic assignment,
       applying a set of rules to these comments in order to put them
-      into four major categories of Postive reactions, Teaching
+      into four major categories of Positive reactions, Teaching
       points, Questions and Negative reactions. It then provides
       feedback to the tutor about how their comments provide support
       to the tutor.
@@ -241,9 +241,9 @@
     </p>
     <p>
       This graph illustrates that in the first assignment he gave more
-      comments than expected for the mark awarded. However Iin the
-      second he gave lesss than expected. The other three were about
-      rightie there was a very little distance fom the zero line.
+      comments than expected for the mark awarded. However in the
+      second he gave less than expected. The other three were about
+      right, i.e., there was very little distance from the zero line.
     </p>
     <p>
       Examples of comments relating to teaching points by a business
@@ -308,12 +308,12 @@
     </ul>
     <a name="groupD"></a>
         
-    <h4>The propotion of negative feedback recorded - Group D
+    <h4>The proportion of negative feedback recorded - Group D
     comments</h4>
     <p>
       Mary Black is a tutor on an Arts course.  She sent five student
       assignments to OpenMentor for analysis. She asked to see if she
-      had given too many negative comments comments to the students on
+      had given too many negative comments to the students on
       these five assignments.
     </p>
     <p>
