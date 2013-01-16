@@ -31,6 +31,7 @@ class TutorController {
 
 	def save = {
 		def tutorInstance = new Tutor(params)
+		tutorInstance.id = params.id
 		
 		if (tutorInstance.save(flush: true)) {
 			flash.message = "${message(code: 'default.created.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.id])}"

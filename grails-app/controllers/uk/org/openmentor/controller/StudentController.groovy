@@ -32,6 +32,7 @@ class StudentController {
 
 	def save = {
 		def studentInstance = new Student(params)
+		studentInstance.id = params.id
 		
 		if (studentInstance.save(flush: true)) {
 			flash.message = "${message(code: 'default.created.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.id])}"
