@@ -39,6 +39,15 @@ class ReportController {
 		return model
 	}
 
+    def course_details = { 
+		def model = getUploadModel()
+		
+		Summary summary = summarizationService.getCourseSummary(model.course.id, true)
+		model.summary = summary
+		
+		return model
+	}
+
     def assignments = { 
 		def model = getUploadModel()
 		

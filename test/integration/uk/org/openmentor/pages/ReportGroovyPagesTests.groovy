@@ -50,6 +50,14 @@ class ReportGroovyPagesTests extends GroovyPagesTestCase {
 		
 		return sub
 	}
+										 
+	private void addOneSubmission() {
+		Submission sub = addSubmission("CM2006", "TMA03", '09000231', 'M4000061', 'A', "test/resources/test1a.doc")
+		assertTrue sub != null
+
+		sub.save(flush: true, validate: true)
+		assertTrue sub.id != null
+	}
 
 	/**
 	 * Test the report controller's ability to show a report. To do this, 
@@ -57,18 +65,122 @@ class ReportGroovyPagesTests extends GroovyPagesTestCase {
 	 */
 	void testReportCourse() {
 		def file = new File("grails-app/views/report/course.gsp")
-
-		Submission sub = addSubmission("CM2006", "TMA03", '09000231', 'M4000061', 'A', "test/resources/test1a.doc")
-		assertTrue sub != null
-
-		sub.save(flush: true, validate: true)
-		assertTrue sub.id != null
-
+		addOneSubmission()
+		
 		def controller = new ReportController()
 		controller.session.putAt('current_course', 'CM2006')
 		def model = controller.course()
 
 		def htmlString = applyTemplate(file.text, model)
 		assertTrue(htmlString.contains("CM2006"))
+	}
+
+	/**
+	 * Test the report controller's ability to show a report. To do this, 
+	 * of course, we actually need a submission that we can use. 
+	 */
+	void testReportCourseDetails() {
+		def file = new File("grails-app/views/report/course_details.gsp")
+		addOneSubmission()
+		
+		def controller = new ReportController()
+		controller.session.putAt('current_course', 'CM2006')
+		def model = controller.course_details()
+
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains("CM2006"))
+	}
+	
+	/**
+	 * Test the report controller for a students report.
+	 */
+	void testReportStudents() {
+		def file = new File("grails-app/views/report/students.gsp")
+		addOneSubmission()
+		
+		def controller = new ReportController()
+		controller.session.putAt('current_course', 'CM2006')
+		def model = controller.students()
+
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains("CM2006"))
+	}
+
+	/**
+	 * Test the report controller for a single student report.
+	 */
+	void testReportStudent() {
+		def file = new File("grails-app/views/report/student.gsp")
+		addOneSubmission()
+		
+		def controller = new ReportController()
+		controller.session.putAt('current_course', 'CM2006')
+		controller.params.id = '09000231'
+		def model = controller.student()
+
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains("09000231"))
+	}
+
+	/**
+	 * Test the report controller for a tutors report.
+	 */
+	void testReportTutors() {
+		def file = new File("grails-app/views/report/tutors.gsp")
+		addOneSubmission()
+		
+		def controller = new ReportController()
+		controller.session.putAt('current_course', 'CM2006')
+		def model = controller.tutors()
+
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains("CM2006"))
+	}
+
+	/**
+	 * Test the report controller for a single tutor report.
+	 */
+	void testReportTutor() {
+		def file = new File("grails-app/views/report/tutor.gsp")
+		addOneSubmission()
+		
+		def controller = new ReportController()
+		controller.session.putAt('current_course', 'CM2006')
+		controller.params.id = 'M4000061'
+		def model = controller.tutor()
+
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains("M4000061"))
+	}
+
+	/**
+	 * Test the report controller for an assignments report.
+	 */
+	void testReportAssignments() {
+		def file = new File("grails-app/views/report/assignments.gsp")
+		addOneSubmission()
+		
+		def controller = new ReportController()
+		controller.session.putAt('current_course', 'CM2006')
+		def model = controller.assignments()
+
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains("CM2006"))
+	}
+
+	/**
+	 * Test the report controller for a single assignment report.
+	 */
+	void testReportAssignment() {
+		def file = new File("grails-app/views/report/assignment.gsp")
+		addOneSubmission()
+		
+		def controller = new ReportController()
+		controller.session.putAt('current_course', 'CM2006')
+		controller.params.id = "TMA03"
+		def model = controller.assignment()
+
+		def htmlString = applyTemplate(file.text, model)
+		assertTrue(htmlString.contains("TMA03"))
 	}
 }
