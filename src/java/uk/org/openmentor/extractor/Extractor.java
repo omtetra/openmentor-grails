@@ -38,7 +38,7 @@ public interface Extractor {
      * @param stream        the input stream
      * @throws IOException  if something goes wrong
      */
-    void extract(InputStream stream) throws IOException;
+    void extract(InputStream stream) throws Exception;
 
     /**
      * Returns the text of the word processed file.

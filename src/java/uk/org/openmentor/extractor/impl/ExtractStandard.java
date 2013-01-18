@@ -27,6 +27,7 @@ import uk.org.openmentor.extractor.Extractor;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -36,12 +37,19 @@ import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.poi.POITextExtractor;
+import org.apache.poi.POIXMLDocument;
+import org.apache.poi.POIXMLTextExtractor;
+import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFComment;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 public class ExtractStandard implements Extractor {
 	
 	
-	private WordExtractor extractor;
+	private POITextExtractor extractor;
 	private Set<String> comments = new HashSet<String>();
 	private String body;
 	
@@ -66,7 +74,7 @@ public class ExtractStandard implements Extractor {
      * @param stream The stream representing the original file
      * @throws IOException if there is a problem while parsing the document.
      */
-    public synchronized void extract(InputStream stream) throws IOException {
+    public synchronized void extract(InputStream stream) throws Exception {
         extractStream(stream);
     }
     
@@ -77,13 +85,24 @@ public class ExtractStandard implements Extractor {
      * done once and cached.
      */
 
-    private void extractStream(InputStream inputStream) throws IOException {
-    	extractor = new WordExtractor(inputStream);
+    private void extractStream(InputStream inputStream) throws Exception {
+    	extractor = ExtractorFactory.createExtractor(inputStream);
     	inputStream.close();
+    	List<String> commentList = null;
     	
-    	String[] commentsArray = extractor.getCommentsText();
-    	List<String> commentList = Arrays.asList(commentsArray);
-
+    	if (extractor instanceof XWPFWordExtractor) {
+    		POIXMLTextExtractor textExtractor = (POIXMLTextExtractor) extractor;
+    		POIXMLDocument document = textExtractor.getDocument();
+    		XWPFDocument textDocument = (XWPFDocument) document;
+    		List<XWPFComment> comments = Arrays.asList(textDocument.getComments());
+    		commentList = new ArrayList<String>();
+    		for(XWPFComment comment : comments) {
+    			commentList.add(comment.getText());
+    		}
+    	} else if (extractor instanceof WordExtractor) {
+    		commentList = Arrays.asList(((WordExtractor) extractor).getCommentsText());
+    	}
+    	
     	comments.clear();
     	for(String comment : commentList) {
     		comments.add(stripFields(comment));

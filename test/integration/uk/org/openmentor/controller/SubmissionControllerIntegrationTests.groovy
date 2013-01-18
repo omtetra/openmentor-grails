@@ -91,6 +91,44 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		assertNotNull comments.find { it.contains("Not a word wasted here!") }
     }
 	
+    void testSubmissionDOCX() {
+		def mockFile = getMockFile("test/resources/test3a.docx")
+		
+		def sc = new SubmissionCommand()
+		
+		Assignment ass = Assignment.findByCode("TMA03")
+		
+		def mockCurrentUserService = mock(CurrentUserService)
+		mockCurrentUserService.currentUserName().returns("admin").stub()		
+		controller.currentUserService = mockCurrentUserService
+		
+		controller.session.putAt('current_course', 'CM2006')
+		play {
+			sc.dataFile = mockFile
+			sc.grade = "B"
+			sc.courseId = 'CM2006'
+			sc.studentIds = '09000232'
+			sc.tutorIds = 'M4000062'
+			sc.assignmentId = ass.id
+		
+			controller.save(sc)
+		}
+
+		assertNull(renderMap)
+		assertNotNull(redirectMap)
+		
+		def identifier = redirectMap.id
+		Submission submissionInstance = Submission.get(identifier)
+		
+		assertNotNull(submissionInstance)
+		
+		Summary summary = summarizationService.getSubmissionSummary(submissionInstance, true)
+		assertNotNull summary
+		
+		List<String> comments = summary.data.getAt("B").comments
+		assertNotNull comments.find { it.contains("You might need to be a little more explicit") }
+    }
+	
 	// Stolen from GrailsUnitTestCase
 	/**
 	 * Use this method when you plan to perform some meta-programming
