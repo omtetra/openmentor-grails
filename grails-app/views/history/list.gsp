@@ -30,7 +30,7 @@
                     <tbody>
                     <g:each in="${submissionInstanceList}" status="i" var="submissionInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td><g:link action="show" id="${fieldValue(bean: submissionInstance, field: 'dateSubmitted')}">${fieldValue(bean: submissionInstance, field: "dateSubmitted")}</g:link></td>
+                            <td><g:link controller="submission" action="show" id="${fieldValue(bean: submissionInstance, field: 'id')}">${fieldValue(bean: submissionInstance, field: "dateSubmitted")}</g:link></td>
                             <td>${fieldValue(bean: submissionInstance, field: "filename")}</td>
                             <td>${fieldValue(bean: submissionInstance, field: "username")}</td>
                         </tr>
