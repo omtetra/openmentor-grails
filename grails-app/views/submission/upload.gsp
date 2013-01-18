@@ -47,6 +47,7 @@
                 <label class="control-label" for="dataFile"><g:message code="assignment.dataFile.label" default="File" />:</label>
                 <div class="controls">
                   <input type="file" name="dataFile" id="file" />
+                  <span class="help-block">Word files of all types are supported</span>
                   <g:hasErrors bean="${cmd}" field="dataFile">
                   <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="dataFile"/></span>
                   </g:hasErrors>
