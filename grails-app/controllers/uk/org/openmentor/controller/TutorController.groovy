@@ -3,7 +3,7 @@ package uk.org.openmentor.controller
 import grails.plugins.springsecurity.Secured;
 import uk.org.openmentor.courseinfo.Tutor;
 
-@Secured(['ROLE_OPENMENTOR-ADMIN'])
+@Secured(['ROLE_OPENMENTOR-USER'])
 class TutorController {
 
     def index = { 
@@ -29,7 +29,8 @@ class TutorController {
 		[tutorInstanceList: tutorList, tutorInstanceTotal: tutorCount]
 	}
 
-	def save = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def save = {
 		def tutorInstance = new Tutor(params)
 		tutorInstance.id = params.id
 		
@@ -54,7 +55,8 @@ class TutorController {
         }
 	}
 	
-	def edit = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def edit = {
 		def tutorInstance = Tutor.findById(params.id)
         if (!tutorInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
@@ -65,9 +67,11 @@ class TutorController {
         }
 	}
 	
-	def create = { }
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def create = { }
 	
-	def update = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def update = {
     	Tutor.withSession { session ->
 	        def tutorInstance = Tutor.findById(params.id)
 		

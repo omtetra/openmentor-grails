@@ -1,10 +1,9 @@
 package uk.org.openmentor.controller
 
-import org.springframework.security.access.annotation.Secured;
-
+import grails.plugins.springsecurity.Secured;
 import uk.org.openmentor.courseinfo.Student;
 
-@Secured(['ROLE_OPENMENTOR-ADMIN'])
+@Secured(['ROLE_OPENMENTOR-USER'])
 class StudentController {
 
     def index = { 
@@ -30,7 +29,8 @@ class StudentController {
 		[studentInstanceList: studentList, studentInstanceTotal: studentCount]
 	}
 
-	def save = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def save = {
 		def studentInstance = new Student(params)
 		studentInstance.id = params.id
 		
@@ -55,7 +55,8 @@ class StudentController {
         }
 	}
 	
-	def edit = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def edit = {
 		def studentInstance = Student.findById(params.id)
 		if (!studentInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
@@ -66,9 +67,11 @@ class StudentController {
 		}
 	}
 	
-	def create = { }
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def create = { }
 	
-	def update = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def update = {
 		Student.withSession { session ->
 	        def studentInstance = Student.findById(params.id)
 			

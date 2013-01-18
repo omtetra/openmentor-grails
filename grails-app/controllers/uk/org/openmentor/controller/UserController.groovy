@@ -60,6 +60,8 @@ class UserController {
 		
 		User user = new User()
 		user.username = params.username
+		user.password = params.password
+		user.confirm = params.confirm
 		if (params.password == null || params.password.length() < 8) {
 			user.errors.rejectValue('password', 'user.password.blankortooshort')
 		} else {

@@ -46,7 +46,9 @@
             </div>
             
             <div class="nav">
-            	<span class="menuButton"><g:link class="create btn" action="create"><g:message code="default.button.create.label" default="Create" /></g:link></span>
+                <sec:ifAnyGranted roles="ROLE_OPENMENTOR-POWERUSER">
+            	    <span class="menuButton"><g:link class="create btn" action="create"><g:message code="default.button.create.label" default="Create" /></g:link></span>
+                </sec:ifAnyGranted>
             </div>
         </div>
         </div>

@@ -41,13 +41,15 @@ class AssignmentController {
 		[assignmentInstanceList: assignmentList, assignmentInstanceTotal: assignmentCount, courseInstance: courseInstance]
 	}
 	
-	def create = { 
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def create = { 
 		def courseInstance = getSelectedCourse()
 		
 		[courseInstance: courseInstance]
 	}
 	
-	def save = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def save = {
 		
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = new Assignment(params)
@@ -79,7 +81,8 @@ class AssignmentController {
         }
 	}
 	
-	def edit = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def edit = {
 		
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = Assignment.get(params.id)
@@ -93,7 +96,8 @@ class AssignmentController {
         }
 	}
 	
-	def update = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def update = {
         
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = Assignment.get(params.id)

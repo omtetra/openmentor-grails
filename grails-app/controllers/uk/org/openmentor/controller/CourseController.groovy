@@ -30,7 +30,8 @@ class CourseController {
 		[courseInstanceList: courseList, courseInstanceTotal: courseCount]
 	}
 	
-	def save = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def save = {
 		def courseInstance = new Course(params)
 		courseInstance.id = params.id
 		
@@ -55,7 +56,8 @@ class CourseController {
         }
 	}
 	
-	def edit = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def edit = {
 		def courseInstance = Course.get(params.id)
 		if (!courseInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.id])}"
@@ -66,9 +68,11 @@ class CourseController {
 		}
 	}
 	
-	def create = { }
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def create = { }
 	
-	def update = {
+	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+    def update = {
         def courseInstance = Course.get(params.id)
 		
 		if (courseInstance) {

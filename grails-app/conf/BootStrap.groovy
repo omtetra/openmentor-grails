@@ -53,7 +53,8 @@ class BootStrap {
         
         def userRole = Role.findByAuthority('ROLE_OPENMENTOR-USER') ?: new Role(authority: 'ROLE_OPENMENTOR-USER').save(failOnError: true)
         def adminRole = Role.findByAuthority('ROLE_OPENMENTOR-ADMIN') ?: new Role(authority: 'ROLE_OPENMENTOR-ADMIN').save(failOnError: true)
-
+		def poweruserRole = Role.findByAuthority('ROLE_OPENMENTOR-POWERUSER') ?: new Role(authority: 'ROLE_OPENMENTOR-POWERUSER').save(failOnError: true)
+		
 		def encodedPassword = springSecurityService.encodePassword('admin')
         def adminUser = User.findByUsername('admin') ?: new User(
             username: 'admin',

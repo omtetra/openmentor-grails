@@ -91,7 +91,7 @@
                   <g:link action="index" controller="report">View reports</g:link>
                 </li>
               </g:else>
-              <sec:ifAnyGranted roles="ROLE_OPENMENTOR-ADMIN">
+              <sec:ifAnyGranted roles="ROLE_OPENMENTOR-USER">
                 <li class="divider"></li>
                 <li>
                   <g:link action="index" controller="course">Courses</g:link>

@@ -32,7 +32,9 @@
               </div>
               <div class="control-group">
                 <div class="controls">
-                  <g:link class="edit btn btn-primary" name="edit" action="edit" id="${courseInstance?.id}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
+                  <sec:ifAnyGranted roles="ROLE_OPENMENTOR-POWERUSER">
+                    <g:link class="edit btn btn-primary" name="edit" action="edit" id="${courseInstance?.id}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
+                  </sec:ifAnyGranted>
                 </div>
               </div>
             </form>
