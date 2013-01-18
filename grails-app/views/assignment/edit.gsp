@@ -44,8 +44,10 @@
                   <g:textField name="title" value="${assignmentInstance?.title}" placeholder="Title" />
                 </div>
               </div>
-              <div class="buttons">
-                <span class="button"><g:submitButton name="save" class="save btn btn-primary" value="${message(code: 'default.button.save.label', default: 'Save')}" /></span>
+              <div class="control-group">
+                <div class="controls">
+                  <g:submitButton class="save btn btn-primary" name="save" value="${message(code: 'default.button.save.label', default: 'Save')}" />
+                </div>
               </div>
             </g:form>
         </div>
