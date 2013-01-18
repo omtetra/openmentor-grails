@@ -10,6 +10,7 @@ import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.controller.HistoryController;
 import uk.org.openmentor.controller.SubmissionController
 import org.apache.commons.io.IOUtils
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
 
 /**
  * Integration tests for course GPS pages. These take a little setting up and getting used
@@ -103,10 +104,12 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 
 		def controller = new HistoryController()
 		
-		def model = controller.list()
+		SpringSecurityUtils.doWithAuth("admin") { 
+			def model = controller.list()
 
-		def htmlString = applyTemplate(file.text, model)
-		assertTrue(htmlString.contains(sub.filename))
-		assertTrue(htmlString.contains("admin"))
+			def htmlString = applyTemplate(file.text, model)
+			assertTrue(htmlString.contains(sub.filename))
+			assertTrue(htmlString.contains("admin"))
+		}
 	}
 }

@@ -36,7 +36,7 @@ class HistoryController {
 		
 		def submissionList = criteria.list {
 			if (! isAdministrator()) {
-				eq("username", currentUser.username)
+				eq("username", currentUser?.username)
 			}
 			order(params.sort, params.order)
 			maxResults(params.max)
@@ -49,7 +49,7 @@ class HistoryController {
 	}
 
 	private boolean isAdministrator() {
-		def authorities = springSecurityService.getAuthentication().getAuthorities()
+		def authorities = springSecurityService.getAuthentication()?.getAuthorities()
 		def roles = SpringSecurityUtils.authoritiesToRoles(authorities)
 		return roles.contains('ROLE_OPENMENTOR-ADMIN')
 
