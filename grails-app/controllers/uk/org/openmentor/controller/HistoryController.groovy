@@ -1,5 +1,8 @@
 package uk.org.openmentor.controller
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+
+import grails.plugins.springsecurity.Secured;
 import uk.org.openmentor.data.Submission;
 
 /**
@@ -10,7 +13,11 @@ import uk.org.openmentor.data.Submission;
  * 
  * @author morungos
  */
+
+@Secured(['ROLE_OPENMENTOR-USER'])
 class HistoryController {
+	
+	def springSecurityService
 
     def index() { 
 		redirect(action: "list", params: params)
@@ -24,7 +31,13 @@ class HistoryController {
 				
 		def criteria = Submission.createCriteria()
 		
+		// For non-administrators, we only show the current user's files.
+		def currentUser = springSecurityService.currentUser
+		
 		def submissionList = criteria.list {
+			if (! isAdministrator()) {
+				eq("username", currentUser.username)
+			}
 			order(params.sort, params.order)
 			maxResults(params.max)
 			firstResult(Integer.parseInt(params.offset))
@@ -35,4 +48,10 @@ class HistoryController {
 		[submissionInstanceList: submissionList, submissionInstanceTotal: submissionCount]
 	}
 
+	private boolean isAdministrator() {
+		def authorities = springSecurityService.getAuthentication().getAuthorities()
+		def roles = SpringSecurityUtils.authoritiesToRoles(authorities)
+		return roles.contains('ROLE_OPENMENTOR-ADMIN')
+
+	}
 }

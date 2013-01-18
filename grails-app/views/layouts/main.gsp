@@ -103,15 +103,17 @@
                   <g:link action="index" controller="tutor">Tutors</g:link>
                 </li>
               </sec:ifAnyGranted>
-              <sec:ifAnyGranted roles="ROLE_OPENMENTOR-ADMIN">
+              <sec:ifLoggedIn>
                 <li class="divider"></li>
+              <sec:ifAnyGranted roles="ROLE_OPENMENTOR-ADMIN">
                 <li>
                   <g:link action="index" controller="user">Users</g:link>
                 </li>
+              </sec:ifAnyGranted>
                 <li>
                   <g:link action="index" controller="history">History</g:link>
                 </li>
-              </sec:ifAnyGranted>
+              </sec:ifLoggedIn>
               </ul>
           </div><!--/.well -->
         </div><!--/span-->
