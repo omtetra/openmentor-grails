@@ -1,4 +1,3 @@
-<%@ page import="uk.org.openmentor.courseinfo.Course" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,13 +14,13 @@
             </g:if>
             <g:form method="post" action="select" class="form-horizontal">
               <div class="control-group ${hasErrors(bean: course, field: 'id', 'error')}">
-			    <label class="control-label" for="courseIdPicker"><g:message code="course.id.label" default="Course Code" /></label>
+			    <label class="control-label" for="courseIdPicker"><g:message code="course.courseId.label" default="Course Code" /></label>
 			    <div class="controls">
 			      <g:select 
                     noSelection="['':'-Choose course-']"
-                    name="id" 
-                    from="${Course.findAll().sort()}" 
-                    optionKey="id" 
+                    name="courseId" 
+                    from="${courseList}" 
+                    optionKey="courseId" 
                     optionValue="idAndTitle" />
 			    </div>
 			  </div>

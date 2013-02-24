@@ -1,6 +1,3 @@
-
-<%@ page import="uk.org.openmentor.courseinfo.Course" %>
-<%@ page import="uk.org.openmentor.courseinfo.Student" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -19,13 +16,14 @@
               </div>
             </g:if>
             <g:form action="update" method="post" class="form-horizontal">
+              <g:hiddenField name="id" value="${studentInstance?.id}" />
               <g:hiddenField name="version" value="${studentInstance?.version}" />
-              <div class="control-group ${hasErrors(bean: studentInstance, field: 'id', 'error')}">
-                <label class="control-label" for="id"><g:message code="course.id.label" default="Student ID " />:</label>
+              <div class="control-group ${hasErrors(bean: studentInstance, field: 'studentId', 'error')}">
+                <label class="control-label" for="studentId"><g:message code="student.studentId.label" default="Student ID " />:</label>
                 <div class="controls">
-                  <g:textField name="id" value="${studentInstance?.id}" placeholder="Student ID" />
-                  <g:hasErrors bean="${studentInstance}" field="id">
-                    <span class="help-inline"><g:renderErrors bean="${studentInstance}" as="list" field="id"/></span>
+                  <g:textField name="studentId" value="${studentInstance?.studentId}" placeholder="Student ID" />
+                  <g:hasErrors bean="${studentInstance}" field="studentId">
+                    <span class="help-inline"><g:renderErrors bean="${studentInstance}" as="list" field="studentId"/></span>
                   </g:hasErrors>
                 </div>
               </div>
@@ -50,8 +48,8 @@
               <div class="control-group ${hasErrors(bean: studentInstance, field: 'courses', 'error')}">
                 <label class="control-label" for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
                 <div class="controls">
-                  <g:select id="courses" name="courses" optionKey="id" optionValue="id" multiple="${true}" class="chzn-select"
-                            from="${Course.findAll()}" 
+                  <g:select id="courses" name="courses" optionKey="courseId" optionValue="courseId" multiple="${true}" class="chzn-select"
+                            from="${courseList}" 
                             value="${studentInstance?.courses}"/>
                   <g:hasErrors bean="${studentInstance}" field="courses">
                     <span class="help-inline"><g:renderErrors bean="${studentInstance}" as="list" field="courses"/></span>

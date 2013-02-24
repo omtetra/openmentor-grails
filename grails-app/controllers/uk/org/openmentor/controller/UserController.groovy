@@ -13,6 +13,7 @@ import uk.org.openmentor.auth.UserRole;
 class UserController {
 	
 	def springSecurityService
+	def currentUserService
 
 	@Secured(['ROLE_OPENMENTOR-ADMIN'])
     def index = { 
@@ -119,19 +120,12 @@ class UserController {
 		}
 	}
 	
-	private boolean isAdministrator() {
-		def authorities = springSecurityService.getAuthentication().getAuthorities()
-		def roles = SpringSecurityUtils.authoritiesToRoles(authorities)
-		return roles.contains('ROLE_OPENMENTOR-ADMIN')
-
-	}
-
 	@Secured(['ROLE_OPENMENTOR-USER'])
 	def show = {
 		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>		
 		def username = params.id
 		def currentUser = springSecurityService.currentUser		
-		if (! isAdministrator() && username != currentUser.username) {
+		if (! currentUserService.isAdministrator() && username != currentUser.username) {
 			flash.message = "${message(code: 'user.invalid', default: 'Invalid user access for {0}', args: [username])}"
             redirect(action: "list")
 		}
@@ -154,7 +148,7 @@ class UserController {
 		
 		def username = params.id
 		def currentUser = springSecurityService.currentUser
-		if (! isAdministrator() && username != currentUser.username) {
+		if (! currentUserService.isAdministrator() && username != currentUser.username) {
 			flash.message = "${message(code: 'user.invalid', default: 'Invalid user access for {0}', args: [username])}"
 			redirect(action: "show", id: currentUser.username)
 		}
@@ -181,7 +175,7 @@ class UserController {
 		
 		def username = params.username
 		def currentUser = springSecurityService.currentUser
-		if (! isAdministrator() && username != currentUser.username) {
+		if (! currentUserService.isAdministrator() && username != currentUser.username) {
 			flash.message = "${message(code: 'user.invalid', default: 'Invalid user access for {0}', args: [username])}"
             redirect(action: "show", id: currentUser.username)
 		}
@@ -219,7 +213,7 @@ class UserController {
 		if (userInstance.validate() && userInstance.save(flush: true)) {
 			
 			// Only change roles if we're an administrator
-			if (isAdministrator()) {
+			if (currentUserService.isAdministrator()) {
 				Set<Role> newRoles = [] as List<Role>
 				for(String propertyKey in params.keySet().toList()) {
 					if (propertyKey.startsWith("role_")) {

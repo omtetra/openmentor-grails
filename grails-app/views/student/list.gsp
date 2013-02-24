@@ -1,5 +1,3 @@
-
-<%@ page import="uk.org.openmentor.courseinfo.Student" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -23,7 +21,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>         
-                            <g:sortableColumn property="id" title="${message(code: 'student.id.label', default: 'Student ID')}" />
+                            <g:sortableColumn property="studentId" title="${message(code: 'student.studentId.label', default: 'Student ID')}" />
                             <g:sortableColumn property="name" title="${message(code: 'student.name.label', default: 'Name')}" />
                 			<th>Actions</th>
 						</tr>
@@ -31,10 +29,10 @@
                     <tbody>
                     <g:each in="${studentInstanceList}" status="i" var="studentInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td><g:link action="show" id="${fieldValue(bean: studentInstance, field: 'id')}">${fieldValue(bean: studentInstance, field: "id")}</g:link></td>
+                            <td><g:link action="show" params="${[studentId: fieldValue(bean: studentInstance, field: 'studentId')]}">${fieldValue(bean: studentInstance, field: "studentId")}</g:link></td>
                             <td>${fieldValue(bean: studentInstance, field: "name")}</td>
                             <td>
-                                <g:link class="btn btn-small" action="show" id="${fieldValue(bean: studentInstance, field: 'id')}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
+                                <g:link class="btn btn-small" action="show" params="${[studentId: fieldValue(bean: studentInstance, field: 'studentId')]}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
                            	</td>
                         </tr>
                     </g:each>

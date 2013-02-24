@@ -2,31 +2,29 @@ package uk.org.openmentor.courseinfo
 
 class Course implements Comparable<Course> {
 	
-	String id
+	String owner
+	String courseId
 	String courseTitle
 	
 	SortedSet students
 	SortedSet tutors
 	
 	static belongsTo = [ Student, Tutor ]
-	static hasMany = [ students: Student, tutors: Tutor ]
+	static hasMany = [ students: Student, tutors: Tutor, assignments: Assignment ]
 
     static constraints = {
-		id(nullable: false, blank: false, unique: true)
+		owner(nullable: true)
+		courseId(nullable: false, blank: false, unique: "owner")
 		courseTitle(nullable: false)
     }
-	
-	static mapping = {
-		id generator:'assigned', column:'course_id'
-	}
 	
 	static transients = ['idAndTitle']
 	
 	String getIdAndTitle() {
-		return id + " - " + courseTitle
+		return courseId + " - " + courseTitle
 	}
 
 	int compareTo(Course other) {
-		return id.compareTo(other.id)
+		return courseId.compareTo(other.courseId)
 	}
 }

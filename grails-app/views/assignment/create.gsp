@@ -1,6 +1,3 @@
-
-<%@ page import="uk.org.openmentor.courseinfo.Course" %>
-<%@ page import="uk.org.openmentor.courseinfo.Student" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -22,7 +19,7 @@
               <div class="control-group">
                 <label class="control-label" for="courseId"><g:message code="assignment.courseId.label" default="Course Code" />:</label>
                 <div class="controls">
-                  <g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
+                  <g:textField name="courseId" value="${courseInstance.courseId}" readonly="readonly" />
                 </div>
               </div>
               <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'code', 'error')}">

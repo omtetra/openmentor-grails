@@ -1,6 +1,7 @@
 package uk.org.openmentor.data
 
 import uk.org.openmentor.config.Grade
+import uk.org.openmentor.courseinfo.Assignment;
 
 class Submission {
 	

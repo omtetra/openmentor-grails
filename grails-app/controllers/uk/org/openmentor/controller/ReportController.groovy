@@ -13,12 +13,13 @@ import uk.org.openmentor.domain.Summary;
 class ReportController {
 	
 	def summarizationService
+	def courseInfoService
 
 	private Map getUploadModel() {
 		
 		def model = [
 			grades: Grade.getGrades(),
-			course: Course.findById(session.current_course)
+			course: courseInfoService.findCourse(session.current_course)
 		]
 		
 		return model
@@ -33,7 +34,7 @@ class ReportController {
     def course = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummary(model.course.id)
+		Summary summary = summarizationService.getCourseSummary(model.course.courseId)
 		model.summary = summary
 		
 		return model
@@ -42,7 +43,7 @@ class ReportController {
     def course_details = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummary(model.course.id, true)
+		Summary summary = summarizationService.getCourseSummary(model.course.courseId, true)
 		model.summary = summary
 		
 		return model
@@ -51,7 +52,7 @@ class ReportController {
     def assignments = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummaryByAssignment(model.course.id)
+		Summary summary = summarizationService.getCourseSummaryByAssignment(model.course.courseId)
 		model.summary = summary
 
 		model
@@ -61,7 +62,7 @@ class ReportController {
 		assert params.id != null
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseAndAssignmentSummary(model.course.id, params.id)
+		Summary summary = summarizationService.getCourseAndAssignmentSummary(model.course.courseId, params.id)
 		model.summary = summary
 
 		model
@@ -70,7 +71,7 @@ class ReportController {
     def students = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummaryByStudent(model.course.id)
+		Summary summary = summarizationService.getCourseSummaryByStudent(model.course.courseId)
 		model.summary = summary
 
 		model
@@ -80,7 +81,7 @@ class ReportController {
 		assert params.id != null
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseAndStudentSummary(model.course.id, params.id)
+		Summary summary = summarizationService.getCourseAndStudentSummary(model.course.courseId, params.id)
 		model.summary = summary
 
 		model
@@ -89,7 +90,7 @@ class ReportController {
 	def tutors = { 
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseSummaryByTutor(model.course.id)
+		Summary summary = summarizationService.getCourseSummaryByTutor(model.course.courseId)
 		model.summary = summary
 
 		model
@@ -99,7 +100,7 @@ class ReportController {
 		assert params.id != null
 		def model = getUploadModel()
 		
-		Summary summary = summarizationService.getCourseAndTutorSummary(model.course.id, params.id)
+		Summary summary = summarizationService.getCourseAndTutorSummary(model.course.courseId, params.id)
 		model.summary = summary
 
 		model

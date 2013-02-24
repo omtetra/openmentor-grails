@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course;
-import uk.org.openmentor.data.Assignment;
 import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.domain.Categorization
 import uk.org.openmentor.domain.Grade;
@@ -20,10 +20,11 @@ class SubmissionController {
 	def analyzerService
 	def currentUserService
 	def summarizationService
+	def courseInfoService
 	
 	private Course getSelectedCourse() {
 		def courseId = session.current_course
-		def courseInstance = Course.get(courseId)
+		def courseInstance = courseInfoService.findCourse(courseId)
 
 		if (! courseInstance) {
 			redirect(action: "select", controller: "course")
@@ -40,7 +41,8 @@ class SubmissionController {
 	def upload = { 
 		def courseInstance = getSelectedCourse()
 		def grades = Grade.getGrades()
-		[grades: grades, courseInstance: courseInstance]
+		def assignmentsList = courseInfoService.getAssignments(courseInstance, [:])
+		[grades: grades, courseInstance: courseInstance, assignmentsList: assignmentsList]
 	}
 	
 	/**

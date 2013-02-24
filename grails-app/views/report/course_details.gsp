@@ -18,7 +18,7 @@
             </p>
             
             <ul>
-                <li><g:link action="course" id="${course.id}">Go back to the chart view</g:link></li>
+                <li><g:link action="course" params="${[courseId: course.courseId]}">Go back to the chart view</g:link></li>
                 <li><a href="#">See all comments</a></li>
             </ul>
             

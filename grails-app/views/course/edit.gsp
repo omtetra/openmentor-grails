@@ -1,5 +1,3 @@
-
-<%@ page import="uk.org.openmentor.courseinfo.Course" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -18,13 +16,14 @@
               </div>
             </g:if>
             <g:form action="update" method="post" class="form-horizontal">
+              <g:hiddenField name="id" value="${courseInstance.id}" />
               <g:hiddenField name="version" value="${courseInstance?.version}" />
-              <div class="control-group ${hasErrors(bean: courseInstance, field: 'id', 'error')}">
-                <label class="control-label" for="id"><g:message code="course.id.label" default="Course Code" />:</label>
+              <div class="control-group ${hasErrors(bean: courseInstance, field: 'courseId', 'error')}">
+                <label class="control-label" for="courseId"><g:message code="course.courseId.label" default="Course Code" />:</label>
                 <div class="controls">
-                  <g:textField name="id" value="${courseInstance?.id}" readonly="true" />
-                  <g:hasErrors bean="${courseInstance}" field="id">
-                    <span class="help-inline"><g:renderErrors bean="${courseInstance}" as="list" field="id"/></span>
+                  <g:textField name="courseId" value="${courseInstance?.courseId}" readonly="true" />
+                  <g:hasErrors bean="${courseInstance}" field="courseId">
+                    <span class="help-inline"><g:renderErrors bean="${courseInstance}" as="list" field="courseId"/></span>
                   </g:hasErrors>
                 </div>
               </div>

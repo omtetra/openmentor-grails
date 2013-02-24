@@ -1,6 +1,3 @@
-
-<%@ page import="uk.org.openmentor.courseinfo.Course" %>
-<%@ page import="uk.org.openmentor.courseinfo.Student" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -20,9 +17,9 @@
             </g:if>
             <form class="form-horizontal">
               <div class="control-group">
-                <label class="control-label" for="id"><g:message code="course.id.label" default="Student ID " />:</label>
+                <label class="control-label" for="studentId"><g:message code="student.studentId.label" default="Student ID " />:</label>
                 <div class="controls">
-                  <g:textField name="id" value="${studentInstance?.id}" disabled="true" readonly="true" />
+                  <g:textField name="studentId" value="${studentInstance?.studentId}" disabled="true" readonly="true" />
                 </div>
               </div>
               <div class="control-group">
@@ -40,8 +37,8 @@
               <div class="control-group">
                 <label class="control-label" for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
                 <div class="controls">
-                  <g:select id="courses" name="courses" optionKey="id" optionValue="id" multiple="${true}" class="chzn-select"
-                            from="${Course.findAll()}" 
+                  <g:select id="courses" name="courses" optionKey="courseId" optionValue="courseId" multiple="${true}" class="chzn-select"
+                            from="${courseList}" 
                             value="${studentInstance?.courses}"
                             disabled="true" readonly="true"/>
                 </div>
@@ -49,7 +46,7 @@
               <div class="control-group">
                 <div class="controls">
                   <sec:ifAnyGranted roles="ROLE_OPENMENTOR-POWERUSER">
-                    <g:link class="edit btn btn-primary" name="edit" action="edit" id="${studentInstance?.id}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
+                    <g:link class="edit btn btn-primary" name="edit" action="edit" params="${[studentId: studentInstance?.studentId]}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
                   </sec:ifAnyGranted>
                 </div>
               </div>

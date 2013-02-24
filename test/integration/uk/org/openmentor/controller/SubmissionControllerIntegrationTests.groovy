@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.IOUtils
 
 import uk.org.openmentor.config.Grade;
-import uk.org.openmentor.data.Assignment
+import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.data.Submission
 import uk.org.openmentor.domain.Categorization;
 import uk.org.openmentor.domain.Summary

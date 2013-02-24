@@ -6,77 +6,70 @@ import uk.org.openmentor.courseinfo.Tutor;
 @Secured(['ROLE_OPENMENTOR-USER'])
 class TutorController {
 
+	def courseInfoService
+
     def index = { 
 		redirect(action: "list", params: params)
 	}
 
 	def list = {
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		params.sort = params.sort ?: 'id'
-		params.order = params.order ?: 'asc'
-		params.offset = params.offset ?: '0'
-				
-		def criteria = Tutor.createCriteria()
-		
-		def tutorList = criteria.list {
-			order(params.sort, params.order)
-			maxResults(params.max)
-			firstResult(Integer.parseInt(params.offset))
-		}
-		
-		def tutorCount = Tutor.count()
-		
+		def tutorList = courseInfoService.getTutors(params)
+		def tutorCount = courseInfoService.getTutorCount()		
 		[tutorInstanceList: tutorList, tutorInstanceTotal: tutorCount]
 	}
 
 	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
     def save = {
-		def tutorInstance = new Tutor(params)
-		tutorInstance.id = params.id
-		
+		def tutorInstance = new Tutor(params)		
+		courseInfoService.initializeTutor(tutorInstance)
 		if (tutorInstance.save(flush: true)) {
 			flash.message = "${message(code: 'default.created.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.id])}"
 			redirect(action: "list", id: tutorInstance.id)
 		}
 		else {
-			log.info("Failed to create new tutor: returning to dialog")
+			log.warn("Failed to create new tutor: returning to dialog")
 			render(view: "create", model: [tutorInstance: tutorInstance])
 		}
 	}
 	
 	def show = {
-		def tutorInstance = Tutor.findById(params.id)
+		def tutorInstance = courseInfoService.findTutor(params.tutorId)
         if (!tutorInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
             redirect(action: "list")
         }
         else {
-            [tutorInstance: tutorInstance]
+			def courseList = courseInfoService.getCourses([:])
+            [tutorInstance: tutorInstance, courseList: courseList]
         }
 	}
 	
 	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
     def edit = {
-		def tutorInstance = Tutor.findById(params.id)
+		def tutorInstance = courseInfoService.findTutor(params.tutorId)
         if (!tutorInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
             redirect(action: "list")
         }
         else {
-            [tutorInstance: tutorInstance]
+			def courseList = courseInfoService.getCourses([:])
+            [tutorInstance: tutorInstance, courseList: courseList]
         }
 	}
 	
 	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
-    def create = { }
+    def create = { 
+		def courseList = courseInfoService.getCourses([:])
+		[courseList: courseList]
+	}
 	
 	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
     def update = {
     	Tutor.withSession { session ->
-	        def tutorInstance = Tutor.findById(params.id)
+	        def tutorInstance = courseInfoService.findTutor(params.tutorId)
 		
 	        if (tutorInstance) {
-	        	log.info("Updating tutor: id: " + tutorInstance.id)
+	        	log.debug("Updating tutor: tutorId: " + tutorInstance.tutorId)
 	        	if (params.version) {
 	        		def version = params.version.toLong()
 	        		if (tutorInstance.version > version) {
@@ -110,11 +103,10 @@ class TutorController {
     }
 
 	def query = {
-		def tutorList = Tutor.findAllByIdIlike("%" + params.term + "%")
-		tutorList.sort { it.id }
+		def tutorList = courseInfoService.findTutorsLike("%" + params.term + "%")
 		
 		render(contentType: "text/json") {
-			tutorList.collect { [id: it.id] };
+			tutorList.collect { [id: it.tutorId] };
 		}
 	}
 }

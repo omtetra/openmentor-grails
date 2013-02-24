@@ -1,5 +1,3 @@
-
-<%@ page import="uk.org.openmentor.data.Assignment" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -20,9 +18,9 @@
               <div class="control-group  ${hasErrors(bean: assignmentInstance, field: 'courseId', 'error')}">
                 <label class="control-label" for="courseId"><g:message code="assignment.courseId.label" default="Course Code" />:</label>
                 <div class="controls">
-                  <g:textField name="courseId" value="${assignmentInstance.courseId}" readonly="readonly" />
+                  <g:textField name="courseId" value="${assignmentInstance.course.courseId}" readonly="readonly" />
                   <g:hasErrors bean="${assignmentInstance}" field="courseId">
-                    <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="courseId"/></span>
+                    <span class="help-inline"><g:renderErrors bean="${assignmentInstance.course}" as="list" field="courseId"/></span>
                   </g:hasErrors>
                 </div>
               </div>
@@ -47,7 +45,7 @@
               <div class="control-group">
                 <div class="controls">
                   <sec:ifAnyGranted roles="ROLE_OPENMENTOR-POWERUSER">
-                    <g:link class="edit btn btn-primary" name="edit" action="edit" id="${assignmentInstance?.id}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
+                    <g:link class="edit btn btn-primary" name="edit" action="edit" id="${assignmentInstance?.code}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
                   </sec:ifAnyGranted>
                 </div>
               </div>

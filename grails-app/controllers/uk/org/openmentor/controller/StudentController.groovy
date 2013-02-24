@@ -5,78 +5,72 @@ import uk.org.openmentor.courseinfo.Student;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
 class StudentController {
+	
+	def courseInfoService
 
     def index = { 
 		redirect(action: "list", params: params)
 	}
 
 	def list = {
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		params.sort = params.sort ?: 'id'
-		params.order = params.order ?: 'asc'
-		params.offset = params.offset ?: '0'
-				
-		def criteria = Student.createCriteria()
-		
-		def studentList = criteria.list {
-			order(params.sort, params.order)
-			maxResults(params.max)
-			firstResult(Integer.parseInt(params.offset))
-		}
-		
-		def studentCount = Student.count()
-		
+		def studentList = courseInfoService.getStudents(params)
+		def studentCount = courseInfoService.getStudentCount()		
 		[studentInstanceList: studentList, studentInstanceTotal: studentCount]
 	}
 
 	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
     def save = {
 		def studentInstance = new Student(params)
-		studentInstance.id = params.id
+		courseInfoService.initializeStudent(studentInstance)
 		
 		if (studentInstance.save(flush: true)) {
 			flash.message = "${message(code: 'default.created.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.id])}"
 			redirect(action: "list", id: studentInstance.id)
 		}
 		else {
-			log.info("Failed to create new sample: returning to dialog")
+			log.warn("Failed to create new sample: returning to dialog")
 			render(view: "create", model: [studentInstance: studentInstance])
 		}
 	}
 	
 	def show = {
-		def studentInstance = Student.findById(params.id)
+		def studentInstance = courseInfoService.findStudent(params.studentId)
         if (!studentInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
             redirect(action: "list")
         }
         else {
-            [studentInstance: studentInstance]
+			def courseList = courseInfoService.getCourses([:])
+            [studentInstance: studentInstance, courseList: courseList]
         }
 	}
 	
 	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
     def edit = {
-		def studentInstance = Student.findById(params.id)
+		def studentInstance = courseInfoService.findStudent(params.studentId)
 		if (!studentInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
 			redirect(action: "list")
 		}
 		else {
-			[studentInstance: studentInstance]
+			def courseList = courseInfoService.getCourses([:])
+			[studentInstance: studentInstance, courseList: courseList]
 		}
 	}
 	
 	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
-    def create = { }
+    def create = {
+		def courseList = courseInfoService.getCourses([:])
+		[courseList: courseList]
+	}
 	
 	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
     def update = {
 		Student.withSession { session ->
-	        def studentInstance = Student.findById(params.id)
+	        def studentInstance = courseInfoService.findStudent(params.studentId)
 			
 			if (studentInstance) {
-				log.info("Updating student: id: " + studentInstance.id)
+				log.debug("Updating student: studentId: " + studentInstance.studentId)
 	            if (params.version) {
 	                def version = params.version.toLong()
 	                if (studentInstance.version > version) {
@@ -110,11 +104,10 @@ class StudentController {
     }
 
 	def query = {
-		def studentList = Student.findAllByIdIlike("%" + params.term + "%")
-		studentList.sort { it.id }
+		def studentList = courseInfoService.findStudentsLike("%" + params.term + "%")
 		
 		render(contentType: "text/json") {
-			studentList.collect { [id: it.id] };
+			studentList.collect { [id: it.studentId] };
 		}
 	}
 }

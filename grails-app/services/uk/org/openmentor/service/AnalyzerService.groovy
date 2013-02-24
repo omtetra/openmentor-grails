@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import uk.org.openmentor.classifier.Classifier;
 import uk.org.openmentor.config.Category;
 import uk.org.openmentor.config.Grade;
-import uk.org.openmentor.data.Assignment;
+import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.data.Comment;
 import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.extractor.Extractor;

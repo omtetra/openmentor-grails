@@ -34,7 +34,7 @@ class SummarizationService {
      * @return
      */
     def getCourseSummary(String course, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass"], ["ass.courseId = :courseId"], ["courseId": course], comments)
+        makeSummary([], ["sub.assignment as ass", "ass.course as c"], ["c.courseId = :courseId"], ["courseId": course], comments)
     }
 
     /**
@@ -42,7 +42,7 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByAssignment(String course, Boolean comments = false) {
-        makeSummary(["ass.code"], ["sub.assignment as ass"], ["ass.courseId = :courseId"], ["courseId": course], comments)
+        makeSummary(["ass.code"], ["sub.assignment as ass", "ass.course as c"], ["c.courseId = :courseId"], ["courseId": course], comments)
     }
 
     /**
@@ -50,7 +50,7 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByTutor(String course, Boolean comments = false) {
-        makeSummary(["tutor_id"], ["sub.assignment as ass", "sub.tutorIds as tutor_id"], ["ass.courseId = :courseId"], ["courseId": course], comments)
+        makeSummary(["tutor_id"], ["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], ["c.courseId = :courseId"], ["courseId": course], comments)
     }
 
     /**
@@ -58,7 +58,7 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByStudent(String course, Boolean comments = false) {
-        makeSummary(["student_id"], ["sub.assignment as ass", "sub.studentIds as student_id"], ["ass.courseId = :courseId"], ["courseId": course], comments)
+        makeSummary(["student_id"], ["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], ["c.courseId = :courseId"], ["courseId": course], comments)
     }
 
     /**
@@ -74,7 +74,7 @@ class SummarizationService {
      * @return
      */
     def getCourseAndAssignmentSummary(String courseId, String assignment, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass"], ["ass.courseId = :courseId", "ass.code = :code"], ["courseId": courseId, "code": assignment], comments)
+        makeSummary([], ["sub.assignment as ass", "ass.course as c"], ["c.courseId = :courseId", "ass.code = :code"], ["courseId": courseId, "code": assignment], comments)
     }
 
     /**
@@ -82,7 +82,7 @@ class SummarizationService {
      * @return
      */
     def getCourseAndStudentSummary(String courseId, String studentId, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass", "sub.studentIds as student_id"], ["ass.courseId = :courseId", "student_id = :studentId"], ["courseId": courseId, "studentId": studentId], comments)
+        makeSummary([], ["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], ["c.courseId = :courseId", "student_id = :studentId"], ["courseId": courseId, "studentId": studentId], comments)
     }
 
     /**
@@ -90,7 +90,7 @@ class SummarizationService {
      * @return
      */
     def getCourseAndTutorSummary(String courseId, String tutorId, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass", "sub.tutorIds as tutor_id"], ["ass.courseId = :courseId", "tutor_id = :tutorId"], ["courseId": courseId, "tutorId": tutorId], comments)
+        makeSummary([], ["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], ["c.courseId = :courseId", "tutor_id = :tutorId"], ["courseId": courseId, "tutorId": tutorId], comments)
     }
 
     /**

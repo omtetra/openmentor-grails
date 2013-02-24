@@ -18,6 +18,7 @@ import uk.org.openmentor.data.Submission;
 class HistoryController {
 	
 	def springSecurityService
+	def currentUserService
 
     def index() { 
 		redirect(action: "list", params: params)
@@ -35,7 +36,7 @@ class HistoryController {
 		def currentUser = springSecurityService.currentUser
 		
 		def submissionList = criteria.list {
-			if (! isAdministrator()) {
+			if (! currentUserService.isAdministrator()) {
 				eq("username", currentUser?.username)
 			}
 			order(params.sort, params.order)
@@ -46,12 +47,5 @@ class HistoryController {
 		def submissionCount = Submission.count()
 		
 		[submissionInstanceList: submissionList, submissionInstanceTotal: submissionCount]
-	}
-
-	private boolean isAdministrator() {
-		def authorities = springSecurityService.getAuthentication()?.getAuthorities()
-		def roles = SpringSecurityUtils.authoritiesToRoles(authorities)
-		return roles.contains('ROLE_OPENMENTOR-ADMIN')
-
 	}
 }

@@ -23,9 +23,9 @@
             
             <g:uploadForm action="save" method="post" class="form-horizontal">
               <div class="control-group  ${hasErrors(bean: cmd, field: 'courseId', 'errors')}">
-                <label class="control-label" for="courseId"><g:message code="course.id.label" default="Course ID" />:</label>
+                <label class="control-label" for="courseId"><g:message code="course.courseId.label" default="Course ID" />:</label>
                 <div class="controls">
-                  <g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
+                  <g:textField name="courseId" value="${courseInstance.courseId}" readonly="readonly" />
                 </div>
               </div>
               <div class="control-group ${hasErrors(bean: cmd, field: 'assignmentId', 'error')}">
@@ -34,7 +34,7 @@
                   <g:select 
                     noSelection="['':'-Choose assignment-']"
                     name="assignmentId" 
-                    from="${Assignment.findAllByCourseId(courseInstance.id)}" 
+                    from="${assignmentsList}" 
                     optionKey="id" 
                     value="${cmd?.assignmentId}"
                     optionValue="code" />

@@ -12,10 +12,9 @@ class StudentTests extends GrailsUnitTestCase {
 		mockDomain(Student)
 		student = new Student()
 
-		student.id = '0000000'
+		student.studentId = '0000000'
 		student.givenName = 'Morag'
 		student.familyName = 'Mungo'
-		
     }
 
     protected void tearDown() {
@@ -38,18 +37,18 @@ class StudentTests extends GrailsUnitTestCase {
 	void testStudentId() {
 		def old = student.id
 		
-		student.id = ''
+		student.studentId = ''
 		assertFalse student.validate()
 		assertTrue student.hasErrors()
 		
-		student.id = old
+		student.studentId = old
 	}
 	
 	/**
 	 * Must always be zero when comparing with self
 	 */
 	void testCompareSelf() {
-		assertEquals(0, student.compareTo(student))
+		assertEquals(0, Integer.signum(student.compareTo(student)))
 	}
 
 	/**
@@ -57,12 +56,12 @@ class StudentTests extends GrailsUnitTestCase {
 	 */
     void testCompareOrdering() {
 		def other = new Student()
-		other.id = '00000001'
+		other.studentId = '00000001'
 		other.givenName = 'Morag'
 		other.familyName = 'Nunavut'
 		
-		assertEquals(-1, student.compareTo(other))
-		assertEquals(1, other.compareTo(student))
+		assertEquals(-1, Integer.signum(student.compareTo(other)))
+		assertEquals(1, Integer.signum(other.compareTo(student)))
     }
 
 	/**
@@ -70,10 +69,10 @@ class StudentTests extends GrailsUnitTestCase {
 	 */
 	void testCompareBlank() {
 		def other = new Student()
-		other.id = '00000001'
+		other.studentId = '00000001'
 		
-		assertEquals(-1, student.compareTo(other))
-		assertEquals(1, other.compareTo(student))
+		assertEquals(-1, Integer.signum(student.compareTo(other)))
+		assertEquals(1, Integer.signum(other.compareTo(student)))
 	}
 
 	/**
@@ -81,8 +80,8 @@ class StudentTests extends GrailsUnitTestCase {
 	 */
 	void testCompareTwoBlank() {
 		def other = new Student()
-		other.id = '00000001'
+		other.studentId = '00000001'
 		
-		assertEquals(0, other.compareTo(other))
+		assertEquals(0, Integer.signum(other.compareTo(other)))
 	}
 }

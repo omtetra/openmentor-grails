@@ -1,5 +1,6 @@
 package uk.org.openmentor.service
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
 import org.springframework.security.core.context.SecurityContextHolder
 
 /**
@@ -10,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder
  */
 
 class CurrentUserService {
+	
+	def springSecurityService
 
     static transactional = false
 
@@ -22,4 +25,10 @@ class CurrentUserService {
         def authentication = context.getAuthentication()
         return authentication?.principal?.getUsername()
     }
+	
+	boolean isAdministrator() {
+		def authorities = springSecurityService.getAuthentication()?.getAuthorities()
+		def roles = SpringSecurityUtils.authoritiesToRoles(authorities)
+		return roles.contains('ROLE_OPENMENTOR-ADMIN')
+	}
 }

@@ -2,8 +2,8 @@ package uk.org.openmentor.test
 
 import org.apache.commons.io.IOUtils;
 
+import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course;
-import uk.org.openmentor.data.Assignment;
 import uk.org.openmentor.data.Submission;
 import groovy.util.GroovyTestCase
 
@@ -43,7 +43,7 @@ class LoadedSubmissionsTestCase extends GroovyTestCase {
 										String studentId, String tutorId,
 										String grade, String inputFile) {
 
-	   def course = Course.findById(courseCode)
+	   def course = Course.findByCourseId(courseCode)
 	   assertTrue course != null
 	   
 	   Assignment assignment = Assignment.findByCode(assignmentCode)

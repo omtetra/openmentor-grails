@@ -1,15 +1,17 @@
 package uk.org.openmentor.controller
 
 import grails.plugins.springsecurity.Secured;
+import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course;
-import uk.org.openmentor.data.Assignment;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
 class AssignmentController {
 	
+	def courseInfoService
+	
 	private Course getSelectedCourse() {
 		def courseId = session.current_course
-		def courseInstance = Course.get(courseId)
+		def courseInstance = courseInfoService.findCourse(courseId)
 
 		if (! courseInstance) {
 			redirect(action: "select", controller: "course")
@@ -25,36 +27,28 @@ class AssignmentController {
 	
 	def list = {
 		def courseInstance = getSelectedCourse()
-
-		params.sort = params.sort ?: 'code'
-		params.order = params.order ?: 'asc'
-		
-		def criteria = Assignment.createCriteria()
-		
-		def assignmentList = criteria.list {
-			eq('courseId', courseInstance.id)
-			order(params.sort, params.order)
+		if (! courseInstance) {
+			return
 		}
-		
-		def assignmentCount = assignmentList.size()
-		
+
+		def assignmentList = courseInfoService.getAssignments(courseInstance, params)
+		def assignmentCount = courseInfoService.getAssignmentCount(courseInstance)
 		[assignmentInstanceList: assignmentList, assignmentInstanceTotal: assignmentCount, courseInstance: courseInstance]
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
-    def create = { 
+	def create = { 
 		def courseInstance = getSelectedCourse()
-		
 		[courseInstance: courseInstance]
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
-    def save = {
+	def save = {
 		
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = new Assignment(params)
+		courseInfoService.initializeAssignment(assignmentInstance)
+		courseInstance.addToAssignments(assignmentInstance)
 		
-		if (assignmentInstance.save(flush: true)) {
+		if (courseInstance.save(flush: true)) {
 			flash.message = "${message(code: 'default.created.message', args: [message(code: 'assignment.label', default: 'Assignment'), assignmentInstance.code])}"
 			redirect(action: "list", id: assignmentInstance.id)
 		}
@@ -70,7 +64,7 @@ class AssignmentController {
 	def show = {
 		
 		def courseInstance = getSelectedCourse()
-		def assignmentInstance = Assignment.get(params.id)
+		def assignmentInstance = courseInfoService.findAssignment(courseInstance, params.id)
 		
         if (!assignmentInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'assignment.label', default: 'Assignment'), params.id])}"
@@ -81,11 +75,10 @@ class AssignmentController {
         }
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
-    def edit = {
+	def edit = {
 		
 		def courseInstance = getSelectedCourse()
-		def assignmentInstance = Assignment.get(params.id)
+		def assignmentInstance = courseInfoService.findAssignment(courseInstance, params.id)
 		
         if (!assignmentInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'assignment.label', default: 'Assignment'), params.id])}"
@@ -96,14 +89,13 @@ class AssignmentController {
         }
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
-    def update = {
+	def update = {
         
 		def courseInstance = getSelectedCourse()
-		def assignmentInstance = Assignment.get(params.id)
+		def assignmentInstance = courseInfoService.findAssignment(courseInstance, params.code)
 		
 		if (assignmentInstance) {
-			log.info("Updating assignment: id: " + assignmentInstance.id)
+			log.info("Updating assignment: code: " + assignmentInstance.code)
             if (params.version) {
                 def version = params.version.toLong()
                 if (assignmentInstance.version > version) {
@@ -131,8 +123,8 @@ class AssignmentController {
     }
 
 	def query = {
-		def assignmentList = Assignment.findAllByCodeIlike("%" + params.term + "%")
-		assignmentList.sort { it.code }
+		def courseInstance = getSelectedCourse()
+		def assignmentList = courseInfoService.findAssignmentsLike(courseInstance, "%" + params.term + "%")
 		
 		render(contentType: "text/json") {
 			assignmentList.collect { [code: it.code] };
@@ -142,8 +134,9 @@ class AssignmentController {
 	def courseAssignments = {
 		log.info("Requested course id: " + params.courseId);
 		log.error("Requested course id (error): " + params.courseId);
-		def assignmentList = Assignment.findAllByCourseId(params.courseId)
-		assignmentList.sort { it.code }
+		
+		def courseInstance = getSelectedCourse()
+		def assignmentList = courseInfoService.findAssignmentsLike(courseInstance)
 		log.error(assignmentList)
 		
 		render(contentType: "text/json") {

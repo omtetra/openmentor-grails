@@ -72,11 +72,11 @@ class CourseGroovyPagesTests extends GroovyPagesTestCase {
 	void testCourseShow() {
 		def file = new File("grails-app/views/course/show.gsp")
 
-		def course = Course.findById("CM2006")
+		def course = Course.findByCourseId("CM2006")
 		assertTrue course != null
 
 		def controller = new CourseController()
-		controller.params.id = course.id
+		controller.params.courseId = course.courseId
 		def model = controller.show()
 
 		def htmlString = applyTemplate(file.text, model)
@@ -89,11 +89,11 @@ class CourseGroovyPagesTests extends GroovyPagesTestCase {
 	void testCourseEdit() {
 		def file = new File("grails-app/views/course/edit.gsp")
 
-		def course = Course.findById("CM2006")
+		def course = Course.findByCourseId("CM2006")
 		assertTrue course != null
 
 		def controller = new CourseController()
-		controller.params.id = course.id
+		controller.params.courseId = course.courseId
 		def model = controller.edit()
 
 		def htmlString = applyTemplate(file.text, model)

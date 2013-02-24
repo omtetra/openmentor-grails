@@ -1,5 +1,3 @@
-<%@ page import="uk.org.openmentor.courseinfo.Course" %>
-<%@ page import="uk.org.openmentor.courseinfo.Student" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,7 +8,7 @@
     <body>
         <div id="page">
         <div class="body">
-            <h2><g:message code="assignment.edit.label" args="${[courseInstance.id]}" /></h2>
+            <h2><g:message code="assignment.edit.label" args="${[courseInstance.courseId]}" /></h2>
             <g:if test="${flash.message}">
               <div class="alert alert-info">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -18,12 +16,12 @@
               </div>
             </g:if>
             <g:form action="update" method="post" class="form-horizontal">
-              <g:hiddenField name="id" value="${assignmentInstance.id}" />
+              <g:hiddenField name="id" value="${assignmentInstance.code}" />
               <g:hiddenField name="version" value="${assignmentInstance?.version}" />
               <div class="control-group">
                 <label class="control-label" for="courseId"><g:message code="assignment.courseId.label" default="Course ID" />:</label>
-                <div class="controls ${hasErrors(bean: assignmentInstance, field: 'courseId', 'errors')}">
-                  <g:textField name="courseId" value="${courseInstance.id}" readonly="readonly" />
+                <div class="controls ${hasErrors(bean: assignmentInstance, field: 'course', 'errors')}">
+                  <g:textField name="courseId" value="${assignmentInstance?.course?.courseId}" readonly="readonly" />
                 </div>
               </div>
               <div class="control-group">

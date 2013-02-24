@@ -48,20 +48,20 @@ class TutorControllerIntegrationTests extends GroovyTestCase {
 	 * Test the edit action
 	 */
 	void testEditAction() {
-		controller.params.id = 'M4000061'
+		controller.params.tutorId = 'M4000061'
 		def model = controller.edit()
 		
-		assertEquals 'M4000061', model.tutorInstance?.id
+		assertEquals 'M4000061', model.tutorInstance?.tutorId
 	}
 
 	/**
 	 * Test the show action
 	 */
 	void testShowAction() {
-		controller.params.id = 'M4000061'
+		controller.params.tutorId = 'M4000061'
 		def model = controller.show()
 		
-		assertEquals 'M4000061', model.tutorInstance?.id
+		assertEquals 'M4000061', model.tutorInstance?.tutorId
 	}
 
 	/**
@@ -70,7 +70,7 @@ class TutorControllerIntegrationTests extends GroovyTestCase {
 	void testListAction() {
 		def model = controller.list()
 		
-		assertEquals 3, model.tutorInstanceTotal
+		assertEquals 4, model.tutorInstanceTotal
 		assertTrue model.tutorInstanceList.every { it instanceof Tutor }
 	}
 
@@ -78,7 +78,7 @@ class TutorControllerIntegrationTests extends GroovyTestCase {
 	 * Test the update action
 	 */
 	void testUpdateAction() {
-		controller.params.id = 'M4000061'
+		controller.params.tutorId = 'M4000061'
 		controller.params.givenName = 'Given'
 		controller.params.familyName = 'Family'
 		controller.update()
@@ -94,7 +94,7 @@ class TutorControllerIntegrationTests extends GroovyTestCase {
 		assertEquals 'list', redirectMap.action
 		
 		// And check the saved data
-		Tutor found = Tutor.findById('M4000061')
+		Tutor found = Tutor.findByTutorId('M4000061')
 		assertNotNull found
 		assertEquals 'Given', found.givenName
 		assertEquals 'Family', found.familyName

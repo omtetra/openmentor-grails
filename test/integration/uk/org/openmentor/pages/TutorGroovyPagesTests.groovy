@@ -60,10 +60,10 @@ class TutorGroovyPagesTests extends GroovyPagesTestCase {
 	void testTutorShow() {
 		def file = new File("grails-app/views/tutor/show.gsp")
 
-		def tutor = Tutor.findById("M4000061")
+		def tutor = Tutor.findByTutorId("M4000061")
 		assertTrue tutor != null
 
-		controller.params.id = tutor.id
+		controller.params.tutorId = tutor.tutorId
 		def model = controller.show()
 
 		def htmlString = applyTemplate(file.text, model)
@@ -76,10 +76,10 @@ class TutorGroovyPagesTests extends GroovyPagesTestCase {
 	void testTutorEdit() {
 		def file = new File("grails-app/views/tutor/edit.gsp")
 
-		def tutor = Tutor.findById("M4000061")
+		def tutor = Tutor.findByTutorId("M4000061")
 		assertTrue tutor != null
 
-		controller.params.id = tutor.id
+		controller.params.tutorId = tutor.tutorId
 		def model = controller.edit()
 
 		def htmlString = applyTemplate(file.text, model)
@@ -91,6 +91,11 @@ class TutorGroovyPagesTests extends GroovyPagesTestCase {
 		// Now check we have some inputs
 		def inputs = nodes.extractAllNodesThatMatch(new TagNameFilter("input"), true)
 		assertTrue(inputs.size > 1)
+		
+		// Check the appropriate two courses are specified
+		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")
+		assertTrue(textString.contains("AA1003"))
+		assertTrue(textString.contains("CM2006"))
 	}
 }
 

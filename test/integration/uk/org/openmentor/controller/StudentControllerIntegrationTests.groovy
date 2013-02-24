@@ -48,20 +48,20 @@ class StudentControllerIntegrationTests extends GroovyTestCase {
 	 * Test the edit action
 	 */
 	void testEditAction() {
-		controller.params.id = '09000231'
+		controller.params.studentId = '09000231'
 		def model = controller.edit()
 		
-		assertEquals '09000231', model.studentInstance?.id
+		assertEquals '09000231', model.studentInstance?.studentId
 	}
 
 	/**
 	 * Test the show action
 	 */
 	void testShowAction() {
-		controller.params.id = '09000231'
+		controller.params.studentId = '09000231'
 		def model = controller.show()
 		
-		assertEquals '09000231', model.studentInstance?.id
+		assertEquals '09000231', model.studentInstance?.studentId
 	}
 
 	/**
@@ -70,7 +70,7 @@ class StudentControllerIntegrationTests extends GroovyTestCase {
 	void testListAction() {
 		def model = controller.list()
 		
-		assertEquals 7, model.studentInstanceTotal
+		assertEquals 8, model.studentInstanceTotal
 		assertTrue model.studentInstanceList.every { it instanceof Student }
 	}
 	
@@ -78,7 +78,7 @@ class StudentControllerIntegrationTests extends GroovyTestCase {
 	 * Test the update action
 	 */
 	void testUpdateAction() {
-		controller.params.id = '09000231'
+		controller.params.studentId = '09000231'
 		controller.params.givenName = 'Given'
 		controller.params.familyName = 'Family'
 		controller.update()
@@ -94,7 +94,7 @@ class StudentControllerIntegrationTests extends GroovyTestCase {
 		assertEquals 'list', redirectMap.action
 		
 		// And check the saved data
-		Student found = Student.findById('09000231')
+		Student found = Student.findByStudentId('09000231')
 		assertNotNull found
 		assertEquals 'Given', found.givenName
 		assertEquals 'Family', found.familyName

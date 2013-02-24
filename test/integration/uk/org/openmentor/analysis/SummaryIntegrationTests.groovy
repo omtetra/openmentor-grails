@@ -7,7 +7,7 @@ import org.junit.*
 
 import uk.org.openmentor.controller.SubmissionCommand;
 import uk.org.openmentor.controller.SubmissionController;
-import uk.org.openmentor.data.Assignment;
+import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.domain.Summary;
 import uk.org.openmentor.service.CurrentUserService;
@@ -23,6 +23,7 @@ class SummaryIntegrationTests extends GroovyTestCase {
 
 	def summarizationService
 	def analyzerService
+	def courseInfoService
 
     protected void setUp() {
         super.setUp()
@@ -37,7 +38,7 @@ class SummaryIntegrationTests extends GroovyTestCase {
 		def controller = new SubmissionController()	
 		
 		Submission sub = analyzerService.newSubmission(
-			Assignment.findByCourseIdAndCode(course, assignment),
+			courseInfoService.findAssignment(course, assignment),
 			[student] as Set<String>,
 			[tutor] as Set<String>,
 			grade,
