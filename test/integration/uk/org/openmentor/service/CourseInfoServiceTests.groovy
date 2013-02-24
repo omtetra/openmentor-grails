@@ -679,4 +679,96 @@ class CourseInfoServiceTests extends GroovyTestCase {
 			assertEquals "admin", assignment.owner
 		}
 	}
+	
+	/**
+	 * Test deletion of a course.
+	 */
+	void testDeleteCourse() {
+		def course = Course.findByCourseId("CM2006")
+		courseInfoService.deleteCourse(course)
+		def finder = Course.findByCourseId("CM2006")
+		assertEquals(null, finder)
+	}
+
+	/**
+	 * Test deletion of a course when authenticated and
+	 * in training mode.
+	 */
+	void testAuthenticatedDeleteCourse() {
+		withAuthenticatedTrainingMode "user", {
+			def course = Course.findByCourseId("CMM511")
+			courseInfoService.deleteCourse(course)
+			def finder = Course.findByCourseId("CMM511")
+			assertEquals(null, finder)
+		}
+	}
+
+	/**
+	 * Test deletion of a student.
+	 */
+	void testDeleteStudent() {
+		def student = Student.findByStudentId("09000238")
+		courseInfoService.deleteStudent(student)
+		def finder = Student.findByStudentId("09000238")
+		assertEquals(null, finder)
+	}
+
+	/**
+	 * Test deletion of a student when authenticated and
+	 * in training mode.
+	 */
+	void testAuthenticatedDeleteStudent() {
+		withAuthenticatedTrainingMode "user", {
+			def student = Student.findByStudentId("09000238")
+			courseInfoService.deleteStudent(student)
+			def finder = Student.findByStudentId("09000238")
+			assertEquals(null, finder)
+		}
+	}
+
+	/**
+	 * Test deletion of a tutor.
+	 */
+	void testDeleteTutor() {
+		def tutor = Tutor.findByTutorId("M4000064")
+		courseInfoService.deleteTutor(tutor)
+		def finder = Tutor.findByTutorId("M4000064")
+		assertEquals(null, finder)
+	}
+
+	/**
+	 * Test deletion of a tutor when authenticated and
+	 * in training mode.
+	 */
+	void testAuthenticatedDeleteTutor() {
+		withAuthenticatedTrainingMode "user", {
+			def tutor = Tutor.findByTutorId("M4000064")
+			courseInfoService.deleteTutor(tutor)
+			def finder = Tutor.findByTutorId("M4000064")
+			assertEquals(null, finder)
+		}
+	}
+
+	/**
+	 * Test deletion of a assignment.
+	 */
+	void testDeleteAssignment() {
+		def assignment = Assignment.findByOwnerAndCode(null, "TMA03")
+		courseInfoService.deleteAssignment(assignment)
+		def finder = Assignment.findByOwnerAndCode(null, "TMA03")
+		assertEquals(null, finder)
+	}
+
+	/**
+	 * Test deletion of a assignment when authenticated and
+	 * in training mode.
+	 */
+	void testAuthenticatedDeleteAssignment() {
+		withAuthenticatedTrainingMode "user", {
+			def assignment = Assignment.findByOwnerAndCode("user", "TMA01")
+			courseInfoService.deleteAssignment(assignment)
+			def finder = Assignment.findByOwnerAndCode("user", "TMA01")
+			assertEquals(null, finder)
+		}
+	}
 }

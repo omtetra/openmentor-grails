@@ -18,7 +18,7 @@ class TutorController {
 		[tutorInstanceList: tutorList, tutorInstanceTotal: tutorCount]
 	}
 
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def save = {
 		def tutorInstance = new Tutor(params)		
 		courseInfoService.initializeTutor(tutorInstance)
@@ -44,7 +44,7 @@ class TutorController {
         }
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def edit = {
 		def tutorInstance = courseInfoService.findTutor(params.tutorId)
         if (!tutorInstance) {
@@ -57,13 +57,28 @@ class TutorController {
         }
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
+    def delete = {
+    	def tutorInstance = courseInfoService.findTutor(params.id)
+    	if (!tutorInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
+			redirect(action: "list")
+		}
+		else {
+			def tutorId = tutorInstance.tutorId
+			courseInfoService.deleteTutor(tutorInstance)
+			flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorId])}"
+			redirect(action: "list")
+		}
+	}
+	
+	@Secured(['ADMIN_COURSEINFO'])
     def create = { 
 		def courseList = courseInfoService.getCourses([:])
 		[courseList: courseList]
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def update = {
     	Tutor.withSession { session ->
 	        def tutorInstance = courseInfoService.findTutor(params.tutorId)

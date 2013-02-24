@@ -32,7 +32,10 @@
                             <td><g:link action="show" params="${[studentId: fieldValue(bean: studentInstance, field: 'studentId')]}">${fieldValue(bean: studentInstance, field: "studentId")}</g:link></td>
                             <td>${fieldValue(bean: studentInstance, field: "name")}</td>
                             <td>
-                                <g:link class="btn btn-small" action="show" params="${[studentId: fieldValue(bean: studentInstance, field: 'studentId')]}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
+                                <g:link class="btn btn-info btn-small" action="show" params="${[studentId: fieldValue(bean: studentInstance, field: 'studentId')]}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
+                                <sec:ifAnyGranted roles="MANAGE_COURSEINFO_ROLE">
+                                    <g:link class="btn btn-danger btn-small handle-delete" action="delete" data-id="${fieldValue(bean: studentInstance, field: 'studentId')}">${message(code: 'default.button.delete.label', default: 'Delete')}</g:link>
+                                </sec:ifAnyGranted>
                            	</td>
                         </tr>
                     </g:each>
@@ -44,11 +47,46 @@
             </div>
             
             <div class="nav">
-                <sec:ifAnyGranted roles="ROLE_OPENMENTOR-POWERUSER">
-                	<span class="menuButton"><g:link class="create btn" action="create"><g:message code="default.button.create.label" default="Create" /></g:link></span>
+                <sec:ifAnyGranted roles="MANAGE_COURSEINFO_ROLE">
+                	<span class="menuButton"><g:link class="create btn-primary btn" action="create"><g:message code="default.button.create.label" default="Create" /></g:link></span>
                 </sec:ifAnyGranted>
             </div>
         </div>
         </div>
+        <div id="modal-from-dom" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <a href="#" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+              <h3>Delete ${entityName}</h3>
+            </div>
+            <div class="modal-body">
+              <p>You are about to delete ${entityName.toLowerCase()} <span class="insert-id"></span>, this cannot be undone.</p>
+              <p>Are you sure you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+              <a href="delete?id=0" class="btn btn-danger handle-delete-confirm">Yes</a>
+              <a class="btn btn-secondary handle-delete-confirm">No</a>
+            </div>
+        </div>
+        <content tag="postJQuery">
+            <g:javascript>
+jQuery(document).ready(function() {
+  jQuery(".handle-delete").click(function(e) { 
+    e.preventDefault();
+    var id = $(this).data('id');
+    jQuery('#modal-from-dom').data('id', id).modal('show');
+  });
+  jQuery(".handle-delete-confirm").click(function(e) {
+    jQuery('#modal-from-dom').modal('hide');
+  });
+  jQuery('#modal-from-dom').bind('show', function() {
+    var id = jQuery(this).data('id'),
+    removeBtn = jQuery(this).find('.btn-danger'),
+    href = removeBtn.attr('href');
+    removeBtn.attr('href', href.replace(/\?id=[^&;]*/, '?id=' + id));
+    jQuery('#modal-from-dom .insert-id').text(id);
+  });
+});
+            </g:javascript>
+        </content>
     </body>
 </html>

@@ -100,6 +100,17 @@ class StudentControllerIntegrationTests extends GroovyTestCase {
 		assertEquals 'Family', found.familyName
 	}
 
+	/**
+	 * Test the delete action
+	 */
+	void testDeleteAction() {
+		controller.params.id = '09000238'
+		def model = controller.delete()
+		
+		assertNotNull(redirectMap)
+		assertEquals 'list', redirectMap.action
+	}
+
 	// Stolen from GrailsUnitTestCase
 	/**
 	 * Use this method when you plan to perform some meta-programming

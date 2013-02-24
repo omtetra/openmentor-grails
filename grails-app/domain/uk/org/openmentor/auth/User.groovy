@@ -1,6 +1,8 @@
 package uk.org.openmentor.auth
 
 class User {
+	
+	def courseInfoService 
 
 	String username
 	String password
@@ -29,9 +31,28 @@ class User {
 	}
 		
 	static mapping = { password column: '`password`' }
+	
+	private final AdditionalRole MANAGE_COURSEINFO_ROLE = new AdditionalRole(authority: "MANAGE_COURSEINFO_ROLE")
 
-	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this).collect { it.role } as Set
+	/**
+	 * Returns the authorities for the Spring Security plugin. 
+	 * @return
+	 */
+	Set getAuthorities() {
+		Set roles = getRoles()
+		if (courseInfoService.trainingMode || roles.find { it.authority == "ROLE_OPENMENTOR-ADMIN" } ) {
+			roles.add(MANAGE_COURSEINFO_ROLE)
+		}
+		return roles
+	}
+	
+	/**
+	 * Returns the accessible and manageable roles, which is the same as the set of authorities,
+	 * except that it omits the automatically assigned authorities.
+	 * @return
+	 */
+	Set<Role> getRoles() {
+		return UserRole.findAllByUser(this).collect { it.role } as Set
 	}
 	
 	void removeRole(Role role) {

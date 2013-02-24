@@ -44,7 +44,7 @@
               </div>
               <div class="control-group">
                 <div class="controls">
-                  <sec:ifAnyGranted roles="ROLE_OPENMENTOR-POWERUSER">
+                  <sec:ifAnyGranted roles="MANAGE_COURSEINFO_ROLE">
                     <g:link class="edit btn btn-primary" name="edit" action="edit" id="${assignmentInstance?.code}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
                   </sec:ifAnyGranted>
                 </div>

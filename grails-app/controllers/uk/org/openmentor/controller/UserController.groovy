@@ -136,7 +136,7 @@ class UserController {
             redirect(action: "list")
         }
         else {
-			def allRoles = userInstance ? userInstance.getAuthorities().collect { it.authority } : [] as Set<String>
+			def allRoles = userInstance ? userInstance.getRoles().collect { it.authority } : [] as Set<String>
             [userInstance: userInstance, userRoles: allRoles, availableRoles: allPossibleRoles]
         }
 	}
@@ -154,7 +154,7 @@ class UserController {
 		}
 
 		def userInstance = User.findByUsername(username)
-		def allRoles = userInstance ? userInstance.getAuthorities().collect { it.authority } : [] as Set<String>
+		def allRoles = userInstance ? userInstance.getRoles().collect { it.authority } : [] as Set<String>
 		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>
 		
 		log.trace("Found user: " + userInstance)
@@ -182,7 +182,7 @@ class UserController {
 		
 		def userInstance = User.get(params.id)
 		
-		def allRoles = userInstance ? userInstance.getAuthorities().collect { it.authority } : [] as Set<String>
+		def allRoles = userInstance ? userInstance.getRoles().collect { it.authority } : [] as Set<String>
 		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>
 
 		def model = [userInstance: userInstance, userRoles: allRoles, availableRoles: allPossibleRoles]
@@ -224,8 +224,9 @@ class UserController {
 					}
 				}
 				
-				Set<Role> rolesToAdd = newRoles.minus(userInstance.getAuthorities())
-				Set<Role> rolesToRemove = userInstance.getAuthorities().minus(newRoles)
+				Set<Role> currentRoles = userInstance.getRoles()
+				Set<Role> rolesToAdd = newRoles.minus(currentRoles)
+				Set<Role> rolesToRemove = currentRoles.minus(newRoles)
 				for(Role role in rolesToRemove) {
 					userInstance.removeRole(role)
 				}

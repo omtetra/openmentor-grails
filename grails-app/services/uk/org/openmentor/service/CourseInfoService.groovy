@@ -425,4 +425,49 @@ class CourseInfoService {
 			assignment.owner = username
 		}
 	}
+	
+	/**
+	 * Deletes a course with the appropriate owner, if required.
+	 */
+	void deleteCourse(Course course) {
+		
+		// Boring old workaround for ConcurrentModificationException
+		Set<Student> students = [] as Set<Student>
+		Set<Tutor> tutors = [] as Set<Tutor>
+		students.addAll(course.students)
+		tutors.addAll(course.tutors)
+
+		for(Student s in students) {
+			s.removeFromCourses(course).save()
+		}
+		for(Tutor t in tutors) {
+			t.removeFromCourses(course).save()
+		}
+		course.delete(flush: true);
+		return;
+	}
+
+	/**
+	 * Deletes a student with the appropriate owner, if required.
+	 */
+	void deleteStudent(Student student) {
+		student.delete(flush: true);
+		return;
+	}
+
+	/**
+	 * Deletes a tutor with the appropriate owner, if required.
+	 */
+	void deleteTutor(Tutor tutor) {
+		tutor.delete(flush: true);
+		return;
+	}
+
+	/**
+	 * Deletes an assignment with the appropriate owner, if required.
+	 */
+	void deleteAssignment(Assignment assignment) {
+		assignment.delete(flush: true);
+		return;
+	}
 }

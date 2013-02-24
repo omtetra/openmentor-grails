@@ -18,7 +18,7 @@ class StudentController {
 		[studentInstanceList: studentList, studentInstanceTotal: studentCount]
 	}
 
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def save = {
 		def studentInstance = new Student(params)
 		courseInfoService.initializeStudent(studentInstance)
@@ -45,7 +45,7 @@ class StudentController {
         }
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def edit = {
 		def studentInstance = courseInfoService.findStudent(params.studentId)
 		if (!studentInstance) {
@@ -58,13 +58,28 @@ class StudentController {
 		}
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
+    def delete = {
+    	def studentInstance = courseInfoService.findStudent(params.id)
+    	if (!studentInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
+			redirect(action: "list")
+		}
+		else {
+			def studentId = studentInstance.studentId
+			courseInfoService.deleteStudent(studentInstance)
+			flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'student.label', default: 'Student'), studentId])}"
+			redirect(action: "list")
+		}
+	}
+	
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def create = {
 		def courseList = courseInfoService.getCourses([:])
 		[courseList: courseList]
 	}
 	
-	@Secured(['ROLE_OPENMENTOR-POWERUSER'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def update = {
 		Student.withSession { session ->
 	        def studentInstance = courseInfoService.findStudent(params.studentId)
