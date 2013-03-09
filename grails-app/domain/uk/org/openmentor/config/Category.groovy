@@ -8,7 +8,7 @@ class Category {
 	String band
 
     static constraints = {
-		id(nullable: false, unique: true, blank: false, maxSize: 8)
+		id(nullable: false, unique: true, blank: false, maxSize: 8, bindable: true)
 		band(nullable: false, unique: false, blank: false, maxSize: 2)
     }
 	
