@@ -1,0 +1,14 @@
+--- 
+applications: 
+- url: ${target-base}
+  framework: grails
+  name: openmentor
+  services: 
+    mysql-7ddb9c7: 
+      tier: free
+      vendor: mysql
+      version: "5.1"
+  path: .
+  instances: 1
+  runtime: java
+  memory: 900M
