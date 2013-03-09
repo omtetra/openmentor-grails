@@ -1,12 +1,32 @@
 package uk.org.openmentor.controller
 
+/**
+ * The HelpController
+ * @author morungos.
+ */
 class HelpController {
 
-    def index = { }
+	/**
+	 * The index action for the help controller
+	 * @return
+	 */
+    def index() { 
+		
+	}
 
-    def contact = { }
+    /**
+	 * The contact action for the help controller
+	 * @return
+	 */
+    def contact() { 
+		
+	}
 	
-	def error = {
+	/**
+	 * The error action for the help controller
+	 * @return
+	 */
+    def error() {
 		throw new RuntimeException("This action throws an error")
 	}
 }

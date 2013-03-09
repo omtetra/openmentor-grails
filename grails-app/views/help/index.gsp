@@ -28,7 +28,7 @@
     </p>
     
 	<p>
-    <a href="article.jsp">
+    <a href="http://dx.doi.org/10.1080/0968776030110304">
       Whitelock, D., Watt, S., Raw, Y. and Moreale, E. (2004)
       Analysing tutor feedback to students: first steps towards
       constructing an electronic monitoring system.  Association for
