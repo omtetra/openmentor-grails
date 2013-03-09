@@ -17,9 +17,17 @@ class ReportController {
 
 	private Map getUploadModel() {
 		
+		def courseId = session.current_course
+		def courseInstance = courseInfoService.findCourse(courseId)
+
+		if (! courseInstance) {
+			redirect(action: "select", controller: "course")
+			return
+		}
+
 		def model = [
 			grades: Grade.getGrades(),
-			course: courseInfoService.findCourse(session.current_course)
+			course: courseInstance
 		]
 		
 		return model

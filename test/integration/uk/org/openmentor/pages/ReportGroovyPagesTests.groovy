@@ -59,7 +59,7 @@ class ReportGroovyPagesTests extends GroovyPagesTestCase {
 		sub.save(flush: true, validate: true)
 		assertTrue sub.id != null
 	}
-
+	
 	/**
 	 * Test the report controller's ability to show a report. To do this, 
 	 * of course, we actually need a submission that we can use. 

@@ -51,7 +51,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		
 		return sub
 	}
-										 
+	
 	/**
 	 * Test the submission controller's upload page.
 	 */

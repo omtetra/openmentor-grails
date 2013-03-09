@@ -52,6 +52,30 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		
 		return mockFile
 	}
+	
+	/**
+	 * Test that the upload page redirects when we don't have a selected
+	 * course
+	 */
+	void testUploadRedirect() {
+		def result = controller.upload()
+		assertNull(renderMap)
+		assertNotNull(redirectMap)
+		
+		assertEquals "select", redirectMap.action
+		assertEquals "course", redirectMap.controller
+	}
+
+	/**
+	 * Test that the upload page doesn't redirect when we do have a selected
+	 * course
+	 */
+	void testUploadNoRedirect() {
+		controller.session.putAt('current_course', 'CM2006')
+		def result = controller.upload()
+		assertNotNull(result?.courseInstance)
+		assertNull(redirectMap)		
+	}
 
     void testSubmission() {
 		def mockFile = getMockFile("test/resources/test1a.doc")

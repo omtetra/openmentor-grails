@@ -40,6 +40,7 @@ class SubmissionController {
 
 	def upload = { 
 		def courseInstance = getSelectedCourse()
+		if (! courseInstance) return
 		def grades = Grade.getGrades()
 		def assignmentsList = courseInfoService.getAssignments(courseInstance, [:])
 		[grades: grades, courseInstance: courseInstance, assignmentsList: assignmentsList]
