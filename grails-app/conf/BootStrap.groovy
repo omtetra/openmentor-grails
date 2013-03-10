@@ -208,7 +208,7 @@ class BootStrap {
         Map<String, Map<String, Double>> weights = grailsApplication.config.openmentor.weights
         weights.each { grade, values ->
             values.each { band, weight ->
-                 Grade gradeInstance = Grade.get(grade)
+                Grade gradeInstance = Grade.get(grade)
                 Float weightValue = new Float(weight.floatValue())
                 Weight instance = new Weight(grade: gradeInstance, band: band, weight: weightValue)
                 instance.save(insert: true, failOnError: true, flush: true)

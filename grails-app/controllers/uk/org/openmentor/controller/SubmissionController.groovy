@@ -10,8 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Submission;
-import uk.org.openmentor.domain.Categorization
-import uk.org.openmentor.domain.Grade;
 import uk.org.openmentor.domain.Summary;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
@@ -21,6 +19,7 @@ class SubmissionController {
 	def currentUserService
 	def summarizationService
 	def courseInfoService
+	def categorizationInfoService
 	
 	private Course getSelectedCourse() {
 		def courseId = session.current_course
@@ -34,14 +33,14 @@ class SubmissionController {
 		return courseInstance
 	}
 	
-    def index = { 
+    def index() { 
 		redirect(action: "new", params: params)
 	}
 
-	def upload = { 
+	def upload() { 
 		def courseInstance = getSelectedCourse()
 		if (! courseInstance) return
-		def grades = Grade.getGrades()
+		def grades = categorizationInfoService.getGrades()
 		def assignmentsList = courseInfoService.getAssignments(courseInstance, [:])
 		[grades: grades, courseInstance: courseInstance, assignmentsList: assignmentsList]
 	}
@@ -52,21 +51,21 @@ class SubmissionController {
 	 * with the Summary, is passed into the view. The SummarizationService is used for
 	 * the underlying work. 
 	 */
-	def show = {
+	def show() {
 		
 		Submission sub = Submission.get(params.id)
 		Summary summary = summarizationService.getSubmissionSummary(sub, true)
 		return [summary: summary, submissionInstance: sub]
 	}
 	
-	def save = { SubmissionCommand cmd ->
+	def save(SubmissionCommand cmd) {
 		
 		def courseInstance = getSelectedCourse()
 		if (! courseInstance) {
 			return
 		}
 		
-		def grades = Grade.getGrades()
+		def grades = categorizationInfoService.getGrades()
 		def model = [grades: grades, courseInstance: courseInstance]
 		model.cmd = cmd
 

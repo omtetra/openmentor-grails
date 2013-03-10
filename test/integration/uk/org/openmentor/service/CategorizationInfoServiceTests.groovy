@@ -1,37 +1,16 @@
-package uk.org.openmentor.domain
+package uk.org.openmentor.service
 
-import static org.junit.Assert.*
+import grails.test.GrailsUnitTestCase
 
-import grails.test.mixin.support.*
-
-/**
- * Tests the Category class - this provides static methods that expose the configuration of
- * the set of categories available in the current deployment. 
- * 
- * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
- */
-@TestMixin(GrailsUnitTestMixin)
-class CategoryTests {
-
-	/**
-	 * Sets up the tests
-	 */
-    void setUp() {
-        // Setup logic here
-    }
-
-	/**
-	 * Tears down the tests
-	 */
-    void tearDown() {
-        // Tear down logic here
-    }
+class CategorizationInfoServiceTests extends GroovyTestCase {
+	
+	CategorizationInfoService categorizationInfoService
 
 	/**
 	 * Checks that the list of categories matches the valid configuration
 	 */
     void testCategories() {
-        List<String> value = Category.getCategories()
+        List<String> value = categorizationInfoService.getCategories()
 		
 		def expected = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D1', 'D2', 'D3']
 		assertEquals expected, value
@@ -41,7 +20,7 @@ class CategoryTests {
 	 * Checks that the list of categories matches the valid configuration
 	 */
     void testBands() {
-        List<String> value = Category.getBands()
+        List<String> value = categorizationInfoService.getBands()
 		
 		def expected = ['A', 'B', 'C', 'D']
 		assertEquals expected, value
@@ -52,7 +31,7 @@ class CategoryTests {
 	 * too careful about it.
 	 */
 	void testCategoryBandMap() {
-		Map<String, String> value = Category.getCategoryBandMap()
+		Map<String, String> value = categorizationInfoService.getCategoryBandMap()
 		
 		assertEquals 'A', value.getAt('A1')
 		assertEquals 'B', value.getAt('B2')
@@ -67,6 +46,16 @@ class CategoryTests {
 	void testGetBandCategories() {
 		
 		def expected = ['C1', 'C2', 'C3']
-		assertEquals expected, Category.getBandCategories("C")
+		assertEquals expected, categorizationInfoService.getBandCategories("C")
 	}
+
+	/**
+	 * Checks that the list of grades matches the valid configuration
+	 */
+    void testGrades() {
+        List<String> value = categorizationInfoService.getGrades()
+		
+		def expected = ['A', 'B', 'C', 'D', 'E', 'F']
+		assertEquals expected, value
+    }
 }

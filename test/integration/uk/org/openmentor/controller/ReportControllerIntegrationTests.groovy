@@ -8,7 +8,6 @@ import org.apache.commons.io.IOUtils
 
 import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.data.Submission
-import uk.org.openmentor.domain.Categorization;
 import uk.org.openmentor.service.CurrentUserService;
 
 import org.gmock.WithGMock

@@ -38,11 +38,11 @@
                             <td>
                                 <p><em>${band}</em></p>
                             </td>
-                            <td class="number"><p>${summary.data.getAt(band).actual}</p></td>
-                            <td class="number"><p>${summary.data.getAt(band).ideal}</p></td>
+                            <td class="number"><p>${summary.data.get(band)?.actual ?: 0}</p></td>
+                            <td class="number"><p>${summary.data.get(band)?.ideal ?: 0}</p></td>
                             <td>
                                 <g:set var="limit" value="${3}"/>
-                                <g:set var="comments" value="${summary.data.getAt(band).comments}" />
+                                <g:set var="comments" value="${summary.data.get(band)?.comments ?: []}" />
                                 <g:each var="comment" in="${comments}" status="commentIndex">
                                     <p><g:if test="${commentIndex < limit}"><g:set var="actual" value="${commentIndex}" />${comment}</g:if></p>
                                 </g:each>

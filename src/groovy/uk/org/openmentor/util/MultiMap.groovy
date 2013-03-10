@@ -6,7 +6,7 @@ class MultiMap extends TreeMap {
 
 	MultiMap(){}
 
-	def getAt(Object o){
+	def getAt(Object o) {
 		return getProperty(o.toString())
 	}
 
@@ -17,5 +17,5 @@ class MultiMap extends TreeMap {
 			put(b, v)
 		}
 		return v
-	}
+	}	
 }

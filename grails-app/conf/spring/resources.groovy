@@ -9,9 +9,5 @@ beans = {
 	
 	extractorComponent(uk.org.openmentor.extractor.impl.ExtractStandard) { bean ->
 		bean.autowire = 'byName'
-	}
-	
-	evaluationComponent(uk.org.openmentor.domain.StandardEvaluationScheme) { bean ->
-		bean.autowire = 'byName'
-	}
+	}	
 }

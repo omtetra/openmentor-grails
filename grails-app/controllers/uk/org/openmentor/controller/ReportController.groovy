@@ -6,7 +6,6 @@ import grails.plugins.springsecurity.Secured
 
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Submission;
-import uk.org.openmentor.domain.Grade;
 import uk.org.openmentor.domain.Summary;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
@@ -14,6 +13,7 @@ class ReportController {
 	
 	def summarizationService
 	def courseInfoService
+	def categorizationInfoService
 
 	private Map getUploadModel() {
 		
@@ -26,7 +26,7 @@ class ReportController {
 		}
 
 		def model = [
-			grades: Grade.getGrades(),
+			grades: categorizationInfoService.getGrades(),
 			course: courseInstance
 		]
 		
@@ -35,12 +35,14 @@ class ReportController {
 
     def index = { 
 		def model = getUploadModel()
+		if (! model) return
 		
 		model
 	}
 
     def course = { 
 		def model = getUploadModel()
+		if (! model) return
 		
 		Summary summary = summarizationService.getCourseSummary(model.course.courseId)
 		model.summary = summary
@@ -50,6 +52,7 @@ class ReportController {
 
     def course_details = { 
 		def model = getUploadModel()
+		if (! model) return
 		
 		Summary summary = summarizationService.getCourseSummary(model.course.courseId, true)
 		model.summary = summary
@@ -59,6 +62,7 @@ class ReportController {
 
     def assignments = { 
 		def model = getUploadModel()
+		if (! model) return
 		
 		Summary summary = summarizationService.getCourseSummaryByAssignment(model.course.courseId)
 		model.summary = summary
@@ -69,6 +73,7 @@ class ReportController {
 	def assignment = {
 		assert params.id != null
 		def model = getUploadModel()
+		if (! model) return
 		
 		Summary summary = summarizationService.getCourseAndAssignmentSummary(model.course.courseId, params.id)
 		model.summary = summary
@@ -78,6 +83,7 @@ class ReportController {
 
     def students = { 
 		def model = getUploadModel()
+		if (! model) return
 		
 		Summary summary = summarizationService.getCourseSummaryByStudent(model.course.courseId)
 		model.summary = summary
@@ -88,6 +94,7 @@ class ReportController {
     def student = { 
 		assert params.id != null
 		def model = getUploadModel()
+		if (! model) return
 		
 		Summary summary = summarizationService.getCourseAndStudentSummary(model.course.courseId, params.id)
 		model.summary = summary
@@ -97,6 +104,7 @@ class ReportController {
 
 	def tutors = { 
 		def model = getUploadModel()
+		if (! model) return
 		
 		Summary summary = summarizationService.getCourseSummaryByTutor(model.course.courseId)
 		model.summary = summary
@@ -107,6 +115,7 @@ class ReportController {
     def tutor = { 
 		assert params.id != null
 		def model = getUploadModel()
+		if (! model) return
 		
 		Summary summary = summarizationService.getCourseAndTutorSummary(model.course.courseId, params.id)
 		model.summary = summary
