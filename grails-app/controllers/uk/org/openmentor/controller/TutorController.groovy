@@ -72,7 +72,7 @@ class TutorController {
 		}
 	}
 	
-	@Secured(['ADMIN_COURSEINFO'])
+	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def create = { 
 		def courseList = courseInfoService.getCourses([:])
 		[courseList: courseList]
