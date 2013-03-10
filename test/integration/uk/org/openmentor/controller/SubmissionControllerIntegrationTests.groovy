@@ -107,6 +107,9 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		
 		assertNotNull(submissionInstance)
 		
+		assertEquals("test1a.doc", submissionInstance.filename)
+		assertEquals("test/resources/test1a.doc", submissionInstance.longFilename)
+		
 		Summary summary = summarizationService.getSubmissionSummary(submissionInstance, true)
 		assertNotNull summary
 		
@@ -144,7 +147,9 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		Submission submissionInstance = Submission.get(identifier)
 		
 		assertNotNull(submissionInstance)
-		
+		assertEquals("test3a.docx", submissionInstance.filename)
+		assertEquals("test/resources/test3a.docx", submissionInstance.longFilename)
+
 		Summary summary = summarizationService.getSubmissionSummary(submissionInstance, true)
 		assertNotNull summary
 		

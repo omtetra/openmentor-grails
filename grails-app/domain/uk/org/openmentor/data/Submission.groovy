@@ -10,6 +10,11 @@ class Submission {
 	 */
 	String filename
 	
+	/**
+	 * A long version of the filename associated with this submission
+	 */
+	String longFilename
+	
 	/** 
 	 * The grade associated with this submission
 	 */
@@ -40,6 +45,7 @@ class Submission {
 
     static constraints = {
 		filename(nullable: false, blank: false)
+		longFilename(nullable: false, blank: false)
 		grade(nullable: false)
 		fileContents(nullable: true, maxSize: 16*1024*1024) // Allow up to 8Mb
 		dateSubmitted(nullable: false)

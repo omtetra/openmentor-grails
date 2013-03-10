@@ -26,12 +26,12 @@ class SubmissionIntegrationTests extends GroovyTestCase {
 		
 		// Write the submission
 		def grade = Grade.get("A")
-		def submission = new Submission(filename: "foo.doc", grade: grade, username: "admin", fileContents: testFile.getBytes())
+		def submission = new Submission(filename: "foo.doc", longFilename: "foo.doc", grade: grade, username: "admin", fileContents: testFile.getBytes())
 		assignment.addToSubmissions(submission)
-		assignment.save(validate: true, flush: true)
+		assignment.save(validate: true, flush: true, failOnError: true)
 		
 		// And now look for it - confirming it really was written
 		def found = Submission.findByFilename("foo.doc")
-		assertTrue found != null
+		assertNotNull found
     }
 }

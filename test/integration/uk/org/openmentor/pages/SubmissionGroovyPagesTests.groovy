@@ -86,7 +86,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		def model = controller.show()
 
 		def htmlString = applyTemplate(file.text, model)
-		assertTrue(htmlString.contains("Submission for test/resources/test1a.doc"))
+		assertTrue(htmlString.contains("Submission for test1a.doc"))
 		assertTrue(htmlString.contains("Its good to see you found this resource useful."))
 	}
 

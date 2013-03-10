@@ -40,7 +40,7 @@ class AnalyzerService {
                                     Set<String> tutorIds,
                                     String grade,
                                     String username,
-                                    String filename,
+                                    String longFilename,
                                     byte[] fileContents) throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("Analyzing submission: grade: " + grade
@@ -52,14 +52,16 @@ class AnalyzerService {
         }
         
         Grade gradeInstance = Grade.get(grade)
+		String filename = (longFilename =~ /[^\/]+$/)[0]
 
-        Submission sub = new Submission();
-        sub.setAssignment(assignment);
-        sub.setStudentIds(students);
-        sub.setTutorIds(tutorIds);
-        sub.setGrade(gradeInstance);
-        sub.setFilename(filename);
-        sub.setUsername(username);
+        Submission sub = new Submission()
+        sub.setAssignment(assignment)
+        sub.setStudentIds(students)
+        sub.setTutorIds(tutorIds)
+        sub.setGrade(gradeInstance)
+        sub.setFilename(filename)
+		sub.setLongFilename(longFilename)
+        sub.setUsername(username)
         sub.setFileContents(fileContents)
         
         Set<Comment> commentSet = new HashSet<Comment>();
