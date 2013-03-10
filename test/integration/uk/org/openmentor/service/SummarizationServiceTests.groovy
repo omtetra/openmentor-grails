@@ -68,9 +68,23 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		assertTrue result.data != null
     }
 
+    void testCourseAndAssignmentSubmissions() {
+
+		Summary result = summarizationService.getCourseAndAssignmentSubmissions("CM2006", "TMA01")
+        assertTrue result != null
+		assertTrue result.data != null
+    }
+
     void testCourseAndTutorSummary() {
 
 		Summary result = summarizationService.getCourseAndTutorSummary("CM2006", "M4000061")
+        assertTrue result != null
+		assertTrue result.data != null
+    }
+
+    void testCourseAndTutorSubmissions() {
+
+		Summary result = summarizationService.getCourseAndTutorSubmissions("CM2006", "M4000061")
         assertTrue result != null
 		assertTrue result.data != null
     }
@@ -81,4 +95,12 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
         assertTrue result != null
 		assertTrue result.data != null
     }
+
+    void testCourseAndStudentSubmissions() {
+
+		Summary result = summarizationService.getCourseAndStudentSubmissions("CM2006", "09000231")
+        assertTrue result != null
+		assertTrue result.data != null
+    }
+
 }

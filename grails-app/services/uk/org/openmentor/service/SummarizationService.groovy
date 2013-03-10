@@ -78,6 +78,14 @@ class SummarizationService {
     }
 
     /**
+     * Returns a Summary for all the submissions for a specified course, broken down by assignment.
+     * @return
+     */
+    def getCourseAndAssignmentSubmissions(String courseId, String assignment, Boolean comments = false) {
+        makeSummary(["sub.filename"], ["sub.assignment as ass", "ass.course as c"], ["c.courseId = :courseId", "ass.code = :code"], ["courseId": courseId, "code": assignment], comments)
+    }
+
+    /**
      * Returns a Summary for a specified course and student.
      * @return
      */
@@ -86,11 +94,27 @@ class SummarizationService {
     }
 
     /**
+     * Returns a Summary for all the submissions for a specified course and student.
+     * @return
+     */
+    def getCourseAndStudentSubmissions(String courseId, String studentId, Boolean comments = false) {
+        makeSummary(["sub.filename"], ["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], ["c.courseId = :courseId", "student_id = :studentId"], ["courseId": courseId, "studentId": studentId], comments)
+    }
+
+    /**
      * Returns a Summary for a specified course and tutor.
      * @return
      */
     def getCourseAndTutorSummary(String courseId, String tutorId, Boolean comments = false) {
         makeSummary([], ["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], ["c.courseId = :courseId", "tutor_id = :tutorId"], ["courseId": courseId, "tutorId": tutorId], comments)
+    }
+
+    /**
+     * Returns a Summary for all the submissions for a specified course and tutor.
+     * @return
+     */
+    def getCourseAndTutorSubmissions(String courseId, String tutorId, Boolean comments = false) {
+        makeSummary(["sub.filename"], ["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], ["c.courseId = :courseId", "tutor_id = :tutorId"], ["courseId": courseId, "tutorId": tutorId], comments)
     }
 
     /**
