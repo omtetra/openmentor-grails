@@ -9,6 +9,29 @@ class Summary {
 	Integer commentCount
 	List<String> dimensions
 	MultiMap data
+	
+	Summary filter(List<String> criteria) {
+		return new Summary(data: filteredData(data, criteria, 0), dimensions: dimensions, submissionCount: submissionCount, commentCount: commentCount)
+	}
+	
+	private Object filteredData(MultiMap source, List<String> criteria, int offset) {
+		if (criteria[offset] != null) {
+			def value = source[criteria[offset]]
+			if (value instanceof MultiMap) {
+				return filteredData(value, criteria, offset + 1)
+			} else {
+				return value
+			}
+		} else {
+			return (MultiMap) source.collectEntries { key, value ->
+				if (value instanceof MultiMap) {
+					[ key, filteredData(value, criteria, offset + 1) ]
+				} else {
+					[ key, value ]
+				}
+			}
+		}
+	}
 }
 
 class SummaryEntry {
