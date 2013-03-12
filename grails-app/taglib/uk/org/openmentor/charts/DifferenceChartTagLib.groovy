@@ -1,14 +1,15 @@
 package uk.org.openmentor.charts
 
-import uk.org.openmentor.config.Category;
 import uk.org.openmentor.domain.Summary
 import uk.org.openmentor.domain.SummaryEntry
-import uk.org.openmentor.util.MultiMap;
+import uk.org.openmentor.util.MultiMap
 
 import grails.converters.JSON
 
 
 class DifferenceChartTagLib {
+	
+	def categorizationInfoService
 	
 	def getEntryData(MultiMap data, String category, String band) {
 		SummaryEntry entry = data.getAt(category).getAt(band)
