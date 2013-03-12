@@ -1,17 +1,48 @@
 package uk.org.openmentor.charts
 
-import uk.org.openmentor.config.Category;
 import uk.org.openmentor.domain.Summary
 import uk.org.openmentor.util.MultiMap;
 
 import grails.converters.JSON
 
 class ActualIdealTagLib {
+	
+	def categorizationInfoService
+	
+	def actualIdealTable = { attrs, body ->
+		Summary summary = attrs.summary
+		String ref = attrs.ref
+		
+		MultiMap data = summary.data
+		List<String> keys = data.keySet() as List
+		List<Number> idealValues = keys.collect { val -> data.get(val)?.ideal ?: 0 }
+		List<Number> actualValues = keys.collect { val -> data.get(val)?.actual ?: 0 }
+		
+		out << """
+<table class="actual-ideal">
+    <thead>
+        <tr> 
+             <td></td>
+             <th scope="col">Ideal</th>
+             <th scope="col">Actual</th>
+        </tr>
+    </thead>
+    <tbody>
+""" +
+		(0..keys.size()-1).collect { i -> 
+			"<tr><td>${keys[i]}</td><td>${idealValues[i]}</td><td>${actualValues[i]}</td></tr>"
+		}.join("\n") +
+		"""
+    </tbody>
+</table>
+"""
+	}
+	
 	def actualIdealChart = { attrs, body ->
 		Summary summary = attrs.summary
 		String ref = attrs.ref
 		
-		List<String> bands = Category.getBands()
+		List<String> bands = categorizationInfoService.getBands()
 		MultiMap data = summary.data
 		List<Number> idealValues = bands.collect { data.getAt(it).ideal }
 		List<Number> actualValues = bands.collect { data.getAt(it).actual }
