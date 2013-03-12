@@ -1,6 +1,6 @@
 package uk.org.openmentor.util
 
-import java.util.TreeMap;
+import java.util.TreeMap
 
 class MultiMap extends TreeMap {
 
