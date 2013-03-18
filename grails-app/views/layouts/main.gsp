@@ -22,13 +22,13 @@
     <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap-responsive.css')}">
     <link rel="stylesheet" href="${resource(dir:'css',file:'chosen.css')}">
     <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}">
-    <g:javascript src='libs/jquery-1.8.3.min.js'/>
-    <g:javascript src='libs/bootstrap.min.js'/>
-    <g:javascript src='libs/jquery-ui-1.9.2.custom.min.js'/>
+    <g:javascript src='libs/jquery-1.9.1.js'/>
+    <g:javascript src='libs/bootstrap.js'/>
     <g:javascript src='libs/bootstrap.file-input.js'/>
     <g:javascript src='libs/excanvas.min.js'/>
-    <g:javascript src='libs/jquery.flot.js'/>
+    <g:javascript src='libs/raphael.js'/>
     <g:javascript src='libs/chosen.jquery.min.js'/>
+    <g:javascript src='jquery.bulletcharts.js'/>
     <g:layoutHead />
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
