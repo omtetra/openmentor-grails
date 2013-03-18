@@ -199,11 +199,13 @@
       OpenMentor produced a graph as shown below.
     </p>
     <p>
-    <g:set var="graphData" value="${new Summary(data: new MultiMap("test1a.doc": new MultiMap("A": [actual: 2, ideal: 4], "B": [actual: 4, ideal: 7], "C": [actual: 5, ideal: 2], "D": [actual: 1, ideal: 1]), "test2a.doc": new MultiMap("A": [actual: 6, ideal: 5], "B": [actual: 8, ideal: 9], "C": [actual: 4, ideal: 4], "D": [actual: 0, ideal: 1]), "test5a.doc": new MultiMap("A": [actual: 18, ideal: 10], "B": [actual: 44, ideal: 40], "C": [actual: 16, ideal: 13], "D": [actual: 9, ideal: 3]))) }" />
+    <g:set var="graphData" 
+           value="${new Summary(data: new MultiMap("pw1a.doc": new MultiMap("A": [actual: 12, ideal: 16]), 
+			                                       "pw2a.doc": new MultiMap("A": [actual: 14, ideal: 18]), 
+			                                       "pw3a.doc": new MultiMap("A": [actual: 13, ideal: 11]),
+			                                       "pw4a.doc": new MultiMap("A": [actual: 13, ideal: 16]))) }" />
     <g:set var="graphDataBandA" value="${graphData.filter([null, "A"])}"/>
     <g:actualIdealTable ref="commentA_table_1" summary="${graphDataBandA}" />
-      <img src="${resource(dir:'/images/help',file:'commentA_graph_1.jpg')}" 
-           alt="Group A comments - example graph"/>
     </p>
     <p>
       The graph indicated that on three of the four assignments Peter

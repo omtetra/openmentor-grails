@@ -19,7 +19,7 @@ class ActualIdealTagLib {
 		List<Number> actualValues = keys.collect { val -> data.get(val)?.actual ?: 0 }
 		
 		out << """
-<table class="actual-ideal">
+<table id="${ref}-table" class="actual-ideal table table-striped table-condensed">
     <thead>
         <tr> 
              <td></td>
@@ -30,11 +30,16 @@ class ActualIdealTagLib {
     <tbody>
 """ +
 		(0..keys.size()-1).collect { i -> 
-			"<tr><td>${keys[i]}</td><td>${idealValues[i]}</td><td>${actualValues[i]}</td></tr>"
+			"<tr class='bullet'><td class='bullet-label'>${keys[i]}</td><td class='bullet-ideal'>${idealValues[i]}</td><td class='bullet-actual'>${actualValues[i]}</td></tr>"
 		}.join("\n") +
 		"""
     </tbody>
 </table>
+<script type="text/javascript">
+jQuery(function () {
+  jQuery("#${ref}-table").bulletChart();
+});
+</script>
 """
 	}
 	
