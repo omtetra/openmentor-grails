@@ -7,7 +7,7 @@ and analyzing the results.
 
 ### Requirements
 
- * Grails 2.1.2
+ * Grails 2.2.1
  * MySQL (or an equivalent relational database)
 
 ### Build process
