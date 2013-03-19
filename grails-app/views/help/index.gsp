@@ -1,5 +1,6 @@
 
-<%@ page import="uk.org.openmentor.courseinfo.Tutor" %>
+<%@ page import="uk.org.openmentor.domain.Summary" %>
+<%@ page import="uk.org.openmentor.util.MultiMap" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -198,8 +199,13 @@
       OpenMentor produced a graph as shown below.
     </p>
     <p>
-      <img src="${resource(dir:'/images/help',file:'commentA_graph_1.jpg')}" 
-           alt="Group A comments - example graph"/>
+    <g:set var="graphData" 
+           value="${new Summary(data: new MultiMap("pw1a.doc": new MultiMap("A": [actual: 10, ideal: 16]), 
+			                                       "pw2a.doc": new MultiMap("A": [actual: 12, ideal: 18]), 
+			                                       "pw3a.doc": new MultiMap("A": [actual: 13, ideal: 11]),
+			                                       "pw4a.doc": new MultiMap("A": [actual: 11, ideal: 16]))) }" />
+    <g:set var="graphDataBandA" value="${graphData.filter([null, "A"])}"/>
+    <g:actualIdealTable ref="commentA_table_1" summary="${graphDataBandA}" />
     </p>
     <p>
       The graph indicated that on three of the four assignments Peter
@@ -236,8 +242,14 @@
       OpenMentor produced a graph as shown below.
     </p>
     <p>
-      <img src="${resource(dir:'/images/help',file:'commentB_graph_1.jpg')}" 
-           alt="Group B comments - example graph"/>
+    <g:set var="graphData" 
+           value="${new Summary(data: new MultiMap("ag1a.doc": new MultiMap("B": [actual: 19, ideal: 14]), 
+                                                   "ag2a.doc": new MultiMap("B": [actual: 6, ideal: 10]), 
+                                                   "ag3a.doc": new MultiMap("B": [actual: 13, ideal: 14]),
+                                                   "ag4a.doc": new MultiMap("B": [actual: 17, ideal: 18]),
+                                                   "ag5a.doc": new MultiMap("B": [actual: 19, ideal: 18]))) }" />
+    <g:set var="graphDataBandB" value="${graphData.filter([null, "B"])}"/>
+    <g:actualIdealTable ref="commentB_table_1" summary="${graphDataBandB}" />
     </p>
     <p>
       This graph illustrates that in the first assignment he gave more
