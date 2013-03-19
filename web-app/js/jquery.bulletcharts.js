@@ -28,7 +28,8 @@
 		   'actual-selector'  : '.bullet-actual',
 		   'ideal-selector'   : '.bullet-ideal',
 		   'label-selector'   : '.bullet-label',
-		   'entry-selector'   : '.bullet'
+		   'entry-selector'   : '.bullet',
+		   'bounds-chi'       : 2.706
 		}, options);
 	    var $this = $(this),
 	        data = $this.data('bulletChart'),
@@ -105,10 +106,20 @@
 		var actualboxoffset = (entryHeight - data["actual-size"]) / 2;
 		var idealmarkeroffset = (entryHeight - data["ideal-size"]) / 2;
 		var backgroundoffset = (entryHeight - data["background-size"]) / 2;
+		var fullbarheight = data["background-size"];
 	
         var axis = data['axis'];
 		var scaler = axis.scaler;
 
+		if (data["bounds-chi"]) {
+   		  var chi = data["bounds-chi"];
+		  var f = parseInt(entry.ideal);
+		  var factor = Math.sqrt(16 - 4*(2 / f)*(2*f - chi));
+		  var lower = (4 - factor) / ( 4 / f);
+		  var upper = (4 + factor) / ( 4 / f);
+		  entry.ranges = [[lower, upper]];
+		}
+		
 		label.transform("t0," + labeloffset);
 		var background = paper.rect(
 			data['left-margin'] + .5, i * entryHeight + data['top-margin'] + backgroundoffset, 
@@ -118,11 +129,22 @@
 			var length = ranges.length;
 			for(var j = 0; j < length; j++) {
 				var range = ranges[j];
+				var rangeleft = data['left-margin'] + .5 + (range[0] * scaler);
+				var rangewidth = Math.min(((range[1] - range[0]) * scaler), (data["width"] - data["right-margin"] - rangeleft));
 				var emphasis = paper.rect(
-					data['left-margin'] + .5 + (range[0] * scaler), i * entryHeight + data['top-margin'] + backgroundoffset, 
-					(range[1] - range[0]) * scaler, fullbarheight).attr({stroke: 'none', fill: shades[j]});
+					rangeleft, i * entryHeight + data['top-margin'] + backgroundoffset, 
+					rangewidth, fullbarheight).attr({stroke: 'none', fill: shades[j]});
 			}
 		}
+		
+//		console.log(f, factor, lower, upper);
+//		
+//		
+//		var chi = entry.ideal 
+//			? ((2 * (entry.actual - entry.ideal) * (entry.actual - entry.ideal)) / entry.ideal)
+//		    : 0;
+		
+		
 		var tooltipTitle = methods._getTooltipTitle.call(this, entry);
 		var actualbox = paper.rect(
 			data['left-margin'] + .5, i * entryHeight + data['top-margin'] + actualboxoffset, 
