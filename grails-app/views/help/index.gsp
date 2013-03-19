@@ -200,10 +200,10 @@
     </p>
     <p>
     <g:set var="graphData" 
-           value="${new Summary(data: new MultiMap("pw1a.doc": new MultiMap("A": [actual: 12, ideal: 16]), 
-			                                       "pw2a.doc": new MultiMap("A": [actual: 14, ideal: 18]), 
+           value="${new Summary(data: new MultiMap("pw1a.doc": new MultiMap("A": [actual: 10, ideal: 16]), 
+			                                       "pw2a.doc": new MultiMap("A": [actual: 12, ideal: 18]), 
 			                                       "pw3a.doc": new MultiMap("A": [actual: 13, ideal: 11]),
-			                                       "pw4a.doc": new MultiMap("A": [actual: 13, ideal: 16]))) }" />
+			                                       "pw4a.doc": new MultiMap("A": [actual: 11, ideal: 16]))) }" />
     <g:set var="graphDataBandA" value="${graphData.filter([null, "A"])}"/>
     <g:actualIdealTable ref="commentA_table_1" summary="${graphDataBandA}" />
     </p>
@@ -242,8 +242,14 @@
       OpenMentor produced a graph as shown below.
     </p>
     <p>
-      <img src="${resource(dir:'/images/help',file:'commentB_graph_1.jpg')}" 
-           alt="Group B comments - example graph"/>
+    <g:set var="graphData" 
+           value="${new Summary(data: new MultiMap("ag1a.doc": new MultiMap("B": [actual: 19, ideal: 14]), 
+                                                   "ag2a.doc": new MultiMap("B": [actual: 6, ideal: 10]), 
+                                                   "ag3a.doc": new MultiMap("B": [actual: 13, ideal: 14]),
+                                                   "ag4a.doc": new MultiMap("B": [actual: 17, ideal: 18]),
+                                                   "ag5a.doc": new MultiMap("B": [actual: 19, ideal: 18]))) }" />
+    <g:set var="graphDataBandB" value="${graphData.filter([null, "B"])}"/>
+    <g:actualIdealTable ref="commentB_table_1" summary="${graphDataBandB}" />
     </p>
     <p>
       This graph illustrates that in the first assignment he gave more
