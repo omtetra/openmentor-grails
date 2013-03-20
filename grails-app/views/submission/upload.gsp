@@ -46,7 +46,7 @@
               <div class="control-group ${hasErrors(bean: cmd, field: 'dataFile', 'error')}">
                 <label class="control-label" for="dataFile"><g:message code="assignment.dataFile.label" default="File" />:</label>
                 <div class="controls">
-                  <input type="file" name="dataFile" id="file" />
+                  <input type="file" name="dataFile" id="file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                   <span class="help-block">Word files of all types are supported, maximum size is 16Mb</span>
                   <g:hasErrors bean="${cmd}" field="dataFile">
                   <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="dataFile"/></span>
@@ -104,14 +104,5 @@
             </g:uploadForm>
 		</div>
 		</div>
-        <content tag="postJQuery">
-            <g:javascript>
-jQuery(document).ready(function() {
-  jQuery('#file').customFileInput({
-    button_position: 'right'
-  });
-});
-            </g:javascript>
-        </content>
 	</body>
 </html>
