@@ -21,9 +21,9 @@
             The following chart shows the expected versus actual comment counts for this course.
             </p>
                         
-            <div id="course_placeholder" style="width:600px;height:300px"></div>
+            <!-- <div id="course_placeholder" style="width:600px;height:300px"></div>  -->
                 
-            <g:actualIdealChart ref="course_placeholder" summary="${summary}"/>
+            <g:actualIdealTable ref="course_placeholder" summary="${summary}"/>
             
             <h4><g:link action="course_details" params="${[courseId: course.id]}">See detailed information</g:link></h4>
         </div>

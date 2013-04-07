@@ -18,6 +18,16 @@ class ActualIdealTagLib {
 		List<Number> idealValues = keys.collect { val -> data.get(val)?.ideal ?: 0 }
 		List<Number> actualValues = keys.collect { val -> data.get(val)?.actual ?: 0 }
 		
+		if (summary.submissionCount == 0) {
+			out << """
+<div class="alert alert-error">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<p><b>No submissions yet.</b> Please try again when you have uploaded some submissions.</p>
+</div>
+"""
+			return
+		}
+		
 		out << """
 <table id="${ref}-table" class="actual-ideal table table-striped table-condensed">
     <thead>
