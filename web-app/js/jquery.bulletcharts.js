@@ -29,7 +29,8 @@
 		   'ideal-selector'   : '.bullet-ideal',
 		   'label-selector'   : '.bullet-label',
 		   'entry-selector'   : '.bullet',
-		   'bounds-chi'       : 2.706
+		   'bounds-chi'       : 2.706,
+		   'bounds-minimum'   : 8
 		}, options);
 	    var $this = $(this),
 	        data = $this.data('bulletChart'),
@@ -111,7 +112,8 @@
         var axis = data['axis'];
 		var scaler = axis.scaler;
 
-		if (data["bounds-chi"]) {
+		// Don't place bounds for a very low ideal count, as they won't be reliable.
+		if (data["bounds-chi"] && entry.ideal >= data["bounds-minimum"]) {
    		  var chi = data["bounds-chi"];
 		  var f = parseInt(entry.ideal);
 		  var factor = Math.sqrt(16 - 4*(2 / f)*(2*f - chi));
@@ -129,7 +131,7 @@
 			var length = ranges.length;
 			for(var j = 0; j < length; j++) {
 				var range = ranges[j];
-				var rangeleft = data['left-margin'] + .5 + (range[0] * scaler);
+				var rangeleft = Math.max(data['left-margin'] + .5 + (range[0] * scaler), data['left-margin']);
 				var rangewidth = Math.min(((range[1] - range[0]) * scaler), (data["width"] - data["right-margin"] - rangeleft));
 				var emphasis = paper.rect(
 					rangeleft, i * entryHeight + data['top-margin'] + backgroundoffset, 
@@ -234,6 +236,7 @@
 		  methods._showEntry.call($this, element, entry, i);
 		});
 		
+		//dataTable.collapse('hide');
 		dataTable.hide();
 		
 		methods._showAxis.apply(this);
