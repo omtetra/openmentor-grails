@@ -32,6 +32,22 @@ class Summary {
 			}
 		}
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append('{Summary ');
+		sb.append(data.toString());
+		sb.append('}');
+	}
+	
+	public Object clone() {
+		return new Summary(
+			submissionCount: submissionCount,
+			commentCount: commentCount,
+			dimensions: (List<String>) dimensions.clone(),
+			data: (MultiMap) data.clone()
+		)
+	}
 }
 
 class SummaryEntry {
@@ -41,5 +57,13 @@ class SummaryEntry {
 	
 	String toString() {
 		return "[actual: ${actual}, ideal: ${ideal}]"
+	}
+	
+	public Object clone() {
+		return new SummaryEntry(
+			actual: actual,
+			ideal: ideal,
+			comments: (List<String>) comments.clone()
+		)
 	}
 }

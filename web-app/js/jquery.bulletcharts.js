@@ -28,6 +28,7 @@
 		   'actual-selector'  : '.bullet-actual',
 		   'ideal-selector'   : '.bullet-ideal',
 		   'label-selector'   : '.bullet-label',
+		   'link-selector'    : '.bullet-label a',
 		   'entry-selector'   : '.bullet',
 		   'bounds-chi'       : 2.706,
 		   'bounds-minimum'   : 8
@@ -57,14 +58,16 @@
 	  var dataSource = data['target'];
 	  var entrySelector = data['entry-selector'];
 	  var labelSelector = data['label-selector'];
+	  var linkSelector = data['link-selector'];
 	  var actualSelector = data['actual-selector'];
 	  var idealSelector = data['ideal-selector'];
 	  var tableRows = [];
 	  dataSource.find(entrySelector).each(function(i, e) {
 		var label = jQuery(e).find(labelSelector).text();
+		var link = jQuery(e).find(linkSelector).prop('href');
 		var ideal = jQuery(e).find(idealSelector).text();
 		var actual = jQuery(e).find(actualSelector).text();
-		tableRows.push({"name" : label, "actual" : actual, "ideal" : ideal})
+		tableRows.push({"name" : label, "actual" : actual, "ideal" : ideal, "link" : link})
 	  })
 	  return tableRows;
 	},
@@ -123,6 +126,14 @@
 		}
 		
 		label.transform("t0," + labeloffset);
+		if (entry.link) {
+			paper.rect().attr(label.getBBox()).attr({
+				fill: "#bbb",
+				opacity: 0,
+				cursor: "pointer"
+			}).click(function () { window.location.href = entry.link; });
+		}
+		
 		var background = paper.rect(
 			data['left-margin'] + .5, i * entryHeight + data['top-margin'] + backgroundoffset, 
 			data['width'] - data['left-margin'] - data['right-margin'] - .5, data["background-size"]).attr(data['background-style']);

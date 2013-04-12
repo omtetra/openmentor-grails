@@ -11,43 +11,40 @@
         <div class="body">
             <h2><g:message code="report.tutor.label" args="[entityName]" /></h2>
             
-            <h3>Positive comments</h3>
+            <g:each var="band" in="${bands}" status="i">
+            <h3>${band}: ${bandLabels[band]}</h3>
+            <g:set var="bandData" value="${summary.filter([null, band])}" />
             
-            <div id="placeholder_positive" style="width:600px;height:300px"></div>
-			<g:differenceChart 
-				ref="placeholder_positive" 
-				summary="${summary}"
-				band="${"A"}"
-				action="tutor" />
-			 
-            <h3>Teaching points</h3>
-            
-            <div id="placeholder_teaching" style="width:600px;height:300px"></div>
-			<g:differenceChart 
-				ref="placeholder_teaching" 
-				summary="${summary}"
-				band="${"B"}"
-				action="tutor" />
+            <g:set var="data" value="${bandData.data}" />
+            <g:set var="keys" value="${data.keySet() as List}" />
+            <g:set var="idealValues" value="${keys.collect { val -> data.get(val)?.ideal ?: 0 }}" />
+            <g:set var="actualValues" value="${keys.collect { val -> data.get(val)?.actual ?: 0 }}" />
+            <table id="tutor_placeholder-${i}-table" class="actual-ideal table table-striped table-condensed">
+                <thead>
+                    <tr> 
+                        <td></td>
+                        <th scope="col">Ideal</th>
+                        <th scope="col">Actual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <g:each in="${ (0..keys.size()-1)}" var="j">
+                    <tr class='bullet'>
+                        <td class='bullet-label'><g:link controller="report" action="tutor" id="${keys[j]}">${keys[j]}</g:link></td>
+                        <td class='bullet-ideal'>${idealValues[j]}</td>
+                        <td class='bullet-actual'>${actualValues[j]}</td>
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
 
-			<h3>Questions</h3>
-			
-            <div id="placeholder_questions" style="width:600px;height:300px"></div>
-			<g:differenceChart 
-				ref="placeholder_questions" 
-				summary="${summary}"
-				band="${"C"}"
-				action="tutor" />
-
-			<h3>Negative comments</h3>
-                        
-            <div id="placeholder_negative" style="width:600px;height:300px"></div>
-			<g:differenceChart 
-				ref="placeholder_negative" 
-				summary="${summary}"
-				band="${"D"}"
-				action="tutor" />
-
+            </g:each>
         </div>
         </div>
+        <g:javascript>
+jQuery(document).ready(function() {
+  jQuery(".actual-ideal").bulletChart();
+});
+        </g:javascript>
     </body>
 </html>

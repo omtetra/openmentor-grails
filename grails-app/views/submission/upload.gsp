@@ -74,7 +74,7 @@
                     name="tutorIds" 
                     from="${courseInstance.tutors}" 
                     value="${cmd?.tutorIds}"
-                    optionKey="id" 
+                    optionKey="tutorId" 
                     optionValue="idAndName" />
                   <g:hasErrors bean="${cmd}" field="tutorIds">
                   <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="tutorIds"/></span>
@@ -89,7 +89,7 @@
 	                 name="studentIds" 
 	                 from="${courseInstance.students}" 
 	                 value="${cmd?.studentIds}"
-	                 optionKey="id" 
+	                 optionKey="studentId" 
 	                 optionValue="idAndName" />
                   <g:hasErrors bean="${cmd}" field="studentIds">
                   <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="studentIds"/></span>
