@@ -23,18 +23,43 @@ class CategorizationInfoService {
 		return grailsApplication.getConfig().openmentor.grades as List<String>
 	}
 	
+	/**
+	 * Returns the list of categories, as strings
+	 * @return a list of strings
+	 */
 	List<String> getCategories() {
 		return grailsApplication.getConfig().openmentor.categories as List<String>
 	}
 
+	/**
+	 * Returns the list of bands, as strings
+	 * @return a list of strings
+	 */
 	List<String> getBands() {
 		return grailsApplication.getConfig().openmentor.bands as List<String>
 	}
 
+	/**
+	 * Returns the map associating bands with more detailed labels
+	 * @return a mapping from strings to strings
+	 */
+	Map<String, String> getBandLabels() {
+		return grailsApplication.getConfig().openmentor.bandLabels as Map<String, String>
+	}
+
+	/**
+	 * Returns the map associating categories with bands
+	 * @return a mapping from strings to strings
+	 */
 	Map<String, String> getCategoryBandMap() {
 		return grailsApplication.getConfig().openmentor.categoryBands as Map<String, String>
 	}
-	
+
+	/**
+	 * For a given band, returns a list of the categories it contains	
+	 * @param band
+	 * @return a list of categories
+	 */
 	List<String> getBandCategories(String band) {
 		Map<String, String> map = getCategoryBandMap()
 		List<String> categories = getCategories()

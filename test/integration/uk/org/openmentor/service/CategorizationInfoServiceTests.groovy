@@ -40,6 +40,19 @@ class CategorizationInfoServiceTests extends GroovyTestCase {
 	}
 
 	/**
+	 * Check the default band labels, but don't bother being
+	 * too careful about it.
+	 */
+	void testBandLabels() {
+		Map<String, String> value = categorizationInfoService.getBandLabels()
+		
+		assertEquals 'Positive comments', value.getAt('A')
+		assertEquals 'Teaching points', value.getAt('B')
+		assertEquals 'Questions', value.getAt('C')
+		assertEquals 'Negative comments', value.getAt('D')
+	}
+
+	/**
 	 * Check the association between categories and bands, but don't bother being
 	 * too careful about it.
 	 */

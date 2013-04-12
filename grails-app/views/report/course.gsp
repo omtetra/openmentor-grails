@@ -21,12 +21,38 @@
             The following chart shows the expected versus actual comment counts for this course.
             </p>
                         
-            <!-- <div id="course_placeholder" style="width:600px;height:300px"></div>  -->
-                
-            <g:actualIdealTable ref="course_placeholder" summary="${summary}"/>
-            
-            <h4><g:link action="course_details" params="${[courseId: course.id]}">See detailed information</g:link></h4>
+            <g:set var="data" value="${summary.data}" />
+            <g:set var="keys" value="${data.keySet() as List}" />
+            <g:set var="idealValues" value="${keys.collect { val -> data.get(val)?.ideal ?: 0 }}" />
+            <g:set var="actualValues" value="${keys.collect { val -> data.get(val)?.actual ?: 0 }}" />
+            <table id="course_placeholder-table" class="actual-ideal table table-striped table-condensed">
+                <thead>
+                    <tr> 
+                        <td></td>
+                        <th scope="col">Ideal</th>
+                        <th scope="col">Actual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <g:each in="${ (0..keys.size()-1)}" var="j">
+                    <tr class='bullet'>
+                        <td class='bullet-label'>${keys[j]}</td>
+                        <td class='bullet-ideal'>${idealValues[j]}</td>
+                        <td class='bullet-actual'>${actualValues[j]}</td>
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+
+            <g:if test="${summary.submissionCount > 0}">
+            <h4><g:link action="course_details" params="${[id: params.id]}">See detailed information</g:link></h4>
+            </g:if>
         </div>
         </div>
+        <g:javascript>
+jQuery(document).ready(function() {
+  jQuery(".actual-ideal").bulletChart();
+});
+        </g:javascript>
     </body>
 </html>

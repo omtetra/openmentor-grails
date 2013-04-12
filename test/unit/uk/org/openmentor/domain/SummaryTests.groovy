@@ -73,4 +73,12 @@ class SummaryTests {
 		assertTrue modified.data.get("test1a.doc") instanceof SummaryEntry
 		assertEquals 7, modified.data.get("test1a.doc").ideal
     }
+
+    void testClone() {
+        Summary modified = summary.clone()
+		assertEquals summary.commentCount, modified.commentCount
+		assertEquals summary.submissionCount, modified.submissionCount
+		assertTrue modified.dimensions.equals(summary.dimensions)
+		assertEquals modified.data.toString(), summary.data.toString()
+    }
 }

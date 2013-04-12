@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${course.idAndTitle}" />
+        <g:set var="entityName" value="${params.id}" />
         <title><g:message code="report.detailed.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -18,7 +18,7 @@
             </p>
             
             <ul>
-                <li><g:link action="course" params="${[courseId: course.courseId]}">Go back to the chart view</g:link></li>
+                <li><g:link action="assignment" params="${[id: params.id]}">Go back to the chart view</g:link></li>
             </ul>
             
             <table class="table table-striped">

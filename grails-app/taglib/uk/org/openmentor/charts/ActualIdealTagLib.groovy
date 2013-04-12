@@ -9,25 +9,12 @@ class ActualIdealTagLib {
 	
 	def categorizationInfoService
 	
-	def actualIdealTable = { attrs, body ->
-		Summary summary = attrs.summary
+	private actualIdealDisplay(attrs, MultiMap data) {
 		String ref = attrs.ref
-		
-		MultiMap data = summary.data
 		List<String> keys = data.keySet() as List
 		List<Number> idealValues = keys.collect { val -> data.get(val)?.ideal ?: 0 }
 		List<Number> actualValues = keys.collect { val -> data.get(val)?.actual ?: 0 }
-		
-		if (summary.submissionCount == 0) {
-			out << """
-<div class="alert alert-error">
-<button type="button" class="close" data-dismiss="alert">&times;</button>
-<p><b>No submissions yet.</b> Please try again when you have uploaded some submissions.</p>
-</div>
-"""
-			return
-		}
-		
+
 		out << """
 <table id="${ref}-table" class="actual-ideal table table-striped table-condensed">
     <thead>
@@ -39,18 +26,39 @@ class ActualIdealTagLib {
     </thead>
     <tbody>
 """ +
-		(0..keys.size()-1).collect { i -> 
-			"<tr class='bullet'><td class='bullet-label'>${keys[i]}</td><td class='bullet-ideal'>${idealValues[i]}</td><td class='bullet-actual'>${actualValues[i]}</td></tr>"
-		}.join("\n") +
-		"""
+					(0..keys.size()-1).collect { i ->
+						"<tr class='bullet'><td class='bullet-label'><a href='/xxx'>${keys[i]}</a></td><td class='bullet-ideal'>${idealValues[i]}</td><td class='bullet-actual'>${actualValues[i]}</td></tr>"
+					}.join("\n") +
+					"""
     </tbody>
 </table>
 <script type="text/javascript">
-jQuery(function () {
-  jQuery("#${ref}-table").bulletChart();
-});
+//jQuery(function () {
+//  jQuery("#${ref}-table").bulletChart();
+//});
 </script>
 """
+	}
+	
+	def actualIdealData = { attrs, body ->
+		MultiMap data = attrs.data		
+		actualIdealDisplay(attrs, data)
+	}
+	
+	def actualIdealTable = { attrs, body ->
+		Summary summary = attrs.summary		
+		
+		if (summary.submissionCount == 0) {
+			out << """
+<div class="alert alert-error">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<p><b>No submissions yet.</b> Please try again when you have uploaded some submissions.</p>
+</div>
+"""
+			return
+		}
+		
+		actualIdealData(attrs, summary.data)
 	}
 	
 	def actualIdealChart = { attrs, body ->

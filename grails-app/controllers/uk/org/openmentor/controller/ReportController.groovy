@@ -27,6 +27,8 @@ class ReportController {
 
 		def model = [
 			grades: categorizationInfoService.getGrades(),
+			bands: categorizationInfoService.getBands(),
+			bandLabels: categorizationInfoService.getBandLabels(),
 			course: courseInstance
 		]
 		
@@ -81,6 +83,17 @@ class ReportController {
 		model
 	}
 
+    def assignment_details = { 
+		assert params.id != null
+		def model = getUploadModel()
+		if (! model) return
+		
+		Summary summary = summarizationService.getCourseAndAssignmentSummary(model.course.courseId, params.id, true)
+		model.summary = summary
+		
+		return model
+	}
+
     def students = { 
 		def model = getUploadModel()
 		if (! model) return
@@ -102,6 +115,17 @@ class ReportController {
 		model
 	}
 
+    def student_details = { 
+		assert params.id != null
+		def model = getUploadModel()
+		if (! model) return
+		
+		Summary summary = summarizationService.getCourseAndStudentSummary(model.course.courseId, params.id, true)
+		model.summary = summary
+		
+		return model
+	}
+
 	def tutors = { 
 		def model = getUploadModel()
 		if (! model) return
@@ -121,6 +145,17 @@ class ReportController {
 		model.summary = summary
 
 		model
+	}
+
+    def tutor_details = { 
+		assert params.id != null
+		def model = getUploadModel()
+		if (! model) return
+		
+		Summary summary = summarizationService.getCourseAndTutorSummary(model.course.courseId, params.id, true)
+		model.summary = summary
+		
+		return model
 	}
 
 }
