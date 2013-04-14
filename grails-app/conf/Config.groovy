@@ -88,6 +88,8 @@ log4j = {
 	root {
 		debug 'stdout'
 	}
+	
+	//debug  'org.hibernate.hql.ast.QueryTranslatorImpl'
     
 	info   'grails.app',
 	       'uk.org.openmentor'

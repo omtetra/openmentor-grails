@@ -24,6 +24,10 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getSummary()
         assertTrue result != null
 		assertTrue result.data != null
+		assertEquals 40, result.data.getAt("A")?.actual
+		assertEquals 108, result.data.getAt("B")?.actual
+		assertEquals 49, result.data.getAt("C")?.actual
+		assertEquals 19, result.data.getAt("D")?.actual
     }
 	
     void testCourseSummary() {
@@ -31,6 +35,10 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseSummary("CM2006")
         assertTrue result != null
 		assertTrue result.data != null
+		assertEquals 22, result.data.getAt("A")?.actual
+		assertEquals 64, result.data.getAt("B")?.actual
+		assertEquals 33, result.data.getAt("C")?.actual
+		assertEquals 10, result.data.getAt("D")?.actual
     }
 	
     void testCourseSummaryByAssignment() {
@@ -38,6 +46,12 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseSummaryByAssignment("CM2006")
         assertTrue result != null
 		assertTrue result.data != null
+		assertTrue result.data.getAt("TMA01") != null
+		assertTrue result.data.getAt("TMA02") != null
+		assertEquals 8, result.data.getAt("TMA01").getAt("A")?.actual
+		assertEquals 12, result.data.getAt("TMA01").getAt("B")?.actual
+		assertEquals 9, result.data.getAt("TMA01").getAt("C")?.actual
+		assertEquals 1, result.data.getAt("TMA01").getAt("D")?.actual
     }
 	
     void testCourseSummaryByTutor() {
@@ -45,6 +59,11 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseSummaryByTutor("CM2006")
         assertTrue result != null
 		assertTrue result.data != null
+		assertTrue result.data.getAt("M4000061") != null
+		assertEquals 5, result.data.getAt("M4000061").getAt("A")?.actual
+		assertEquals 16, result.data.getAt("M4000061").getAt("B")?.actual
+		assertEquals 12, result.data.getAt("M4000061").getAt("C")?.actual
+		assertEquals 3, result.data.getAt("M4000061").getAt("D")?.actual
     }
 	
     void testCourseSummaryByStudent() {
@@ -52,6 +71,11 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseSummaryByStudent("CM2006")
         assertTrue result != null
 		assertTrue result.data != null
+		assertTrue result.data.getAt("09000231") != null
+		assertEquals 5, result.data.getAt("09000231").getAt("A")?.actual
+		assertEquals 16, result.data.getAt("09000231").getAt("B")?.actual
+		assertEquals 12, result.data.getAt("09000231").getAt("C")?.actual
+		assertEquals 3, result.data.getAt("09000231").getAt("D")?.actual
     }
 	
     void testSubmissionSummary() {
@@ -59,6 +83,10 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getSubmissionSummary(sub2)
         assertTrue result != null
 		assertTrue result.data != null
+		assertEquals 6, result.data.getAt("A")?.actual
+		assertEquals 8, result.data.getAt("B")?.actual
+		assertEquals 4, result.data.getAt("C")?.actual
+		assertEquals 0, result.data.getAt("D")?.actual
     }
 
     void testCourseAndAssignmentSummary() {
@@ -66,6 +94,10 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseAndAssignmentSummary("CM2006", "TMA01")
         assertTrue result != null
 		assertTrue result.data != null
+		assertEquals 8, result.data.getAt("A")?.actual
+		assertEquals 12, result.data.getAt("B")?.actual
+		assertEquals 9, result.data.getAt("C")?.actual
+		assertEquals 1, result.data.getAt("D")?.actual
     }
 
     void testCourseAndAssignmentSubmissions() {
@@ -73,6 +105,11 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseAndAssignmentSubmissions("CM2006", "TMA01")
         assertTrue result != null
 		assertTrue result.data != null
+		assertTrue result.data.getAt("test1a.doc") != null
+		assertEquals 2, result.data.getAt("test1a.doc").getAt("A")?.actual
+		assertEquals 4, result.data.getAt("test1a.doc").getAt("B")?.actual
+		assertEquals 5, result.data.getAt("test1a.doc").getAt("C")?.actual
+		assertEquals 1, result.data.getAt("test1a.doc").getAt("D")?.actual
     }
 
     void testCourseAndTutorSummary() {
@@ -80,6 +117,10 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseAndTutorSummary("CM2006", "M4000061")
         assertTrue result != null
 		assertTrue result.data != null
+		assertEquals 5, result.data.getAt("A")?.actual
+		assertEquals 16, result.data.getAt("B")?.actual
+		assertEquals 12, result.data.getAt("C")?.actual
+		assertEquals 3, result.data.getAt("D")?.actual
     }
 
     void testCourseAndTutorSubmissions() {
@@ -87,6 +128,11 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseAndTutorSubmissions("CM2006", "M4000061")
         assertTrue result != null
 		assertTrue result.data != null
+		assertTrue result.data.getAt("test1a.doc") != null
+		assertEquals 2, result.data.getAt("test1a.doc").getAt("A")?.actual
+		assertEquals 4, result.data.getAt("test1a.doc").getAt("B")?.actual
+		assertEquals 5, result.data.getAt("test1a.doc").getAt("C")?.actual
+		assertEquals 1, result.data.getAt("test1a.doc").getAt("D")?.actual
     }
 
     void testCourseAndStudentSummary() {
@@ -94,6 +140,10 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseAndStudentSummary("CM2006", "09000231")
         assertTrue result != null
 		assertTrue result.data != null
+		assertEquals 5, result.data.getAt("A")?.actual
+		assertEquals 16, result.data.getAt("B")?.actual
+		assertEquals 12, result.data.getAt("C")?.actual
+		assertEquals 3, result.data.getAt("D")?.actual
     }
 
     void testCourseAndStudentSubmissions() {
@@ -101,6 +151,10 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		Summary result = summarizationService.getCourseAndStudentSubmissions("CM2006", "09000231")
         assertTrue result != null
 		assertTrue result.data != null
+		assertTrue result.data.getAt("test1a.doc") != null
+		assertEquals 2, result.data.getAt("test1a.doc").getAt("A")?.actual
+		assertEquals 4, result.data.getAt("test1a.doc").getAt("B")?.actual
+		assertEquals 5, result.data.getAt("test1a.doc").getAt("C")?.actual
+		assertEquals 1, result.data.getAt("test1a.doc").getAt("D")?.actual
     }
-
 }

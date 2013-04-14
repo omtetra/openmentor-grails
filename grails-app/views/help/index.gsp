@@ -198,15 +198,21 @@
     <p>
       OpenMentor produced a graph as shown below.
     </p>
-    <p>
-    <g:set var="graphData" 
-           value="${new Summary(data: new MultiMap("pw1a.doc": new MultiMap("A": [actual: 10, ideal: 16]), 
-			                                       "pw2a.doc": new MultiMap("A": [actual: 12, ideal: 18]), 
-			                                       "pw3a.doc": new MultiMap("A": [actual: 13, ideal: 11]),
-			                                       "pw4a.doc": new MultiMap("A": [actual: 11, ideal: 16]))) }" />
-    <g:set var="graphDataBandA" value="${graphData.filter([null, "A"])}"/>
-    <g:actualIdealTable ref="commentA_table_1" summary="${graphDataBandA}" />
-    </p>
+	<table id="commentA_table_1-table" class="actual-ideal table table-striped table-condensed">
+	    <thead>
+	        <tr> 
+	             <td></td>
+	             <th scope="col">Ideal</th>
+	             <th scope="col">Actual</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+			<tr class='bullet'><td class='bullet-label'>pw1a.doc</td><td class='bullet-ideal'>16</td><td class='bullet-actual'>10</td></tr>
+			<tr class='bullet'><td class='bullet-label'>pw2a.doc</td><td class='bullet-ideal'>18</td><td class='bullet-actual'>12</td></tr>
+			<tr class='bullet'><td class='bullet-label'>pw3a.doc</td><td class='bullet-ideal'>11</td><td class='bullet-actual'>13</td></tr>
+			<tr class='bullet'><td class='bullet-label'>pw4a.doc</td><td class='bullet-ideal'>16</td><td class='bullet-actual'>11</td></tr>
+	    </tbody>
+	</table>
     <p>
       The graph indicated that on three of the four assignments Peter
       had not given enough praise for the mark awarded.  He was rather
@@ -241,16 +247,22 @@
     <p>
       OpenMentor produced a graph as shown below.
     </p>
-    <p>
-    <g:set var="graphData" 
-           value="${new Summary(data: new MultiMap("ag1a.doc": new MultiMap("B": [actual: 19, ideal: 14]), 
-                                                   "ag2a.doc": new MultiMap("B": [actual: 6, ideal: 10]), 
-                                                   "ag3a.doc": new MultiMap("B": [actual: 13, ideal: 14]),
-                                                   "ag4a.doc": new MultiMap("B": [actual: 17, ideal: 18]),
-                                                   "ag5a.doc": new MultiMap("B": [actual: 19, ideal: 18]))) }" />
-    <g:set var="graphDataBandB" value="${graphData.filter([null, "B"])}"/>
-    <g:actualIdealTable ref="commentB_table_1" summary="${graphDataBandB}" />
-    </p>
+    <table id="commentB_table_1-table" class="actual-ideal table table-striped table-condensed">
+        <thead>
+            <tr> 
+                 <td></td>
+                 <th scope="col">Ideal</th>
+                 <th scope="col">Actual</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class='bullet'><td class='bullet-label'>ag1a.doc</td><td class='bullet-ideal'>14</td><td class='bullet-actual'>19</td></tr>
+            <tr class='bullet'><td class='bullet-label'>ag2a.doc</td><td class='bullet-ideal'>10</td><td class='bullet-actual'>6</td></tr>
+            <tr class='bullet'><td class='bullet-label'>ag3a.doc</td><td class='bullet-ideal'>14</td><td class='bullet-actual'>13</td></tr>
+            <tr class='bullet'><td class='bullet-label'>ag4a.doc</td><td class='bullet-ideal'>18</td><td class='bullet-actual'>17</td></tr>
+            <tr class='bullet'><td class='bullet-label'>ag5a.doc</td><td class='bullet-ideal'>18</td><td class='bullet-actual'>19</td></tr>
+        </tbody>
+    </table>
     <p>
       This graph illustrates that in the first assignment he gave more
       comments than expected for the mark awarded. However in the
@@ -482,5 +494,10 @@
     </div>
 
     	</div>
+        <g:javascript>
+jQuery(document).ready(function() {
+  jQuery(".actual-ideal").bulletChart();
+});
+        </g:javascript>
     </body>
 </html>

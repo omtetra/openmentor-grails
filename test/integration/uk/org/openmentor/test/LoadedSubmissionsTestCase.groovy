@@ -10,6 +10,7 @@ import groovy.util.GroovyTestCase
 class LoadedSubmissionsTestCase extends GroovyTestCase {
 
 	def analyzerService
+	def courseInfoService
 
 	Submission sub1
 	Submission sub2
@@ -17,51 +18,63 @@ class LoadedSubmissionsTestCase extends GroovyTestCase {
 	Submission sub4
 	Submission sub5
 
+	String userName = "admin"
+
+	void initializeSubmissions() {
+
+		sub1 = addSubmission("CM2006", "TMA01", '09000231', 'M4000061', 'A', userName, "test/resources/test1a.doc")
+		sub2 = addSubmission("CM2006", "TMA01", '09000232', 'M4000062', 'B', userName, "test/resources/test2a.doc")
+		sub3 = addSubmission("CM2006", "TMA02", '09000231', 'M4000061', 'C', userName, "test/resources/test3a.doc")
+		sub4 = addSubmission("CM2006", "TMA02", '09000232', 'M4000062', 'B', userName, "test/resources/test4a.doc")
+		sub5 = addSubmission("AA1003", "TMA01", '09000231', 'M4000061', 'C', userName, "test/resources/test5a.doc")
+	}
+
 	protected void setUp() {
 		super.setUp()
-		
-		sub1 = addSubmission("CM2006", "TMA01", '09000231', 'M4000061', 'A', "test/resources/test1a.doc")
-		sub2 = addSubmission("CM2006", "TMA01", '09000232', 'M4000062', 'B', "test/resources/test2a.doc")
-		sub3 = addSubmission("CM2006", "TMA02", '09000231', 'M4000061', 'C', "test/resources/test3a.doc")
-		sub4 = addSubmission("CM2006", "TMA02", '09000232', 'M4000062', 'B', "test/resources/test4a.doc")
-		sub5 = addSubmission("AA1003", "TMA01", '09000231', 'M4000061', 'C', "test/resources/test5a.doc")
+
+		initializeSubmissions()
 	}
 
 	/**
-	* Helper method to add a new submission to the database for a test. We only
-	* do this at test time, so it will be rolled back by an enclosing
-	* transaction at the end of the test.
-	* @param courseCode
-	* @param assignmentCode
-	* @param studentId
-	* @param tutorId
-	* @param grade
-	* @param inputFile
-	* @return
-	*/
-   private def Submission addSubmission(String courseCode, String assignmentCode,
-										String studentId, String tutorId,
-										String grade, String inputFile) {
+	 * Helper method to add a new submission to the database for a test. We only
+	 * do this at test time, so it will be rolled back by an enclosing
+	 * transaction at the end of the test.
+	 * @param courseCode
+	 * @param assignmentCode
+	 * @param studentId
+	 * @param tutorId
+	 * @param grade
+	 * @param inputFile
+	 * @return
+	 */
+	private def Submission addSubmission(String courseCode, String assignmentCode,
+			String studentId, String tutorId,
+			String grade, String userName,
+			String inputFile) {
 
-	   def course = Course.findByCourseId(courseCode)
-	   assertTrue course != null
-	   
-	   Assignment assignment = Assignment.findByCode(assignmentCode)
-	   Submission sub = analyzerService.newSubmission(
-		   assignment,
-		   [studentId] as Set<String>,
-		   [tutorId] as Set<String>,
-		   grade,
-		   "admin",
-		   inputFile,
-		   IOUtils.toByteArray(new FileInputStream(inputFile))
-	   )
-	   
-	   assertTrue sub != null
-	
-	   sub.save(flush: true, validate: true)
-	   assertTrue sub.id != null
-	   return sub
+		Course course = courseInfoService.findCourse(courseCode)
+		assertTrue course != null
+
+		Assignment assignment = courseInfoService.findAssignment(courseCode, assignmentCode)
+		assertTrue assignment != null
+
+		Submission sub = analyzerService.newSubmission(
+			assignment,
+			[studentId] as Set<String>,
+			[tutorId] as Set<String>,
+			grade,
+			userName,
+			inputFile,
+			IOUtils.toByteArray(new FileInputStream(inputFile))
+		)
+
+		assertTrue sub != null
+
+		sub.save(flush: true, validate: true)
+		if (sub.hasErrors()) {
+			sub.errors.allErrors.each { log.error it }
+		}
+		assertTrue sub.id != null
+		return sub
 	}
-
 }
