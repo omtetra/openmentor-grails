@@ -94,8 +94,9 @@ class BootStrap {
             def courseCM3010 = new Course(courseId: "CM3010", courseTitle: "Information Retrieval").save(failOnError:true)
             def courseAA1003 = new Course(courseId: "AA1003", courseTitle: "Multimedia Programming").save(failOnError:true)
 
-            def courseCMM511 = new Course(owner: "user", courseId: "CMM511", courseTitle: "Information Retrieval Systems").save(failOnError:true)
-
+            def courseCMM511u = new Course(owner: "user", courseId: "CMM511", courseTitle: "Information Retrieval Systems").save(failOnError:true)
+			def courseCMM511o = new Course(owner: "other", courseId: "CMM511", courseTitle: "Information Retrieval Systems").save(failOnError:true)
+			
             def student09000231 = new Student(studentId: "09000231", givenName: "Gwenda", familyName: "Blane")
             student09000231.addToCourses(courseCM2006)
 			student09000231.addToCourses(courseCM2007)
@@ -135,9 +136,13 @@ class BootStrap {
 			student09000237.addToCourses(courseAA1003)
             student09000237.save(failOnError:true)
 
-            def student09000238 = new Student(owner: "user", studentId: "09000238", givenName: "Quincy", familyName: "Kilgore")
-            student09000238.addToCourses(courseCMM511)
-			student09000238.save(failOnError:true)
+            def student09000238u = new Student(owner: "user", studentId: "09000238", givenName: "Quincy", familyName: "Kilgore")
+            student09000238u.addToCourses(courseCMM511u)
+			student09000238u.save(failOnError:true)
+
+            def student09000238o = new Student(owner: "other", studentId: "09000238", givenName: "Quincy", familyName: "Jones")
+            student09000238o.addToCourses(courseCMM511o)
+			student09000238o.save(failOnError:true)
 
             def tutorM4000061 = new Tutor(tutorId: "M4000061", givenName: "Zena", familyName: "Beatrice")
 			tutorM4000061.addToCourses(courseAA1003)
@@ -154,9 +159,13 @@ class BootStrap {
 			tutorM4000063.addToCourses(courseCM3010)
             tutorM4000063.save(failOnError:true)
             
-            def tutorM4000064 = new Tutor(owner: "user", tutorId: "M4000064", givenName: "Monroe", familyName: "Taing")
-			tutorM4000064.addToCourses(courseCMM511)
-			tutorM4000064.save(failOnError:true)
+            def tutorM4000064u = new Tutor(owner: "user", tutorId: "M4000064", givenName: "Monroe", familyName: "Taing")
+			tutorM4000064u.addToCourses(courseCMM511u)
+			tutorM4000064u.save(failOnError:true)
+            
+            def tutorM4000064o = new Tutor(owner: "other", tutorId: "M4000064", givenName: "Monroe", familyName: "Marilyn")
+			tutorM4000064o.addToCourses(courseCMM511o)
+			tutorM4000064o.save(failOnError:true)
             
 			courseCM2006.addToAssignments(new Assignment(code: "TMA01")).save(failOnError:true)
 			courseCM2006.addToAssignments(new Assignment(code: "TMA02")).save(failOnError:true)
@@ -165,7 +174,10 @@ class BootStrap {
 			courseCM3010.addToAssignments(new Assignment(code: "TMA01")).save(failOnError:true)
 			courseAA1003.addToAssignments(new Assignment(code: "TMA01")).save(failOnError:true)
 			
-			courseCMM511.addToAssignments(new Assignment(owner: "user", code: "TMA01")).save(failOnError:true)			
+			courseCMM511u.addToAssignments(new Assignment(owner: "user", code: "TMA01")).save(failOnError:true)			
+			courseCMM511u.addToAssignments(new Assignment(owner: "user", code: "TMA02")).save(failOnError:true)			
+			courseCMM511o.addToAssignments(new Assignment(owner: "other", code: "TMA01")).save(failOnError:true)			
+			courseCMM511o.addToAssignments(new Assignment(owner: "other", code: "TMA02")).save(failOnError:true)			
         }
     }
     

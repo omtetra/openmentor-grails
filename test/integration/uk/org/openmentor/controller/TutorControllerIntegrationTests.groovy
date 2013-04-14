@@ -70,7 +70,7 @@ class TutorControllerIntegrationTests extends GroovyTestCase {
 	void testListAction() {
 		def model = controller.list()
 		
-		assertEquals 4, model.tutorInstanceTotal
+		assertEquals 5, model.tutorInstanceTotal
 		assertTrue model.tutorInstanceList.every { it instanceof Tutor }
 	}
 
