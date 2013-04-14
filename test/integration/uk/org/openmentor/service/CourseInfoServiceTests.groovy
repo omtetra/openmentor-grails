@@ -31,7 +31,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	void testCourseCount() {
 		
 		def result = courseInfoService.getCourseCount()
-		assertEquals 5, result
+		assertEquals 6, result
 	}
 
 	/**
@@ -64,7 +64,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	void testCourseList() {
 		
 		def result = courseInfoService.getCourses([:])
-		assertEquals 5, result.size()
+		assertEquals 6, result.size()
 	}
 	
 	/**
@@ -142,7 +142,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	void testFindCoursesLike() {
 		
 		def result = courseInfoService.findCoursesLike("CM%")
-		assertEquals 4, result.size()
+		assertEquals 5, result.size()
 	}
 	
 	/**
@@ -205,7 +205,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	void testStudentCount() {
 		
 		def result = courseInfoService.getStudentCount()
-		assertEquals 8, result
+		assertEquals 9, result
 	}
 
 	/**
@@ -238,7 +238,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	void testStudentList() {
 		
 		def result = courseInfoService.getStudents([:])
-		assertEquals 8, result.size()
+		assertEquals 9, result.size()
 	}
 	
 	/**
@@ -334,7 +334,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	void testTutorCount() {
 		
 		def result = courseInfoService.getTutorCount()
-		assertEquals 4, result
+		assertEquals 5, result
 	}
 
 	/**
@@ -367,7 +367,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	void testTutorList() {
 		
 		def result = courseInfoService.getTutors([:])
-		assertEquals 4, result.size()
+		assertEquals 5, result.size()
 	}
 
 	/**
@@ -400,7 +400,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	void testFindTutorsLike() {
 		
 		def result = courseInfoService.findTutorsLike("M4%")
-		assertEquals 4, result.size()
+		assertEquals 5, result.size()
 	}	
 
 	/**
@@ -447,7 +447,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 		withAuthenticatedTrainingMode "user", {
 			def course = Course.findByCourseId("CMM511")
 			def result = courseInfoService.getAssignments(course, [:])
-			assertEquals 1, result.size()
+			assertEquals 2, result.size()
 		}
 	}
 
@@ -484,7 +484,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 		withAuthenticatedTrainingMode "user", {
 			def course = Course.findByCourseId("CMM511")
 			def result = courseInfoService.getAssignmentCount(course)
-			assertEquals 1, result
+			assertEquals 2, result
 		}
 	}
 
@@ -579,7 +579,7 @@ class CourseInfoServiceTests extends GroovyTestCase {
 		withAuthenticatedTrainingMode "user", {
 			def course = Course.findByCourseId("CMM511")
 			def result = courseInfoService.findAssignmentsLike(course, "TM%")
-			assertEquals 1, result.size()
+			assertEquals 2, result.size()
 		}
 	}	
 
@@ -684,9 +684,9 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	 * Test deletion of a course.
 	 */
 	void testDeleteCourse() {
-		def course = Course.findByCourseId("CM2006")
+		def course = courseInfoService.findCourse("CM2006")
 		courseInfoService.deleteCourse(course)
-		def finder = Course.findByCourseId("CM2006")
+		def finder = courseInfoService.findCourse("CM2006")
 		assertEquals(null, finder)
 	}
 
@@ -696,9 +696,9 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	 */
 	void testAuthenticatedDeleteCourse() {
 		withAuthenticatedTrainingMode "user", {
-			def course = Course.findByCourseId("CMM511")
+			def course = courseInfoService.findCourse("CMM511")
 			courseInfoService.deleteCourse(course)
-			def finder = Course.findByCourseId("CMM511")
+			def finder = courseInfoService.findCourse("CMM511")
 			assertEquals(null, finder)
 		}
 	}
@@ -707,9 +707,9 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	 * Test deletion of a student.
 	 */
 	void testDeleteStudent() {
-		def student = Student.findByStudentId("09000238")
+		def student = courseInfoService.findStudent("09000237")
 		courseInfoService.deleteStudent(student)
-		def finder = Student.findByStudentId("09000238")
+		def finder = courseInfoService.findStudent("09000237")
 		assertEquals(null, finder)
 	}
 
@@ -719,9 +719,9 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	 */
 	void testAuthenticatedDeleteStudent() {
 		withAuthenticatedTrainingMode "user", {
-			def student = Student.findByStudentId("09000238")
+			def student = courseInfoService.findStudent("09000238")
 			courseInfoService.deleteStudent(student)
-			def finder = Student.findByStudentId("09000238")
+			def finder = courseInfoService.findStudent("09000238")
 			assertEquals(null, finder)
 		}
 	}
@@ -730,9 +730,9 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	 * Test deletion of a tutor.
 	 */
 	void testDeleteTutor() {
-		def tutor = Tutor.findByTutorId("M4000064")
+		def tutor = courseInfoService.findTutor("M4000061")
 		courseInfoService.deleteTutor(tutor)
-		def finder = Tutor.findByTutorId("M4000064")
+		def finder = courseInfoService.findTutor("M4000061")
 		assertEquals(null, finder)
 	}
 
@@ -742,9 +742,9 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	 */
 	void testAuthenticatedDeleteTutor() {
 		withAuthenticatedTrainingMode "user", {
-			def tutor = Tutor.findByTutorId("M4000064")
+			def tutor = courseInfoService.findTutor("M4000064")
 			courseInfoService.deleteTutor(tutor)
-			def finder = Tutor.findByTutorId("M4000064")
+			def finder = courseInfoService.findTutor("M4000064")
 			assertEquals(null, finder)
 		}
 	}
@@ -753,9 +753,10 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	 * Test deletion of a assignment.
 	 */
 	void testDeleteAssignment() {
-		def assignment = Assignment.findByOwnerAndCode(null, "TMA03")
+		def course = courseInfoService.findCourse("CM2006")
+		def assignment = courseInfoService.findAssignment(course, "TMA03")
 		courseInfoService.deleteAssignment(assignment)
-		def finder = Assignment.findByOwnerAndCode(null, "TMA03")
+		def finder = courseInfoService.findAssignment(course, "TMA03")
 		assertEquals(null, finder)
 	}
 
@@ -765,9 +766,11 @@ class CourseInfoServiceTests extends GroovyTestCase {
 	 */
 	void testAuthenticatedDeleteAssignment() {
 		withAuthenticatedTrainingMode "user", {
-			def assignment = Assignment.findByOwnerAndCode("user", "TMA01")
+			def course = courseInfoService.findCourse("CMM511")
+			def assignment = courseInfoService.findAssignment(course, "TMA01")
+			assertNotNull(assignment)
 			courseInfoService.deleteAssignment(assignment)
-			def finder = Assignment.findByOwnerAndCode("user", "TMA01")
+			def finder = courseInfoService.findAssignment(course, "TMA01")
 			assertEquals(null, finder)
 		}
 	}
