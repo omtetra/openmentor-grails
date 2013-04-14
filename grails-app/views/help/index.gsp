@@ -187,13 +187,14 @@
     </table> 
     
     <h3>What can it tell you?</h3>
+        
     <a name="groupA"></a>
-    <h4>Evidence of praise and marks awarded - Group A comments </h4>
+    <h4>Comment analysis for a whole course </h4>
     <p>
-      Peter White is a tutor on a science course.  He sent four
-      student assignments to OpenMentor for analysis.  First of all he
-      asked to see if he had given enough praise and positive comments
-      to the students on these four assignments.
+      Peter White is a tutor on a science course.  He sent all the
+      student assignments to OpenMentor for analysis.  Then he
+      asked used the course report to investigate his use of comments
+      in the feedback to students on these assignments.
     </p>
     <p>
       OpenMentor produced a graph as shown below.
@@ -207,45 +208,35 @@
 	        </tr>
 	    </thead>
 	    <tbody>
-			<tr class='bullet'><td class='bullet-label'>pw1a.doc</td><td class='bullet-ideal'>16</td><td class='bullet-actual'>10</td></tr>
-			<tr class='bullet'><td class='bullet-label'>pw2a.doc</td><td class='bullet-ideal'>18</td><td class='bullet-actual'>12</td></tr>
-			<tr class='bullet'><td class='bullet-label'>pw3a.doc</td><td class='bullet-ideal'>11</td><td class='bullet-actual'>13</td></tr>
-			<tr class='bullet'><td class='bullet-label'>pw4a.doc</td><td class='bullet-ideal'>16</td><td class='bullet-actual'>11</td></tr>
+			<tr class='bullet'><td class='bullet-label'>A</td><td class='bullet-ideal'>123</td><td class='bullet-actual'>92</td></tr>
+			<tr class='bullet'><td class='bullet-label'>B</td><td class='bullet-ideal'>145</td><td class='bullet-actual'>121</td></tr>
+			<tr class='bullet'><td class='bullet-label'>C</td><td class='bullet-ideal'>113</td><td class='bullet-actual'>139</td></tr>
+			<tr class='bullet'><td class='bullet-label'>D</td><td class='bullet-ideal'>27</td><td class='bullet-actual'>23</td></tr>
 	    </tbody>
 	</table>
     <p>
-      The graph indicated that on three of the four assignments Peter
-      had not given enough praise for the mark awarded.  He was rather
-      surprised at this finding since he had given these students high
-      grades. He decided to give more positive comments to his more
-      able students in the future.
-    </p>	
-    <p>
-      Here are some types of positive comments that tutors use for
-      positive responses:
+      The graph indicated that Peter had given rather fewer positive 
+      comments and teaching points that might be expected for the grades
+      that he had given. He had also asked more questions than might
+      be expected, although his use of negative comments was about
+      in line.
     </p>
-    <ul class="list">
-      <li>
-        'Yes I agree they sound like Slatter's actions'
-      </li>
-      <li>
-        'Good clear definition of this complex reaction'
-      </li>
-      <li>
-        'Excellent'
-      </li>
-    </ul>
+    <p>
+      Peter could then explore the comments of each type in a little 
+      more detail, looking at each student's work individually, and 
+      considering whether his use of feedback needed a little refinement.
+    </p>
+
     <a name="groupB"></a>
-    <h4>Identify the percentage of teaching points of student
-    improvement - Group B comments</h4>
+    <h4>Explore differences within a course</h4>
     <p>	
-      Adam Grey is a tutor on a business studies course.  He sent
-      five student assignments to OpenMentor for analysis. He
-      wanted to see if he had given enough teaching comments to
-      the students on these five assignments.
+      Karen Green is a tutor on a business course. After assessing
+      the written work for five students, she used OpenMentor to 
+      compare the comment use for each student. OpenMentor produced
+      four different graphs, one for each type of comment. 
     </p>
     <p>
-      OpenMentor produced a graph as shown below.
+      For the teaching points (group B) OpenMentor produced a graph as shown below.
     </p>
     <table id="commentB_table_1-table" class="actual-ideal table table-striped table-condensed">
         <thead>
@@ -256,18 +247,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr class='bullet'><td class='bullet-label'>ag1a.doc</td><td class='bullet-ideal'>14</td><td class='bullet-actual'>19</td></tr>
-            <tr class='bullet'><td class='bullet-label'>ag2a.doc</td><td class='bullet-ideal'>10</td><td class='bullet-actual'>6</td></tr>
-            <tr class='bullet'><td class='bullet-label'>ag3a.doc</td><td class='bullet-ideal'>14</td><td class='bullet-actual'>13</td></tr>
-            <tr class='bullet'><td class='bullet-label'>ag4a.doc</td><td class='bullet-ideal'>18</td><td class='bullet-actual'>17</td></tr>
-            <tr class='bullet'><td class='bullet-label'>ag5a.doc</td><td class='bullet-ideal'>18</td><td class='bullet-actual'>19</td></tr>
+            <tr class='bullet'><td class='bullet-label'>09000031</td><td class='bullet-ideal'>14</td><td class='bullet-actual'>19</td></tr>
+            <tr class='bullet'><td class='bullet-label'>09000032</td><td class='bullet-ideal'>10</td><td class='bullet-actual'>6</td></tr>
+            <tr class='bullet'><td class='bullet-label'>09000033</td><td class='bullet-ideal'>14</td><td class='bullet-actual'>13</td></tr>
+            <tr class='bullet'><td class='bullet-label'>09000034</td><td class='bullet-ideal'>18</td><td class='bullet-actual'>17</td></tr>
+            <tr class='bullet'><td class='bullet-label'>09000035</td><td class='bullet-ideal'>18</td><td class='bullet-actual'>19</td></tr>
         </tbody>
     </table>
     <p>
-      This graph illustrates that in the first assignment he gave more
-      comments than expected for the mark awarded. However in the
-      second he gave less than expected. The other three were about
-      right, i.e., there was very little distance from the zero line.
+      This graph illustrates that in the first assignment she gave more
+      teaching points than expected for the mark awarded. However for the
+      second student she gave less than expected. The other three were about
+      right, i.e., there was very little distance from the ideal line.
     </p>
     <p>
       Examples of comments relating to teaching points by a business
@@ -289,208 +280,33 @@
         strategic issues facing the company'
       </li>
     </ul>
+    
     <a name="groupC"></a>
-    <h4>The use of questioning as a teaching strategy - Group C
-    comments</h4>
+    <h4>The visual representation: bullet graphs</h4>
+    
     <p>
-      Karen Green is a tutor on an education course. She sent 13
-      assignments to OpenMentor for analysis. After inspection of the
-      types of comments she had made in groups A and B she requested
-      an analysis of how she had used questioning as a strategy to
-      assist her students. OpenMentor produced a graph as shown below.
-    </p>
+      OpenMentor uses a visual representation called "bullet graphs"
+      designed by Stephen Few to make it easy to compare actual 
+      to ideal values. The actual count is shown by
+      a solid bar, and the ideal count is shown by a small black line.
+      When the bar and the line meet, the actual and ideal values are
+      close. When there is enough data, OpenMentor shades the area 
+      around the ideal value -- anything in the shaded region is close
+      enough to be considered normal. When the bar is outside the shaded
+      region, either too far beyond the line (actual is a lot higher)
+      or a long way short of the line (actual is a lot lower) this is
+      worth investigating in more detail.
     <p>
-      <img src="${resource(dir:'/images/help',file:'commentC_graph_1.jpg')}" 
-           alt="Group C comments - example graph"/>
-    </p>
-    <p>
-      The graph indicated that for three of the assignments Karen had
-      used the expected amount of questioning for the mark
-      awarded. Four assignments had rather more questions than
-      expected while the rest had too few. This feedback made her
-      think about this teaching strategy and to perhaps use it a
-      little more frequently than he had done so in the past.
-    </p>
-    <p>
-      Here are some examples of questions used by an education tutor
-      marking some assignments:
+      You can read more about bullet graphs:
     </p>
     <ul class="list">
       <li>
-        'Why did you elect to put a list like this in your main text
-        rather than in your appendices? You would have saved hundreds
-        of words by doing this and you would not have gone
-        over-length'
+        On Wikipedia: see: <a href="http://en.wikipedia.org/wiki/Bullet_graph">http://en.wikipedia.org/wiki/Bullet_graph</a>
       </li>
       <li>
-        'So which of these factors are the ones that impact most upon
-        classroom teaching?'
-      </li>
-      <li>
-        'Why do you feel that this theory is of such importance?'
+        Use the original specification for bullet graphs: see: <a href="http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf">http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf</a>
       </li>
     </ul>
-    <a name="groupD"></a>
-        
-    <h4>The proportion of negative feedback recorded - Group D
-    comments</h4>
-    <p>
-      Mary Black is a tutor on an Arts course.  She sent five student
-      assignments to OpenMentor for analysis. She asked to see if she
-      had given too many negative comments to the students on
-      these five assignments.
-    </p>
-    <p>
-      OpenMentor produced a graph as shown below.
-    </p>
-    <p>
-      <img src="${resource(dir:'/images/help',file:'commentD_graph_1.jpg')}" 
-           alt="Group D comments - example graph"/>
-    </p>
-    <p>
-      The graph illustrates the comments are few and below the zero
-      line. This means she gave less than expected for the mark
-      awarded in four out of five cases.
-    </p>
-    <p>
-      Here are some examples of negative feedback given by tutors on
-      an arts course:
-    </p>
-    <ul class="list">
-      <li>'No this is not correct'</li>
-      <li>'This description is not helpful and does not contribute to
-      the argument'</li>
-      <li>'No references'</li>
-      <li>'This is not a genuine conclusion.'</li>
-    </ul>
-        
-    <h3>When can it be used?</h3>
-        
-    <a name="scenario1"></a>
-    <h4>Help train novice tutors</h4>
-    <p>
-      Here is an example scenario of how OpenMentor can be used to
-      help train novice tutors.
-    </p>
-    <p>
-      Gill White is a new tutor in the Health and Social Welfare
-      Department.  Her college has sent her the guidelines for marking
-      student assignments.  The document suggests a good way to
-      motivate her students is to provide timely and constructive
-      feedback.  There are four main areas to concentrate on when
-      providing this feedback which are providing good positive
-      reactions and praise where it is due to the student.  Being
-      careful what the phrasing of negative reactions, posing
-      questions to the student and offering solutions to specific
-      difficulties presented in the assignments.  In this way a
-      balance of socio-emotional comments with teaching comments can
-      be used to support the student.  Practical illustrations of this
-      mode of teaching and a means to try them out are offered by
-      using an interactive computer tool OpenMentor.
-    </p>
-    <p>
-      Gill logs on and is given a set of pre marked assignments to
-      read and upload to OpenMentor.  She finds two are marked with
-      not having enough praise or recognition of achievement for the
-      mark awarded.  One has too much praise, two have too many
-      questions, while one has a good balance of comments for the
-      grade awarded.  Finally a script is presented that does not
-      offer enough teaching comments that will help the student
-      improve upon the mark given in this particular assignment.  The
-      programme then encourages Gill to investigate the feedback on
-      these example assignments.  She starts to build a picture of the
-      student who, unlike the tutor, does not have access to the full
-      range of marks of the cohort and is still unsure about how well
-      they, as individuals, are performing with a high mark.  Students
-      do need explicit praise if they have done well.  It is not all
-      in the mark.  Questioning can be a good technique for pointing
-      out omissions for example saying, 'Have you thought about
-      including a particular research finding into this argument?'
-    </p>
-    <p>
-      She is then given an assignment to mark herself and uploads to
-      the system.  She decides to revise some of the feedback but is
-      happy with grade she has given the student.  She prints off her
-      feedback and will follow up this training session with her
-      mentor at their next meeting.
-    </p>
-    <a name="scenario2"></a>
-    <h4>Encourage best practice between a group of tutors supporting a
-    course</h4>
-    <p>
-      A group of tutors reviewed all the TMAs by tutor for their
-      course.  They noticed that an interesting teaching pattern was
-      occurring with one of the tutors.  In fact it was the skilful
-      use of questions to the students and direct teaching comments.
-      This tutor was more likely to give fewer direct teaching
-      comments per mark awarded.  He used fewer direct teaching
-      comments than would be expected on some TMAs.  Further
-      investigation revealed that this occurred after he had inserted
-      more comments than would be expected on the previous TMA.  He
-      also gave more praise on the following TMA.
-    </p>
-    <p>
-      The tutors thought this was an interesting teaching strategy and
-      began to look for others in this group.  They wanted to explore
-      and identify a number of strategies that could be used as
-      examples for discussion at their next meeting.
-    </p>	
-        
-    <a name="scenario3"></a>
-    <h4>Provide professional development for individual tutors</h4>
-    <p>
-      Sue Brown is a tutor on a psychology course and has just
-      finished marking her latest batch of 43 course assessments.  On
-      the whole she feels that her students have done well.  Before
-      passing them to a second marker, Sue sends them to OpenMentor
-      and, in return, she gets a table which flags a few questions on
-      about five of them.  Two are marked that she is giving fewer
-      suggestions than would be expected for the low grade she has
-      awarded, and three that she is asking for more information than
-      would be expected for the high grade awarded.  She decides to
-      revise her feedback in three cases and considers changing the
-      grade in two others.
-    </p>
-    <p>
-      Fred decides to review his marking of one particular student's
-      set of assignments as he is concerned about this student's
-      rather erratic progress and wants to see how he can improve upon
-      his own commenting for the next assignment.  Jon is the name of
-      this student and Fred's feedback on the three essays marked to
-      date for Jon suggests Fred has given too few directed teaching
-      comments on the first assignment, too many on the second and too
-      few on the third.  Where his teaching comments were fewer than
-      expected for the mark awarded, Fred actually asked more
-      questions.  This seemed a strange balance to Fred, especially as
-      the mark improved after this pattern of commenting.  He thought
-      it should be the other way around, so in order to investigate
-      further he then asked OpenMentor to pull down the range of
-      questions he asked in these essays.  He found interestingly
-      enough that when he asked the following types of questions:
-      'Have you thought about including X in this account because it
-      could bolster your argument about Y here?'  Fred was pointing
-      out omissions in such a way that he was actually producing more
-      helpful commenting.  This was due to Fred's particular teaching
-      style and made him realize this was a good way to proceed.
-      OpenMentor is able to point out Fred's particular teaching
-      strengths to him and help him not only to reflect upon them, but
-      also to build on them.
-    </p>
-            
-    <a name="scenario4"></a>
-    <h4>Support quality processes through use as a monitoring tool</h4>
-    <p>
-      After Sue Brown has checked her marking in the OpenMentor system
-      and makes a few changes to her assignments, she sends them to
-      OpenMentor again and then forwards them, with the feedback
-      table, to her course coordinator for monitoring.  Her course
-      monitor, John Black, is able to use the feedback to focus more
-      carefully on those assessments that seem to need most attention
-      rather than (as she used to do) simply looking at the borderline
-      cases.  This enables him to keep a better overview of the
-      learners' progress than when he used to simply look at a bar
-      chart of the grade distribution.
-    </p>
     </div>
 
     	</div>
