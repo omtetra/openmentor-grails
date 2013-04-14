@@ -6,6 +6,9 @@ import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.courseinfo.Assignment;
 
 class SubmissionIntegrationTests extends GroovyTestCase {
+	
+	def courseInfoService
+	
     protected void setUp() {
         super.setUp()
     }
@@ -18,7 +21,7 @@ class SubmissionIntegrationTests extends GroovyTestCase {
 	 * Simple check we can write a submission record the test data
 	 */
     void testStoreSubmission() {
-		def assignment = Assignment.findByCode("TMA03")
+		def assignment = courseInfoService.findAssignment("CM2006", "TMA03")
 		assertTrue assignment != null
 		
 		def testFileName = 'test/resources/test1a.doc'

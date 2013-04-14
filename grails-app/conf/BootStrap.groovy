@@ -181,6 +181,7 @@ class BootStrap {
     */
     private void initializeConfiguration() {
 		
+		// Initialises the training mode, which will be default be set to false.
 		Boolean trainingMode = grailsApplication.config.openmentor?.trainingMode
 		if (trainingMode != null) {
 			courseInfoService.trainingMode = trainingMode

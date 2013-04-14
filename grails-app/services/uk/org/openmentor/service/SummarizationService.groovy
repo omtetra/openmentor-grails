@@ -42,7 +42,11 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByAssignment(String course, Boolean comments = false) {
-        makeSummary(["ass.code"], ["sub.assignment as ass", "ass.course as c"], ["c.courseId = :courseId"], ["courseId": course], comments)
+        makeSummary(["ass.code"], 
+			["sub.assignment as ass", "ass.course as c"], 
+			["c.courseId = :courseId"], 
+			["courseId": course], 
+			comments)
     }
 
     /**
@@ -50,7 +54,11 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByTutor(String course, Boolean comments = false) {
-        makeSummary(["tutor_id"], ["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], ["c.courseId = :courseId"], ["courseId": course], comments)
+        makeSummary(["tutor_id"], 
+			["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], 
+			["c.courseId = :courseId"], 
+			["courseId": course], 
+			comments)
     }
 
     /**
@@ -58,7 +66,11 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByStudent(String course, Boolean comments = false) {
-        makeSummary(["student_id"], ["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], ["c.courseId = :courseId"], ["courseId": course], comments)
+        makeSummary(["student_id"], 
+			["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], 
+			["c.courseId = :courseId"], 
+			["courseId": course], 
+			comments)
     }
 
     /**
@@ -66,7 +78,11 @@ class SummarizationService {
      * @return
      */
     def getSubmissionSummary(Submission submission, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass"], ["sub.id = :id"], ["id": submission.id], comments)
+        makeSummary([], 
+			["sub.assignment as ass"], 
+			["sub.id = :id"], 
+			["id": submission.id], 
+			comments)
     }
 
     /**
@@ -74,7 +90,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndAssignmentSummary(String courseId, String assignment, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass", "ass.course as c"], ["c.courseId = :courseId", "ass.code = :code"], ["courseId": courseId, "code": assignment], comments)
+        makeSummary([], 
+			["sub.assignment as ass", "ass.course as c"], 
+			["c.courseId = :courseId", "ass.code = :code"], 
+			["courseId": courseId, "code": assignment], 
+			comments)
     }
 
     /**
@@ -82,7 +102,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndAssignmentSubmissions(String courseId, String assignment, Boolean comments = false) {
-        makeSummary(["sub.filename"], ["sub.assignment as ass", "ass.course as c"], ["c.courseId = :courseId", "ass.code = :code"], ["courseId": courseId, "code": assignment], comments)
+        makeSummary(["sub.filename"], 
+			["sub.assignment as ass", "ass.course as c"], 
+			["c.courseId = :courseId", "ass.code = :code"], 
+			["courseId": courseId, "code": assignment], 
+			comments)
     }
 
     /**
@@ -90,7 +114,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndStudentSummary(String courseId, String studentId, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], ["c.courseId = :courseId", "student_id = :studentId"], ["courseId": courseId, "studentId": studentId], comments)
+        makeSummary([], 
+			["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], 
+			["c.courseId = :courseId", "student_id = :studentId"], 
+			["courseId": courseId, "studentId": studentId], 
+			comments)
     }
 
     /**
@@ -98,7 +126,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndStudentSubmissions(String courseId, String studentId, Boolean comments = false) {
-        makeSummary(["sub.filename"], ["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], ["c.courseId = :courseId", "student_id = :studentId"], ["courseId": courseId, "studentId": studentId], comments)
+        makeSummary(["sub.filename"], 
+			["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], 
+			["c.courseId = :courseId", "student_id = :studentId"], 
+			["courseId": courseId, "studentId": studentId], 
+			comments)
     }
 
     /**
@@ -106,7 +138,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndTutorSummary(String courseId, String tutorId, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], ["c.courseId = :courseId", "tutor_id = :tutorId"], ["courseId": courseId, "tutorId": tutorId], comments)
+        makeSummary([], 
+			["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], 
+			["c.courseId = :courseId", "tutor_id = :tutorId"], 
+			["courseId": courseId, "tutorId": tutorId], 
+			comments)
     }
 
     /**
@@ -114,7 +150,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndTutorSubmissions(String courseId, String tutorId, Boolean comments = false) {
-        makeSummary(["sub.filename"], ["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], ["c.courseId = :courseId", "tutor_id = :tutorId"], ["courseId": courseId, "tutorId": tutorId], comments)
+        makeSummary(["sub.filename"], 
+			["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], 
+			["c.courseId = :courseId", "tutor_id = :tutorId"], 
+			["courseId": courseId, "tutorId": tutorId], 
+			comments)
     }
 
     /**
@@ -177,11 +217,17 @@ group by ${dimensionsString} cat.band \
 order by ${dimensionsString} cat.band"
         
         def countResult = Submission.executeQuery(countQuery, namedParams)
+		log.trace("Count result query" + countQuery + ", args: " + namedParams.collect { it.toString()}.join(", "))
+		//log.error("Result: " + countResult.collect { it.toString()}.join(", "))
                 
         def idealResult = Submission.executeQuery(idealQuery, namedParams)
-        
+		log.trace("Ideal result query" + idealQuery + ", args: " + namedParams.collect { it.toString()}.join(", "))
+		//log.error("Result: " + idealResult.collect { it.toString()}.join(", "))
+		
         def actualResult = Submission.executeQuery(actualQuery, namedParams)
-        
+		log.trace("Actual result query" + actualQuery + ", args: " + namedParams.collect { it.toString()}.join(", "))
+		//log.error("Result: " + actualResult.collect { it.toString()}.join(", "))
+		
         /*
          * Dump the row data into a hierarchical structure in a MultiMap, this
          * is keyed by the return values in order, expecting the band and 

@@ -3,6 +3,9 @@ package uk.org.openmentor.courseinfo
 import grails.test.*
 
 class CourseIntegrationTests extends GroovyTestCase {
+	
+	def courseInfoService
+	
     protected void setUp() {
         super.setUp()
     }
@@ -15,7 +18,7 @@ class CourseIntegrationTests extends GroovyTestCase {
 	 * Simple check we can read a course from the test data
 	 */
     void testFirstCourse() {
-		def courseCM2006 = Course.findByCourseId("CM2006")
+		def courseCM2006 = courseInfoService.findCourse("CM2006")
 		assertNotNull(courseCM2006)
     }
 
@@ -23,7 +26,7 @@ class CourseIntegrationTests extends GroovyTestCase {
 	 * Simple check we can read a course's students from the test data
 	 */
     void testFirstCourseTutors() {
-		def courseCM2006 = Course.findByCourseId("CM2006")
+		def courseCM2006 = courseInfoService.findCourse("CM2006")
 		assertEquals(3, courseCM2006.tutors.size())
     }
 
@@ -31,7 +34,7 @@ class CourseIntegrationTests extends GroovyTestCase {
 	* Simple check we can read a course's tutors from the test data
 	*/
     void testFirstCourseStudents() {
-		def courseCM2006 = Course.findByCourseId("CM2006")
+		def courseCM2006 = courseInfoService.findCourse("CM2006")
 		assertEquals(6, courseCM2006.students.size())
     }
 }

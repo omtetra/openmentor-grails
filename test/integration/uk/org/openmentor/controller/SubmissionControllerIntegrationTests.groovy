@@ -19,6 +19,9 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 	private def controller
 	private def summarizationService
 	
+	// Public so it can be injected
+	def courseInfoService
+	
 	Map savedMetaClasses = [:]
 	Map renderMap
 	Map redirectMap
@@ -81,7 +84,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		
 		def sc = new SubmissionCommand()
 		
-		Assignment ass = Assignment.findByCode("TMA03")
+		Assignment ass = courseInfoService.findAssignment("CM2006", "TMA03")
 		
 		def mockCurrentUserService = mock(CurrentUserService)
 		mockCurrentUserService.currentUserName().returns("admin").stub()		
@@ -122,7 +125,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		
 		def sc = new SubmissionCommand()
 		
-		Assignment ass = Assignment.findByCode("TMA03")
+		Assignment ass = courseInfoService.findAssignment("CM2006", "TMA03")
 		
 		def mockCurrentUserService = mock(CurrentUserService)
 		mockCurrentUserService.currentUserName().returns("admin").stub()		
