@@ -42,7 +42,7 @@ class UserControllerIntegrationTests extends GroovyTestCase {
 	void testListAction() {
 		def model = controller.list()
 		
-		assertEquals 2, model.userInstanceTotal
+		assertEquals 3, model.userInstanceTotal
 		assertTrue model.userInstanceList.every { it instanceof User }
 	}
 

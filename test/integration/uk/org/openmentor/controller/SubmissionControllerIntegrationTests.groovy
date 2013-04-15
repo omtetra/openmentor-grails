@@ -21,6 +21,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 	
 	// Public so it can be injected
 	def courseInfoService
+	def currentUserService
 	
 	Map savedMetaClasses = [:]
 	Map renderMap
@@ -40,6 +41,8 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		controller = new SubmissionController()
 		
 		summarizationService = new SummarizationService()
+		summarizationService.courseInfoService = courseInfoService
+		summarizationService.currentUserService = currentUserService
     }
 
     protected void tearDown() {

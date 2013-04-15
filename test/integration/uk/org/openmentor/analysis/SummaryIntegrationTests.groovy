@@ -24,10 +24,13 @@ class SummaryIntegrationTests extends GroovyTestCase {
 	def summarizationService
 	def analyzerService
 	def courseInfoService
+	def currentUserService
 
     protected void setUp() {
         super.setUp()
 		summarizationService = new SummarizationService()
+		summarizationService.courseInfoService = courseInfoService
+		summarizationService.currentUserService = currentUserService
     }
 
     protected void tearDown() {

@@ -20,21 +20,25 @@ import uk.org.openmentor.util.MultiMap;
  * @author morungos
  */
 class SummarizationService {
-    
-    /**
-     * Returns a Summary for the whole collection.
-     * @return
-     */
-    def getSummary(Boolean comments = false) {
-        makeSummary([], [], [], [:], comments)
-    }
+	
+	def courseInfoService
+	def currentUserService
+	
+	private def getUsername() {
+		return courseInfoService.trainingMode ? currentUserService.currentUserName() : null
+	}
     
     /**
      * Returns a Summary for a specified course.
      * @return
      */
     def getCourseSummary(String course, Boolean comments = false) {
-        makeSummary([], ["sub.assignment as ass", "ass.course as c"], ["c.courseId = :courseId"], ["courseId": course], comments)
+		String userName = getUsername()
+        makeSummary([], 
+			["sub.assignment as ass", "ass.course as c"], 
+			["c.courseId = :courseId"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": course].plus(userName ? ["user": userName] : []), 
+			comments)
     }
 
     /**
@@ -42,10 +46,11 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByAssignment(String course, Boolean comments = false) {
+		String userName = getUsername()
         makeSummary(["ass.code"], 
 			["sub.assignment as ass", "ass.course as c"], 
-			["c.courseId = :courseId"], 
-			["courseId": course], 
+			["c.courseId = :courseId"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": course].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -54,10 +59,11 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByTutor(String course, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary(["tutor_id"], 
 			["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], 
-			["c.courseId = :courseId"], 
-			["courseId": course], 
+			["c.courseId = :courseId"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": course].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -66,10 +72,11 @@ class SummarizationService {
      * @return
      */
     def getCourseSummaryByStudent(String course, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary(["student_id"], 
 			["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], 
-			["c.courseId = :courseId"], 
-			["courseId": course], 
+			["c.courseId = :courseId"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": course].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -78,10 +85,11 @@ class SummarizationService {
      * @return
      */
     def getSubmissionSummary(Submission submission, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary([], 
 			["sub.assignment as ass"], 
-			["sub.id = :id"], 
-			["id": submission.id], 
+			["sub.id = :id"].plus(userName ? ["ass.owner = :user"] : []), 
+			["id": submission.id].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -90,10 +98,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndAssignmentSummary(String courseId, String assignment, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary([], 
 			["sub.assignment as ass", "ass.course as c"], 
-			["c.courseId = :courseId", "ass.code = :code"], 
-			["courseId": courseId, "code": assignment], 
+			["c.courseId = :courseId", "ass.code = :code"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": courseId, "code": assignment].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -102,10 +111,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndAssignmentSubmissions(String courseId, String assignment, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary(["sub.filename"], 
 			["sub.assignment as ass", "ass.course as c"], 
-			["c.courseId = :courseId", "ass.code = :code"], 
-			["courseId": courseId, "code": assignment], 
+			["c.courseId = :courseId", "ass.code = :code"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": courseId, "code": assignment].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -114,10 +124,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndStudentSummary(String courseId, String studentId, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary([], 
 			["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], 
-			["c.courseId = :courseId", "student_id = :studentId"], 
-			["courseId": courseId, "studentId": studentId], 
+			["c.courseId = :courseId", "student_id = :studentId"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": courseId, "studentId": studentId].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -126,10 +137,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndStudentSubmissions(String courseId, String studentId, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary(["sub.filename"], 
 			["sub.assignment as ass", "ass.course as c", "sub.studentIds as student_id"], 
-			["c.courseId = :courseId", "student_id = :studentId"], 
-			["courseId": courseId, "studentId": studentId], 
+			["c.courseId = :courseId", "student_id = :studentId"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": courseId, "studentId": studentId].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -138,10 +150,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndTutorSummary(String courseId, String tutorId, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary([], 
 			["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], 
-			["c.courseId = :courseId", "tutor_id = :tutorId"], 
-			["courseId": courseId, "tutorId": tutorId], 
+			["c.courseId = :courseId", "tutor_id = :tutorId"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": courseId, "tutorId": tutorId].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
@@ -150,10 +163,11 @@ class SummarizationService {
      * @return
      */
     def getCourseAndTutorSubmissions(String courseId, String tutorId, Boolean comments = false) {
+        String userName = getUsername()
         makeSummary(["sub.filename"], 
 			["sub.assignment as ass", "ass.course as c", "sub.tutorIds as tutor_id"], 
-			["c.courseId = :courseId", "tutor_id = :tutorId"], 
-			["courseId": courseId, "tutorId": tutorId], 
+			["c.courseId = :courseId", "tutor_id = :tutorId"].plus(userName ? ["c.owner = :user", "ass.owner = :user"] : []), 
+			["courseId": courseId, "tutorId": tutorId].plus(userName ? ["user": userName] : []), 
 			comments)
     }
 
