@@ -79,6 +79,17 @@ class BootStrap {
 		if (! userUser.authorities.contains(userRole)) {
 			UserRole.create userUser, userRole
 		}
+
+		def encodedOtherUserPassword = springSecurityService.encodePassword('other')
+		def otherUserUser = User.findByUsername('other') ?: new User(
+			username: 'other',
+			password: encodedOtherUserPassword,
+			confirm: encodedOtherUserPassword,
+			enabled: true).save(failOnError: true)
+            
+		if (! otherUserUser.authorities.contains(userRole)) {
+			UserRole.create otherUserUser, userRole
+		}
     }
     
     /**

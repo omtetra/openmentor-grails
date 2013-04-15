@@ -19,17 +19,6 @@ class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 		super.setUp()
 	}
 
-    void testSummary() {
-		
-		Summary result = summarizationService.getSummary()
-        assertTrue result != null
-		assertTrue result.data != null
-		assertEquals 40, result.data.getAt("A")?.actual
-		assertEquals 108, result.data.getAt("B")?.actual
-		assertEquals 49, result.data.getAt("C")?.actual
-		assertEquals 19, result.data.getAt("D")?.actual
-    }
-	
     void testCourseSummary() {
 		
 		Summary result = summarizationService.getCourseSummary("CM2006")
