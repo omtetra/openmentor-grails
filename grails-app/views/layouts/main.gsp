@@ -19,7 +19,6 @@
         padding: 9px 0;
       }
     </style>
-    <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap-responsive.css')}">
     <link rel="stylesheet" href="${resource(dir:'css',file:'chosen.css')}">
     <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}">
     <g:javascript src='libs/jquery-1.9.1.js'/>
