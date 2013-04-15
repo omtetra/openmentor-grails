@@ -4,13 +4,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'assignment.label', default: 'Assignment')}" />
-        <title><g:message code="assignment.upload.label" /></title>
+        <g:set var="entityName" value="${message(code: 'submission.label', default: 'Submission')}" />
+        <title><g:message code="submission.upload.label" /></title>
     </head>
     <body>
         <div id="page">
         <div class="body">
-            <h2><g:message code="assignment.upload.label" /></h2>
+            <h2><g:message code="submission.upload.label" /></h2>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
