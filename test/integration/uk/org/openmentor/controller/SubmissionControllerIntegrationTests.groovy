@@ -96,7 +96,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		controller.session.putAt('current_course', 'CM2006')
 		play {
 			sc.dataFile = mockFile
-			sc.grade = "A"
+			sc.grade = "Pass 1"
 			sc.courseId = 'CM2006'
 			sc.studentIds = '09000231'
 			sc.tutorIds = 'M4000061'
@@ -137,7 +137,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		controller.session.putAt('current_course', 'CM2006')
 		play {
 			sc.dataFile = mockFile
-			sc.grade = "B"
+			sc.grade = "Pass 2"
 			sc.courseId = 'CM2006'
 			sc.studentIds = '09000232'
 			sc.tutorIds = 'M4000062'

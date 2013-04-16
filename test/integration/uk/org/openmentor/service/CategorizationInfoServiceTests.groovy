@@ -68,7 +68,7 @@ class CategorizationInfoServiceTests extends GroovyTestCase {
     void testGrades() {
         List<String> value = categorizationInfoService.getGrades()
 		
-		def expected = ['A', 'B', 'C', 'D', 'E', 'F']
+		def expected = ["Pass 1", "Pass 2", "Pass 3", "Pass 4", "Bare fail", "Fail"]
 		assertEquals expected, value
     }
 }

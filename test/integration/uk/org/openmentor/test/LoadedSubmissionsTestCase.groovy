@@ -22,11 +22,11 @@ class LoadedSubmissionsTestCase extends GroovyTestCase {
 
 	void initializeSubmissions() {
 
-		sub1 = addSubmission("CM2006", "TMA01", '09000231', 'M4000061', 'A', userName, "test/resources/test1a.doc")
-		sub2 = addSubmission("CM2006", "TMA01", '09000232', 'M4000062', 'B', userName, "test/resources/test2a.doc")
-		sub3 = addSubmission("CM2006", "TMA02", '09000231', 'M4000061', 'C', userName, "test/resources/test3a.doc")
-		sub4 = addSubmission("CM2006", "TMA02", '09000232', 'M4000062', 'B', userName, "test/resources/test4a.doc")
-		sub5 = addSubmission("AA1003", "TMA01", '09000231', 'M4000061', 'C', userName, "test/resources/test5a.doc")
+		sub1 = addSubmission("CM2006", "TMA01", '09000231', 'M4000061', "Pass 1", userName, "test/resources/test1a.doc")
+		sub2 = addSubmission("CM2006", "TMA01", '09000232', 'M4000062', "Pass 2", userName, "test/resources/test2a.doc")
+		sub3 = addSubmission("CM2006", "TMA02", '09000231', 'M4000061', "Pass 3", userName, "test/resources/test3a.doc")
+		sub4 = addSubmission("CM2006", "TMA02", '09000232', 'M4000062', "Pass 2", userName, "test/resources/test4a.doc")
+		sub5 = addSubmission("AA1003", "TMA01", '09000231', 'M4000061', "Pass 3", userName, "test/resources/test5a.doc")
 	}
 
 	protected void setUp() {

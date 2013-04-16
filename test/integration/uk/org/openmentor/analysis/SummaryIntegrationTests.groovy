@@ -54,10 +54,10 @@ class SummaryIntegrationTests extends GroovyTestCase {
 	}
 
     void testCourseSummary() {
-		submitAssignment("CM2006", "TMA03", "A", '09000231', 'M4000061', "test/resources/test1a.doc");
-		submitAssignment("CM2006", "TMA03", "C", '09000232', 'M4000061', "test/resources/test2a.doc");
-		submitAssignment("CM2006", "TMA03", "B", '09000233', 'M4000062', "test/resources/test3a.doc");
-		submitAssignment("CM2006", "TMA03", "D", '09000234', 'M4000062', "test/resources/test4a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 1", '09000231', 'M4000061', "test/resources/test1a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 3", '09000232', 'M4000061', "test/resources/test2a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 2", '09000233', 'M4000062', "test/resources/test3a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 4", '09000234', 'M4000062', "test/resources/test4a.doc");
 		
 		Summary summary = summarizationService.getCourseSummary("CM2006", true)
 		assertNotNull(summary)
@@ -68,10 +68,10 @@ class SummaryIntegrationTests extends GroovyTestCase {
     }
 
     void testCourseSummaryByTutor() {
-		submitAssignment("CM2006", "TMA03", "A", '09000231', 'M4000061', "test/resources/test1a.doc");
-		submitAssignment("CM2006", "TMA03", "C", '09000232', 'M4000061', "test/resources/test2a.doc");
-		submitAssignment("CM2006", "TMA03", "B", '09000233', 'M4000062', "test/resources/test3a.doc");
-		submitAssignment("CM2006", "TMA03", "D", '09000234', 'M4000062', "test/resources/test4a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 1", '09000231', 'M4000061', "test/resources/test1a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 3", '09000232', 'M4000061', "test/resources/test2a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 2", '09000233', 'M4000062', "test/resources/test3a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 4", '09000234', 'M4000062', "test/resources/test4a.doc");
 		
 		Summary summary = summarizationService.getCourseSummaryByTutor("CM2006", true)
 		assertNotNull(summary)
@@ -82,10 +82,10 @@ class SummaryIntegrationTests extends GroovyTestCase {
     }
 
     void testCourseSummaryByStudent() {
-		submitAssignment("CM2006", "TMA03", "A", '09000231', 'M4000061', "test/resources/test1a.doc");
-		submitAssignment("CM2006", "TMA03", "C", '09000232', 'M4000061', "test/resources/test2a.doc");
-		submitAssignment("CM2006", "TMA03", "B", '09000233', 'M4000062', "test/resources/test3a.doc");
-		submitAssignment("CM2006", "TMA03", "D", '09000234', 'M4000062', "test/resources/test4a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 1", '09000231', 'M4000061', "test/resources/test1a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 3", '09000232', 'M4000061', "test/resources/test2a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 2", '09000233', 'M4000062', "test/resources/test3a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 4", '09000234', 'M4000062', "test/resources/test4a.doc");
 		
 		Summary summary = summarizationService.getCourseSummaryByStudent("CM2006", true)
 		assertNotNull(summary)
@@ -96,10 +96,10 @@ class SummaryIntegrationTests extends GroovyTestCase {
     }
 
     void testCourseSummaryByAssignment() {
-		submitAssignment("CM2006", "TMA02", "A", '09000231', 'M4000061', "test/resources/test1a.doc");
-		submitAssignment("CM2006", "TMA02", "C", '09000232', 'M4000061', "test/resources/test2a.doc");
-		submitAssignment("CM2006", "TMA03", "B", '09000233', 'M4000061', "test/resources/test3a.doc");
-		submitAssignment("CM2006", "TMA03", "D", '09000234', 'M4000061', "test/resources/test4a.doc");
+		submitAssignment("CM2006", "TMA02", "Pass 1", '09000231', 'M4000061', "test/resources/test1a.doc");
+		submitAssignment("CM2006", "TMA02", "Pass 3", '09000232', 'M4000061', "test/resources/test2a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 2", '09000233', 'M4000061', "test/resources/test3a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 4", '09000234', 'M4000061', "test/resources/test4a.doc");
 		
 		Summary summary = summarizationService.getCourseSummaryByAssignment("CM2006", true)
 		assertNotNull(summary)
@@ -110,10 +110,10 @@ class SummaryIntegrationTests extends GroovyTestCase {
     }
 
     void testCourseAndTutorSummary() {
-		submitAssignment("CM2006", "TMA03", "A", '09000231', 'M4000061', "test/resources/test1a.doc");
-		submitAssignment("CM2006", "TMA03", "C", '09000232', 'M4000061', "test/resources/test2a.doc");
-		submitAssignment("CM2006", "TMA03", "B", '09000233', 'M4000062', "test/resources/test3a.doc");
-		submitAssignment("CM2006", "TMA03", "D", '09000234', 'M4000062', "test/resources/test4a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 1", '09000231', 'M4000061', "test/resources/test1a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 3", '09000232', 'M4000061', "test/resources/test2a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 2", '09000233', 'M4000062', "test/resources/test3a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 4", '09000234', 'M4000062', "test/resources/test4a.doc");
 		
 		Summary summary = summarizationService.getCourseAndTutorSummary("CM2006", "M4000061", true)
 		assertNotNull(summary)
@@ -124,10 +124,10 @@ class SummaryIntegrationTests extends GroovyTestCase {
     }
 
     void testCourseAndStudentSummary() {
-		submitAssignment("CM2006", "TMA03", "A", '09000231', 'M4000061', "test/resources/test1a.doc");
-		submitAssignment("CM2006", "TMA03", "C", '09000232', 'M4000061', "test/resources/test2a.doc");
-		submitAssignment("CM2006", "TMA03", "B", '09000233', 'M4000062', "test/resources/test3a.doc");
-		submitAssignment("CM2006", "TMA03", "D", '09000234', 'M4000062', "test/resources/test4a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 1", '09000231', 'M4000061', "test/resources/test1a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 3", '09000232', 'M4000061', "test/resources/test2a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 2", '09000233', 'M4000062', "test/resources/test3a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 4", '09000234', 'M4000062', "test/resources/test4a.doc");
 		
 		Summary summary = summarizationService.getCourseAndStudentSummary("CM2006", "09000231", true)
 		assertNotNull(summary)
@@ -138,10 +138,10 @@ class SummaryIntegrationTests extends GroovyTestCase {
     }
 
     void testCourseAndAssignmentSummary() {
-		submitAssignment("CM2006", "TMA02", "A", '09000231', 'M4000061', "test/resources/test1a.doc");
-		submitAssignment("CM2006", "TMA02", "C", '09000232', 'M4000061', "test/resources/test2a.doc");
-		submitAssignment("CM2006", "TMA03", "B", '09000233', 'M4000061', "test/resources/test3a.doc");
-		submitAssignment("CM2006", "TMA03", "D", '09000234', 'M4000061', "test/resources/test4a.doc");
+		submitAssignment("CM2006", "TMA02", "Pass 1", '09000231', 'M4000061', "test/resources/test1a.doc");
+		submitAssignment("CM2006", "TMA02", "Pass 3", '09000232', 'M4000061', "test/resources/test2a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 2", '09000233', 'M4000061', "test/resources/test3a.doc");
+		submitAssignment("CM2006", "TMA03", "Pass 4", '09000234', 'M4000061', "test/resources/test4a.doc");
 		
 		Summary summary = summarizationService.getCourseAndAssignmentSummary("CM2006", "TMA03", true)
 		assertNotNull(summary)
