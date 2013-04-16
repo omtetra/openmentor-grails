@@ -53,7 +53,7 @@ class ReportGroovyPagesTests extends GroovyPagesTestCase {
 	}
 										 
 	private void addOneSubmission() {
-		Submission sub = addSubmission("CM2006", "TMA03", '09000231', 'M4000061', 'A', "test/resources/test1a.doc")
+		Submission sub = addSubmission("CM2006", "TMA03", '09000231', 'M4000061', "Pass 1", "test/resources/test1a.doc")
 		assertTrue sub != null
 
 		sub.save(flush: true, validate: true)

@@ -16,11 +16,11 @@ class WeightTests {
 
     void testBasicWeightBehaviour() {
 
-		Weight wgt = new Weight(band: "A", grade: new Grade(id: "F"), weight: 0.25)
+		Weight wgt = new Weight(band: "A", grade: new Grade(id: "Fail"), weight: 0.25)
 		wgt.save()
 		
 		assertEquals "A", wgt.band
-		assertEquals "F", wgt.grade.id
+		assertEquals "Fail", wgt.grade.id
 		assertEquals 0.25, wgt.weight, 0.00001
 		assertNotNull wgt.id
     }

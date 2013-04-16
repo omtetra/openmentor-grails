@@ -15,9 +15,9 @@ class GradeTests {
 
     void testBasicGradeBehaviour() {
 
-		Grade grd = new Grade(id: "A")
+		Grade grd = new Grade(id: "Pass 1")
 		grd.save()
 		
-		assertEquals "A", grd.id
+		assertEquals "Pass 1", grd.id
     }
 }

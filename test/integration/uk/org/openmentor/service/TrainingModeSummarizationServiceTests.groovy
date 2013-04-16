@@ -36,12 +36,12 @@ class TrainingModeSummarizationServiceTests extends LoadedSubmissionsTestCase {
 	void initializeSubmissions() {
 
 		withAuthenticatedTrainingMode "user", {
-			sub1 = addSubmission("CMM511", "TMA01", '09000238', 'M4000064', 'A', "user", "test/resources/test1a.doc")
-			sub2 = addSubmission("CMM511", "TMA02", '09000238', 'M4000064', 'B', "user", "test/resources/test2a.doc")
+			sub1 = addSubmission("CMM511", "TMA01", '09000238', 'M4000064', "Pass 1", "user", "test/resources/test1a.doc")
+			sub2 = addSubmission("CMM511", "TMA02", '09000238', 'M4000064', "Pass 2", "user", "test/resources/test2a.doc")
 		}
 		withAuthenticatedTrainingMode "other", {
-			sub3 = addSubmission("CMM511", "TMA01", '09000238', 'M4000064', 'C', "other", "test/resources/test3a.doc")
-			sub4 = addSubmission("CMM511", "TMA02", '09000238', 'M4000064', 'B', "other", "test/resources/test4a.doc")
+			sub3 = addSubmission("CMM511", "TMA01", '09000238', 'M4000064', "Pass 3", "other", "test/resources/test3a.doc")
+			sub4 = addSubmission("CMM511", "TMA02", '09000238', 'M4000064', "Pass 2", "other", "test/resources/test4a.doc")
 		}
 	}
 
