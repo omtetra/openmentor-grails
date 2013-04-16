@@ -17,7 +17,7 @@
             </g:if>
             <g:form action="save" method="post" class="form-horizontal">
               <div class="control-group ${hasErrors(bean: courseInstance, field: 'courseId', 'error')}">
-                <label class="control-label" for="id"><g:message code="course.courseId.label" default="Course Code" />:</label>
+                <label class="control-label" for="courseId"><g:message code="course.courseId.label" default="Course Code" />:</label>
                 <div class="controls">
                   <g:textField name="courseId" value="${courseInstance?.courseId}" placeholder="Code" />
                   <g:hasErrors bean="${courseInstance}" field="courseId">

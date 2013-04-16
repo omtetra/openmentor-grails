@@ -27,6 +27,7 @@ environments {
     }
     production {
         dataSource {
+			driverClassName = "com.mysql.jdbc.Driver"
             dbCreate = "update"
             url = "jdbc:mysql://localhost:3306/openmentor?characterEncoding=UTF-8"
 	        username='root'

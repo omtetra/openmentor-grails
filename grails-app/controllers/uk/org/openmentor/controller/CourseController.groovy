@@ -23,9 +23,10 @@ class CourseController {
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
     def save = {
     	def courseInstance = new Course(params)
+		courseInfoService.initializeCourse(courseInstance)
 		
 		if (courseInstance.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.id])}"
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.courseId])}"
 			redirect(action: "list", id: courseInstance.id)
 		}
 		else {

@@ -48,7 +48,7 @@
               <div class="control-group ${hasErrors(bean: studentInstance, field: 'courses', 'error')}">
                 <label class="control-label" for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
                 <div class="controls">
-                  <g:select id="courses" name="courses" optionKey="courseId" optionValue="courseId" multiple="${true}" class="chzn-select"
+                  <g:select id="courses" name="courses" optionKey="id" optionValue="courseId" multiple="${true}" class="chzn-select"
                             from="${courseList}" 
                             value="${studentInstance?.courses}"/>
                   <g:hasErrors bean="${studentInstance}" field="courses">
