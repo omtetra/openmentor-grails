@@ -3,7 +3,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'assignment.label', default: 'Assignment')}" />
-        <title><g:message code="assignment.edit.label" args="${[courseInstance.id]}" /></title>
+        <title><g:message code="assignment.edit.label" args="${[courseInstance.courseId]}" /></title>
     </head>
     <body>
         <div id="page">

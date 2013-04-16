@@ -3,12 +3,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'assignment.label', default: 'Assignment')}" />
-        <title><g:message code="assignment.create.label" args="${[courseInstance.id]}" /></title>
+        <title><g:message code="assignment.create.label" args="${[courseInstance.courseId]}" /></title>
     </head>
     <body>
         <div id="page">
         <div class="body">
-            <h2><g:message code="assignment.create.label" args="${[courseInstance.id]}" /></h2>
+            <h2><g:message code="assignment.create.label" args="${[courseInstance.courseId]}" /></h2>
             <g:if test="${flash.message}">
               <div class="alert alert-info">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>

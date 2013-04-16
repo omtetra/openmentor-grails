@@ -2,12 +2,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <title><g:message code="assignment.show.label" args="${[assignmentInstance.code, courseInstance.id]}" /></title>
+        <title><g:message code="assignment.show.label" args="${[assignmentInstance.code, courseInstance.courseId]}" /></title>
     </head>
     <body>
         <div id="page">
         <div class="body">
-            <h2><g:message code="assignment.show.label" args="${[assignmentInstance.code, courseInstance.id]}" /></h2>
+            <h2><g:message code="assignment.show.label" args="${[assignmentInstance.code, courseInstance.courseId]}" /></h2>
             <g:if test="${flash.message}">
               <div class="alert alert-info">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
