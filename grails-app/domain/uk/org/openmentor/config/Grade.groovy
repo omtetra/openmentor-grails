@@ -7,7 +7,7 @@ class Grade {
 	String id
 
     static constraints = {
-		id(nullable: false, blank: false, unique: true, maxSize: 2)
+		id(nullable: false, blank: false, unique: true, maxSize: 12)
     }
 	
 	static mapping = {
