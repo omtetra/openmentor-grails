@@ -77,6 +77,7 @@ jQuery(document).ready(function() {
   });
   jQuery(".handle-delete-confirm").click(function(e) {
     jQuery('#modal-from-dom').modal('hide');
+    return true;
   });
   jQuery('#modal-from-dom').bind('show', function() {
     var id = jQuery(this).data('id'),
