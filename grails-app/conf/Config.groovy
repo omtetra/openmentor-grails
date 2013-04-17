@@ -137,7 +137,7 @@ grails.plugins.springsecurity.authority.className = 'uk.org.openmentor.auth.Role
 // This exploits the significantly more flexible handling of types in Grails to 
 // allow configuration down to the grading scheme. 
 openmentor {
-	trainingMode = true
+	trainingMode = false
 	
 	grades = [
 		"Pass 1", "Pass 2", "Pass 3", "Pass 4", "Bare fail", "Fail"
