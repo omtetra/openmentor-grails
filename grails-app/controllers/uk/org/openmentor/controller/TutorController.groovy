@@ -103,7 +103,7 @@ class TutorController {
 	    		tutorInstance.save()
 
 	        	if (!tutorInstance.hasErrors() && tutorInstance.save(flush: true)) {
-	        		flash.message = "${message(code: 'default.updated.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.studentId])}"
+	        		flash.message = "${message(code: 'default.updated.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.tutorId])}"
 	        		redirect(action: "list")
 	        	}
 	        	else {
