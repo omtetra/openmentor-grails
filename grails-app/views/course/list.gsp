@@ -48,7 +48,7 @@
             
             <div class="nav">
                 <sec:ifAnyGranted roles="MANAGE_COURSEINFO_ROLE">
-                	<span class="menuButton"><g:link class="btn btn-primary create" action="create"><g:message code="default.button.create.label" default="Create" /></g:link></span>
+                	<span class="menuButton"><g:link class="btn btn-primary create" action="create"><g:message code="default.new.label" default="New {0}" args="${[entityName] }"/></g:link></span>
                 </sec:ifAnyGranted>
             </div>
         </div>
