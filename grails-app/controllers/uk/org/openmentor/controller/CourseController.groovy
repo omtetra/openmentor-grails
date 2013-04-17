@@ -38,7 +38,7 @@ class CourseController {
 	def show = {
     	def courseInstance = courseInfoService.findCourse(params.courseId)
     	if (!courseInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.courseId])}"
             redirect(action: "list")
         }
         else {
@@ -50,7 +50,7 @@ class CourseController {
     def edit = {
     	def courseInstance = courseInfoService.findCourse(params.courseId)
     	if (!courseInstance) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.id])}"
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.courseId])}"
 			redirect(action: "list")
 		}
 		else {
@@ -96,7 +96,7 @@ class CourseController {
 
             if (!courseInstance.hasErrors() && courseInstance.save(flush: true)) {
 				
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.id])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), courseInstance.courseId])}"
                 redirect(action: "list")
             }
             else {
@@ -104,7 +104,7 @@ class CourseController {
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.courseId])}"
             redirect(action: "list")
         }
     }

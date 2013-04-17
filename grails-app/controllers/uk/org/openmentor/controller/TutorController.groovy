@@ -23,7 +23,7 @@ class TutorController {
 		def tutorInstance = new Tutor(params)		
 		courseInfoService.initializeTutor(tutorInstance)
 		if (tutorInstance.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.id])}"
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.tutorId])}"
 			redirect(action: "list", id: tutorInstance.id)
 		}
 		else {
@@ -35,7 +35,7 @@ class TutorController {
 	def show = {
 		def tutorInstance = courseInfoService.findTutor(params.tutorId)
         if (!tutorInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.tutorId])}"
             redirect(action: "list")
         }
         else {
@@ -48,7 +48,7 @@ class TutorController {
     def edit = {
 		def tutorInstance = courseInfoService.findTutor(params.tutorId)
         if (!tutorInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.tutorId])}"
             redirect(action: "list")
         }
         else {
@@ -103,7 +103,7 @@ class TutorController {
 	    		tutorInstance.save()
 
 	        	if (!tutorInstance.hasErrors() && tutorInstance.save(flush: true)) {
-	        		flash.message = "${message(code: 'default.updated.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.id])}"
+	        		flash.message = "${message(code: 'default.updated.message', args: [message(code: 'tutor.label', default: 'Tutor'), tutorInstance.studentId])}"
 	        		redirect(action: "list")
 	        	}
 	        	else {
@@ -111,7 +111,7 @@ class TutorController {
 	        	}
 	        }
 	        else {
-	        	flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
+	        	flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.tutorId])}"
 	        	redirect(action: "list")
 	        }
     	}

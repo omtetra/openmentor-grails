@@ -24,7 +24,7 @@ class StudentController {
 		courseInfoService.initializeStudent(studentInstance)
 		
 		if (studentInstance.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.id])}"
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.studentId])}"
 			redirect(action: "list", id: studentInstance.id)
 		}
 		else {
@@ -36,7 +36,7 @@ class StudentController {
 	def show = {
 		def studentInstance = courseInfoService.findStudent(params.studentId)
         if (!studentInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.studentId])}"
             redirect(action: "list")
         }
         else {
@@ -49,7 +49,7 @@ class StudentController {
     def edit = {
 		def studentInstance = courseInfoService.findStudent(params.studentId)
 		if (!studentInstance) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.studentId])}"
 			redirect(action: "list")
 		}
 		else {
@@ -104,7 +104,7 @@ class StudentController {
 				studentInstance.save()
 				
 	            if (!studentInstance.hasErrors() && studentInstance.save(flush: true)) {
-	                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.id])}"
+	                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'student.label', default: 'Student'), studentInstance.studentId])}"
 	                redirect(action: "list")
 	            }
 	            else {
@@ -112,7 +112,7 @@ class StudentController {
 	            }
 	        }
 	        else {
-	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.studentId])}"
 	            redirect(action: "list")
 	        }
 		}
