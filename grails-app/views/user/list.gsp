@@ -32,7 +32,7 @@
                             <td><g:link class="dialog-trigger" action="edit" id="${fieldValue(bean: userInstance, field: 'username')}">${fieldValue(bean: userInstance, field: "username")}</g:link></td>
                             <td>${userInstance.authorities.collect { it.authority }.sort { it }.join(", ")}</td>
                             <td>
-                                <g:link class="btn btn-small" action="show" id="${fieldValue(bean: userInstance, field: 'username')}">${message(code: 'default.button.show.label', default: 'Show')}</g:link>
+                                <g:link class="btn btn-info btn-small" action="show" id="${fieldValue(bean: userInstance, field: 'username')}">${message(code: 'default.button.show.label', default: 'Show')}</g:link>
                             </td>
                         </tr>
                     </g:each>

@@ -32,7 +32,7 @@
                             <td><g:link action="show" params="${[tutorId: fieldValue(bean: tutorInstance, field: 'tutorId')]}">${fieldValue(bean: tutorInstance, field: "tutorId")}</g:link></td>
                             <td>${fieldValue(bean: tutorInstance, field: "name")}</td>
                             <td>
-                                <g:link class="btn btn-info btn-small" action="show" params="${[tutorId: fieldValue(bean: tutorInstance, field: 'tutorId')]}">${message(code: 'default.button.show.label', default: 'View')}</g:link>
+                                <g:link class="btn btn-info btn-small" action="show" params="${[tutorId: fieldValue(bean: tutorInstance, field: 'tutorId')]}">${message(code: 'default.button.show.label', default: 'Show')}</g:link>
                                 <sec:ifAnyGranted roles="MANAGE_COURSEINFO_ROLE">
                                     <g:link class="btn btn-danger btn-small handle-delete" action="delete" data-id="${fieldValue(bean: tutorInstance, field: 'tutorId')}">${message(code: 'default.button.delete.label', default: 'Delete')}</g:link>
                                 </sec:ifAnyGranted>
