@@ -17,14 +17,17 @@
             course ${entityName}.
             </p>
             
-            <p>
-            The following chart shows the expected versus actual comment counts for this course.
-            </p>
-                        
             <g:set var="data" value="${summary.data}" />
             <g:set var="keys" value="${data.keySet() as List}" />
             <g:set var="idealValues" value="${keys.collect { val -> data.get(val)?.ideal ?: 0 }}" />
             <g:set var="actualValues" value="${keys.collect { val -> data.get(val)?.actual ?: 0 }}" />
+
+            <g:if test="${keys.size() > 0}">
+            
+            <p>
+            The following chart shows the expected versus actual comment counts for this course.
+            </p>
+                        
             <table id="course_placeholder-table" class="actual-ideal table table-striped table-condensed">
                 <thead>
                     <tr> 
@@ -43,10 +46,14 @@
                 </g:each>
                 </tbody>
             </table>
+            
 
             <g:if test="${summary.submissionCount > 0}">
             <h4><g:link action="course_details" params="${[id: params.id]}">See detailed information</g:link></h4>
             </g:if>
+
+            </g:if>
+
         </div>
         </div>
         <g:javascript>

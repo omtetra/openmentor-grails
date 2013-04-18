@@ -309,7 +309,6 @@
     </ul>
     </div>
 
-    	</div>
         <g:javascript>
 jQuery(document).ready(function() {
   jQuery(".actual-ideal").bulletChart();

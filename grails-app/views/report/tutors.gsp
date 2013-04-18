@@ -12,13 +12,18 @@
             <h2><g:message code="report.tutor.label" args="[entityName]" /></h2>
             
             <g:each var="band" in="${bands}" status="i">
-            <h3>${band}: ${bandLabels[band]}</h3>
+            
             <g:set var="bandData" value="${summary.filter([null, band])}" />
             
             <g:set var="data" value="${bandData.data}" />
             <g:set var="keys" value="${data.keySet() as List}" />
             <g:set var="idealValues" value="${keys.collect { val -> data.get(val)?.ideal ?: 0 }}" />
             <g:set var="actualValues" value="${keys.collect { val -> data.get(val)?.actual ?: 0 }}" />
+            
+            <g:if test="${keys.size() > 0}">
+
+            <h3>${band}: ${bandLabels[band]}</h3>
+
             <table id="tutor_placeholder-${i}-table" class="actual-ideal table table-striped table-condensed">
                 <thead>
                     <tr> 
@@ -37,6 +42,8 @@
                 </g:each>
                 </tbody>
             </table>
+            
+            </g:if>
 
             </g:each>
         </div>
