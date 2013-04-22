@@ -172,9 +172,12 @@
 		var $this = $(this),
 	    data = $this.data('bulletChart');
 		var tableData = data['table-data'];
-		var values = tableData.map(function (entry) {
-		  return Math.max(entry.actual, entry.ideal);
-		});
+		var tableDataLength = tableData.length;
+		var values = [];
+		for(var i = 0; i < tableDataLength; i++) {
+			var entry = tableData[i];
+			values.push(Math.max(entry.actual, entry.ideal));
+		}
 		var maximum = Math.max.apply(Math, values);
 		//console.log(Math.max.apply(Math, values));
 		
