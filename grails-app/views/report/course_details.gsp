@@ -41,7 +41,7 @@
                             <td class="number"><p>${summary.data.get(band)?.ideal ?: 0}</p></td>
                             <td class="comments">
                                 <g:set var="limit" value="${3}"/>
-                                <g:set var="comments" value="${summary.data.get(band)?.comments ?: []}" />
+                                <g:set var="comments" value="${summary.data.get(band)?.comments?.unique() ?: []}" />
                                 <g:set var="c" value="${comments.size()}" />
                                 <g:set var="limit" value="${Math.min(3, c)}" />
                                 <g:set var="firstComments" value="${comments[0..<limit]}" />

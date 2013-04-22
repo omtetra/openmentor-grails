@@ -2,6 +2,10 @@ package uk.org.openmentor.pages;
 
 import grails.test.*
 import org.htmlparser.Parser
+import org.htmlparser.util.NodeList
+import org.htmlparser.util.SimpleNodeIterator;
+import org.htmlparser.filters.AndFilter;
+import org.htmlparser.filters.CssSelectorNodeFilter;
 import org.htmlparser.filters.TagNameFilter
 
 import uk.org.openmentor.courseinfo.Assignment;
@@ -90,6 +94,33 @@ class ReportGroovyPagesTests extends GroovyPagesTestCase {
 
 		def htmlString = applyTemplate(file.text, model)
 		assertTrue(htmlString.contains("CM2006"))
+		
+		// See #54 - comments are duplicated. Under category C, for example, we
+		// find a comment "If the exam structure..." more than once. 
+		
+		// Throw this into an HTML parser for testing
+		def parser = new Parser(htmlString)
+		NodeList nodes = parser.parse(null)
+		
+		// Now check we have some inputs
+		def nodeFilter = new AndFilter(new TagNameFilter("td"), new CssSelectorNodeFilter(".comments"))
+		def paragraphFilter = new TagNameFilter("p")
+		NodeList commentCells = nodes.extractAllNodesThatMatch(nodeFilter, true)
+		assertTrue(commentCells.size == 4)
+
+		for(int i = 0; i < commentCells.size; i++) {
+			System.err.println("New cell")
+			NodeList commentCell = new NodeList(commentCells.elementAt(i))
+			NodeList paragraphs = commentCell.extractAllNodesThatMatch(paragraphFilter, true)
+			SimpleNodeIterator iterator = paragraphs.elements()
+			Set table = [] as Set
+			while(iterator.hasMoreNodes()) {
+				String comment = iterator.nextNode().toHtml()
+				System.err.println("Comment: " + comment)
+				assertFalse table.contains(comment)
+				table.add(comment)
+			}
+		}
 	}
 	
 	/**

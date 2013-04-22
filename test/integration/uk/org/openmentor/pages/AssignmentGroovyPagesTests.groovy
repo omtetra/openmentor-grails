@@ -1,8 +1,6 @@
 package uk.org.openmentor.pages;
 
 import grails.test.*
-import org.htmlparser.Parser
-import org.htmlparser.filters.TagNameFilter
 import uk.org.openmentor.controller.AssignmentController
 
 /**
