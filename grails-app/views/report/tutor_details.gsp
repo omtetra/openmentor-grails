@@ -18,7 +18,7 @@
             </p>
             
             <ul>
-                <li><g:link action="course" params="${[courseId: course.courseId]}">Go back to the chart view</g:link></li>
+                <li><g:link action="tutor" params="${[id: params.id]}">Go back to the chart view</g:link></li>
             </ul>
             
             <table class="table table-striped">
