@@ -35,7 +35,7 @@
                 <tbody>
                 <g:each in="${ (0..keys.size()-1)}" var="j">
                     <tr class='bullet'>
-                        <td class='bullet-label'><g:link controller="report" action="tutor" id="${keys[j]}">${keys[j]}</g:link></td>
+                        <td class='bullet-label'><g:link controller="report" action="student" id="${keys[j]}">${keys[j]}</g:link></td>
                         <td class='bullet-ideal'>${idealValues[j]}</td>
                         <td class='bullet-actual'>${actualValues[j]}</td>
                     </tr>
