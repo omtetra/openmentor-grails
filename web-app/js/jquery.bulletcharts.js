@@ -94,7 +94,8 @@
 		var tick = axis.ticks[k];
 		var tickleft = data['left-margin'] + (tick * scaler);
 		path = path.concat(["M", tickleft, ticktop, "L", tickleft, ticktop + 8]);
-		var label = paper.text(tickleft, ticktop + 14, tick.toString()).attr(data["tick-label-style"]);
+		var tickText = parseFloat(tick.toPrecision(8));
+		var label = paper.text(tickleft, ticktop + 14, tickText.toString()).attr(data["tick-label-style"]);
 	  }
 	  
 	  path = path.join(",");
