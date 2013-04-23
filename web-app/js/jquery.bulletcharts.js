@@ -246,9 +246,11 @@
 		
 		//console.log(data);
 		
-		tableData.forEach(function(entry, i) {
-		  methods._showEntry.call($this, element, entry, i);
-		});
+		var tableDataLength = tableData.length;
+		for(var i = 0; i < tableDataLength; i++) {
+			var entry = tableData[i];
+			methods._showEntry.call($this, element, entry, i);
+		}
 		
 		//dataTable.collapse('hide');
 		dataTable.hide();
