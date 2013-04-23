@@ -119,7 +119,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		Summary summary = summarizationService.getSubmissionSummary(submissionInstance, true)
 		assertNotNull summary
 		
-		List<String> comments = summary.data.getAt("B").comments
+		Set<String> comments = summary.data.getAt("B").comments
 		assertNotNull comments.find { it.contains("Not a word wasted here!") }
     }
 	
@@ -159,7 +159,7 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 		Summary summary = summarizationService.getSubmissionSummary(submissionInstance, true)
 		assertNotNull summary
 		
-		List<String> comments = summary.data.getAt("B").comments
+		Set<String> comments = summary.data.getAt("B").comments
 		assertNotNull comments.find { it.contains("You might need to be a little more explicit") }
     }
 	
