@@ -88,11 +88,15 @@
 	  var tickrange = (data['width'] - data['left-margin'] - data['right-margin'] - 2) / tickspaces;
 	  var path = [];
 	  var ticktop = data['top-margin'] + (data["entry-size"] * data["entry-count"]) - barspace/2;
-	  axis.ticks.forEach(function(tick, k) {
+	  
+	  var axisTickCount = axis.ticks.length;
+	  for(var k = 0; k < axisTickCount; k++) {
+		var tick = axis.ticks[k];
 		var tickleft = data['left-margin'] + (tick * scaler);
 		path = path.concat(["M", tickleft, ticktop, "L", tickleft, ticktop + 8]);
 		var label = paper.text(tickleft, ticktop + 14, tick.toString()).attr(data["tick-label-style"]);
-	  });
+	  }
+	  
 	  path = path.join(",");
 	  paper.path(path).attr(data["tick-style"]);
 	},
