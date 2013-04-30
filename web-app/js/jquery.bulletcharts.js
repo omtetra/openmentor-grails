@@ -25,6 +25,8 @@
 		   'ideal-style'      : {stroke: "none", fill: "black"},
 		   'background-style' : {stroke: "none", fill: "#ddd"},
 		   'tick-style'       : {stroke: '#777', "stroke-width" : 0.5},
+		   'link-style'       : {"stroke-width" : 0.5, "stroke" : "#0088cc"},
+		   'link-label-style' : {"fill" : "#0088cc"},
 		   'actual-selector'  : '.bullet-actual',
 		   'ideal-selector'   : '.bullet-ideal',
 		   'label-selector'   : '.bullet-label',
@@ -111,7 +113,7 @@
 		var labelheight = label.getBBox().height;
 		var labeloffset = entryHeight / 2;
 		var shades = data.shades;
-
+		
 		var actualboxoffset = (entryHeight - data["actual-size"]) / 2;
 		var idealmarkeroffset = (entryHeight - data["ideal-size"]) / 2;
 		var backgroundoffset = (entryHeight - data["background-size"]) / 2;
@@ -137,8 +139,13 @@
 				opacity: 0,
 				cursor: "pointer"
 			}).click(function () { window.location.href = entry.link; });
+			label.attr(data['link-label-style']);
+			var tb = label.getBBox();
+			paper.path("M"+tb.x+" "+(tb.y+tb.height-0.5)+"L"+(tb.x+tb.width)+" "+(tb.y+tb.height-0.5))
+				.attr(data['link-style']);
 		}
 		
+
 		var background = paper.rect(
 			data['left-margin'] + .5, i * entryHeight + data['top-margin'] + backgroundoffset, 
 			data['width'] - data['left-margin'] - data['right-margin'] - .5, data["background-size"]).attr(data['background-style']);
