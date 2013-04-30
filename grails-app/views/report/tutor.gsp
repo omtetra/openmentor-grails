@@ -16,6 +16,10 @@
             tutor.
             </p>
                         
+            <ul>
+                <li><g:link action="tutors">Go back to the tutors view</g:link></li>
+            </ul>
+
             <g:set var="data" value="${summary.data}" />
             <g:set var="keys" value="${data.keySet() as List}" />
             <g:set var="idealValues" value="${keys.collect { val -> data.get(val)?.ideal ?: 0 }}" />
