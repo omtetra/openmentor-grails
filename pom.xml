@@ -16,7 +16,7 @@
 	<url>http://www.openmentor.org.uk</url>
 
 	<properties>
-		<grails.version>2.2.1</grails.version>
+		<grails.version>2.2.4</grails.version>
 	</properties>
 
 	<licenses>
@@ -201,7 +201,7 @@
 		<dependency>
 			<groupId>org.grails.plugins</groupId>
 			<artifactId>hibernate</artifactId>
-			<version>2.2.1</version>
+			<version>${grails.version}</version>
 			<scope>runtime</scope>
 			<type>zip</type>
 		</dependency>

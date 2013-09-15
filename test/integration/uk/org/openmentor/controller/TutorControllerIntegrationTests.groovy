@@ -104,7 +104,7 @@ class TutorControllerIntegrationTests extends GroovyTestCase {
 	 * Test the delete action
 	 */
 	void testDeleteAction() {
-		controller.params.id = 'M4000064'
+		controller.params.id = 'M4000063'
 		def model = controller.delete()
 		
 		assertNotNull(redirectMap)
