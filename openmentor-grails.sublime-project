@@ -2,8 +2,8 @@
 	"folders":
 	[
 		{
-			"path": "/Users/stuart/git/openmentor-grails",
-            "folder_exclude_patterns": ["plugins"],
+			"path": ".",
+			"folder_exclude_patterns": [".settings", "target", "target-eclipse", "plugins"],
             "file_exclude_patterns": ["*.sublime-workspace"]
 		}
 	]
