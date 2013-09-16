@@ -30,8 +30,9 @@ grails.project.dependency.resolution = {
 		compile 'org.apache.poi:poi:3.9'
 		compile 'org.apache.poi:poi-scratchpad:3.9'
 		compile 'org.apache.poi:poi-ooxml:3.9'
-		
-		test    'org.htmlparser:htmlparser:1.6'
+        compile 'org.apache.commons:commons-compress:1.5'
+		compile 'org.htmlparser:htmlparser:1.6'
+        
 		test    'org.gmock:gmock:0.8.2'
     }
     plugins {
