@@ -20,6 +20,16 @@ class Submission {
 	 */
 	Grade grade
 	
+	/** 
+	 * The score associated with this submission, which may be different from the grade
+	 */
+	Integer score
+	
+	/** 
+	 * The cohort associated with this submission
+	 */
+	String cohort
+	
 	/**
 	 * Optionally, and by default, stores the file binary contents
 	 */
@@ -47,6 +57,8 @@ class Submission {
 		filename(nullable: false, blank: false)
 		longFilename(nullable: false, blank: false)
 		grade(nullable: false)
+		score(nullable: true)
+		cohort(nullable: true)
 		fileContents(nullable: true, maxSize: 16*1024*1024) // Allow up to 8Mb
 		dateSubmitted(nullable: false)
 		username(nullable: false, blank: false)
