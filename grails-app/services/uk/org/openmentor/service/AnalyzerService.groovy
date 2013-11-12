@@ -36,7 +36,7 @@ class AnalyzerService {
      * @throws Exception if something goes wrong
      */
     public Submission newSubmission(Assignment assignment,
-                                    Set<String> students,
+                                    Set<String> studentsIds,
                                     Set<String> tutorIds,
                                     String grade,
                                     String username,
@@ -46,21 +46,21 @@ class AnalyzerService {
             log.debug("Analyzing submission: grade: " + grade
                       + ", parameter filename: " + filename
                       + ", parameter assignment: " + assignment
-                      + ", parameter students: " + students
+                      + ", parameter studentsIds: " + studentsIds
                       + ", parameter tutorIds: " + tutorIds
                       + ", parameter username: " + username);
         }
         
         Grade gradeInstance = Grade.get(grade)
-		String filename = (longFilename =~ /[^\/]+$/)[0]
+		    String filename = (longFilename =~ /[^\/]+$/)[0]
 
         Submission sub = new Submission()
         sub.setAssignment(assignment)
-        sub.setStudentIds(students)
+        sub.setStudentIds(studentsIds)
         sub.setTutorIds(tutorIds)
         sub.setGrade(gradeInstance)
         sub.setFilename(filename)
-		sub.setLongFilename(longFilename)
+		    sub.setLongFilename(longFilename)
         sub.setUsername(username)
         sub.setFileContents(fileContents)
         
@@ -87,6 +87,8 @@ class AnalyzerService {
         }
 
         sub.setComments(commentSet);
+        log.info("Number of comments: " + commentSet.size())
+        log.info("Number of classified comments: " + commentSet.findAll { it.getCategories().size() > 0 }.size())
 
         if (log.isDebugEnabled()) {
             log.debug("Completed analysis of submission OK");
