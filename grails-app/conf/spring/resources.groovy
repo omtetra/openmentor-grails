@@ -3,7 +3,7 @@ beans = {
 	
 	classifierComponent(uk.org.openmentor.classifier.impl.PatternClassifier) { bean ->
 		bean.autowire = 'byName'
-		sourceFile = "data/rulesets/default.xml"
+		sourceFile = "/WEB-INF/data/rulesets/default.xml"
 		resourceOpener = ref('resourceService')
 	}
 	
