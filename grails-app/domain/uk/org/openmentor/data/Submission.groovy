@@ -56,7 +56,7 @@ class Submission {
     static constraints = {
 		filename(nullable: false, blank: false)
 		longFilename(nullable: false, blank: false)
-		grade(nullable: false)
+		grade(nullable: true)
 		score(nullable: true)
 		cohort(nullable: true)
 		fileContents(nullable: true, maxSize: 16*1024*1024) // Allow up to 8Mb

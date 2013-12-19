@@ -11,6 +11,7 @@ import uk.org.openmentor.auth.UserRole
 import uk.org.openmentor.system.DataSourceUtils
 import grails.util.Environment
 import org.apache.log4j.Logger
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class BootStrap {
     
@@ -20,26 +21,34 @@ class BootStrap {
     def springSecurityService
 	def courseInfoService
 
+    def bulkUploadService
+
     def init = { servletContext ->
         DataSourceUtils.tune(servletContext)
-                
+
         seedUserData()
         
-        switch (Environment.current) {
-            
-            case Environment.DEVELOPMENT:
-                seedTestData()
-                break;
-            
-            case Environment.TEST:
-                seedTestData()
-                break;
-            
-            case Environment.PRODUCTION:
-                break;
-        }
+//        switch (Environment.current) {
+//            
+//            case Environment.DEVELOPMENT:
+//                seedTestData()
+//                break;
+//            
+//            case Environment.TEST:
+//                seedTestData()
+//                break;
+//            
+//            case Environment.PRODUCTION:
+//                break;
+//        }
         
         initializeConfiguration()
+
+        File testDataFile = new File("test/resources/full.zip")
+        SpringSecurityUtils.doWithAuth("admin") { 
+            def uploads = bulkUploadService.upload(testDataFile)
+        }
+
     }
 
     def destroy = {

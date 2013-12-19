@@ -146,7 +146,7 @@ public class PatternClassifier implements Classifier {
         if (vRules == null ) {
             vRules = new ArrayList<Rule>();
             try {
-                setRules();
+            setRules();
             } catch (Exception e) {
                 log.warn("Could not load rules " + sourceFile);
             }

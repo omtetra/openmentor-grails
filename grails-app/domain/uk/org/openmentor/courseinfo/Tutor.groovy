@@ -12,8 +12,8 @@ class Tutor implements Comparable<Tutor>{
     static constraints = {
 		owner(nullable: true)
         tutorId(nullable: false, blank: false, unique: "owner")
-        givenName(blank: true)
-        familyName(blank: true)
+        givenName(nullable: true)
+        familyName(nullable: true)
     }
 
     static transients = ['name', 'idAndName']

@@ -46,6 +46,8 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFComment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
 public class ExtractStandard implements Extractor {
 	
 	
@@ -86,11 +88,21 @@ public class ExtractStandard implements Extractor {
      */
 
     private void extractStream(InputStream inputStream) throws Exception {
-    	extractor = ExtractorFactory.createExtractor(inputStream);
+        try {
+        	extractor = ExtractorFactory.createExtractor(inputStream);
+        } catch (IllegalArgumentException e) {
+            log.error(e.getMessage());
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        } catch (InvalidFormatException e) {
+            log.error(e.getMessage());
+        }
     	inputStream.close();
     	List<String> commentList = null;
     	
-    	if (extractor instanceof XWPFWordExtractor) {
+    	if (extractor == null) {
+            commentList = new ArrayList<String>();
+        } else if (extractor instanceof XWPFWordExtractor) {
     		POIXMLTextExtractor textExtractor = (POIXMLTextExtractor) extractor;
     		POIXMLDocument document = textExtractor.getDocument();
     		XWPFDocument textDocument = (XWPFDocument) document;
@@ -104,10 +116,16 @@ public class ExtractStandard implements Extractor {
     	}
     	
     	comments.clear();
-    	for(String comment : commentList) {
-    		comments.add(stripFields(comment));
-    	}    	
-    	body = extractor.getText();
+        if (commentList != null) {
+            for(String comment : commentList) {
+                comments.add(stripFields(comment));
+            }
+        }
+        if (extractor == null) {
+            body = "";
+        } else {
+        	body = extractor.getText();
+        }
     }
     
     /*

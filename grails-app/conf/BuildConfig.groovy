@@ -25,7 +25,7 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
-        runtime 'mysql:mysql-connector-java:5.1.18'
+        runtime 'mysql:mysql-connector-java:5.1.27'
 		
 		compile 'org.apache.poi:poi:3.9'
 		compile 'org.apache.poi:poi-scratchpad:3.9'
@@ -38,7 +38,7 @@ grails.project.dependency.resolution = {
     plugins {
 		compile ':cloud-foundry:1.2.3'
         runtime ":hibernate:$grailsVersion"
-        build ":tomcat:$grailsVersion"
+        build ':jetty:2.0.3'
         compile ":webxml:1.4.1"
     }
 }

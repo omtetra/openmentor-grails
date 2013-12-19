@@ -17,7 +17,7 @@ class AnalyzerService {
 
     static final Logger log = Logger.getLogger(this)
 
-    static transactional = true
+    static transactional = false
     
     Classifier classifierComponent
     Extractor extractorComponent
@@ -52,6 +52,9 @@ class AnalyzerService {
         }
         
         Grade gradeInstance = Grade.get(grade)
+        if (grade && ! gradeInstance) {
+            throw new RuntimeException("Invalid grade: " + grade)
+        }
 		    String filename = (longFilename =~ /[^\/]+$/)[0]
 
         Submission sub = new Submission()
