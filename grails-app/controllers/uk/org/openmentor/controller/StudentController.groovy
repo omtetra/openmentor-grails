@@ -1,6 +1,6 @@
 package uk.org.openmentor.controller
 
-import grails.plugins.springsecurity.Secured;
+import grails.plugin.springsecurity.annotation.Secured;
 import uk.org.openmentor.courseinfo.Student;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
@@ -8,18 +8,18 @@ class StudentController {
 	
 	def courseInfoService
 
-    def index = { 
+    def index() { 
 		redirect(action: "list", params: params)
 	}
 
-	def list = {
+	def list() {
 		def studentList = courseInfoService.getStudents(params)
 		def studentCount = courseInfoService.getStudentCount()		
 		[studentInstanceList: studentList, studentInstanceTotal: studentCount]
 	}
 
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def save = {
+    def save() {
 		def studentInstance = new Student(params)
 		courseInfoService.initializeStudent(studentInstance)
 		
@@ -33,7 +33,7 @@ class StudentController {
 		}
 	}
 	
-	def show = {
+	def show() {
 		def studentInstance = courseInfoService.findStudent(params.studentId)
         if (!studentInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.studentId])}"
@@ -46,7 +46,7 @@ class StudentController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def edit = {
+    def edit() {
 		def studentInstance = courseInfoService.findStudent(params.studentId)
 		if (!studentInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.studentId])}"
@@ -59,7 +59,7 @@ class StudentController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def delete = {
+    def delete() {
     	def studentInstance = courseInfoService.findStudent(params.id)
     	if (!studentInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'student.label', default: 'Student'), params.id])}"
@@ -74,13 +74,13 @@ class StudentController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def create = {
+    def create() {
 		def courseList = courseInfoService.getCourses([:])
 		[courseList: courseList]
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def update = {
+    def update() {
 		Student.withSession { session ->
 	        def studentInstance = courseInfoService.findStudent(params.studentId)
 			
@@ -118,7 +118,7 @@ class StudentController {
 		}
     }
 
-	def query = {
+	def query() {
 		def studentList = courseInfoService.findStudentsLike("%" + params.term + "%")
 		
 		render(contentType: "text/json") {

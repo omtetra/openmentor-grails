@@ -1,6 +1,6 @@
 package uk.org.openmentor.controller
 
-import grails.plugins.springsecurity.Secured;
+import grails.plugin.springsecurity.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Map;

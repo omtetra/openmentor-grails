@@ -1,6 +1,6 @@
 package uk.org.openmentor.controller
 
-import grails.plugins.springsecurity.Secured;
+import grails.plugin.springsecurity.annotation.Secured;
 import uk.org.openmentor.courseinfo.Tutor;
 
 @Secured(['ROLE_OPENMENTOR-USER'])
@@ -8,18 +8,18 @@ class TutorController {
 
 	def courseInfoService
 
-    def index = { 
+    def index() { 
 		redirect(action: "list", params: params)
 	}
 
-	def list = {
+	def list() {
 		def tutorList = courseInfoService.getTutors(params)
 		def tutorCount = courseInfoService.getTutorCount()		
 		[tutorInstanceList: tutorList, tutorInstanceTotal: tutorCount]
 	}
 
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def save = {
+    def save() {
 		def tutorInstance = new Tutor(params)		
 		courseInfoService.initializeTutor(tutorInstance)
 		if (tutorInstance.save(flush: true)) {
@@ -32,7 +32,7 @@ class TutorController {
 		}
 	}
 	
-	def show = {
+	def show() {
 		def tutorInstance = courseInfoService.findTutor(params.tutorId)
         if (!tutorInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.tutorId])}"
@@ -45,7 +45,7 @@ class TutorController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def edit = {
+    def edit() {
 		def tutorInstance = courseInfoService.findTutor(params.tutorId)
         if (!tutorInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.tutorId])}"
@@ -58,7 +58,7 @@ class TutorController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def delete = {
+    def delete() {
     	def tutorInstance = courseInfoService.findTutor(params.id)
     	if (!tutorInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'tutor.label', default: 'Tutor'), params.id])}"
@@ -73,13 +73,13 @@ class TutorController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def create = { 
+    def create() { 
 		def courseList = courseInfoService.getCourses([:])
 		[courseList: courseList]
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def update = {
+    def update() {
     	Tutor.withSession { session ->
 	        def tutorInstance = courseInfoService.findTutor(params.tutorId)
 		
@@ -117,7 +117,7 @@ class TutorController {
     	}
     }
 
-	def query = {
+	def query() {
 		def tutorList = courseInfoService.findTutorsLike("%" + params.term + "%")
 		
 		render(contentType: "text/json") {

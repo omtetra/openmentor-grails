@@ -108,31 +108,31 @@ log4j = {
 		   'org.grails.datastore.mapping'
 }
 
-//grails.plugins.springsecurity.rejectIfNoRule = true
+//grails.plugin.springsecurity.rejectIfNoRule = true
 
-grails.plugins.springsecurity.roleHierarchy = '''
+grails.plugin.springsecurity.roleHierarchy = '''
 ROLE_OPENMENTOR-ADMIN > ROLE_OPENMENTOR-USER
 '''
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'uk.org.openmentor.auth.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'uk.org.openmentor.auth.UserRole'
-grails.plugins.springsecurity.authority.className = 'uk.org.openmentor.auth.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'uk.org.openmentor.auth.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'uk.org.openmentor.auth.UserRole'
+grails.plugin.springsecurity.authority.className = 'uk.org.openmentor.auth.Role'
 
 // Added for the Spring Security LDAP plugin:
 // Tested against slapd - 19/12/2012
-//grails.plugins.springsecurity.ldap.context.managerDn = 'cn=Manager,dc=morungos,dc=com'
-//grails.plugins.springsecurity.ldap.context.managerPassword = 'd1n0$aur'
-//grails.plugins.springsecurity.ldap.context.anonymousReadOnly=true
-//grails.plugins.springsecurity.ldap.context.server = 'ldap://localhost:389/'
-//grails.plugins.springsecurity.ldap.search.base = 'dc=morungos,dc=com'
-//grails.plugins.springsecurity.ldap.search.filter = '(uid={0})'
-//grails.plugins.springsecurity.ldap.authorities.groupSearchBase = 'ou=groups,dc=morungos,dc=com'
-//grails.plugins.springsecurity.ldap.authorities.groupSearchFilter = 'member={0}'
-//grails.plugins.springsecurity.password.algorithm = 'MD5'
-//grails.plugins.springsecurity.ldap.authorities.retrieveDatabaseRoles = true
-//grails.plugins.springsecurity.ldap.authenticator.useBind = false
-//grails.plugins.springsecurity.providerNames = ['ldapAuthProvider', 'daoAuthenticationProvider']
+//grails.plugin.springsecurity.ldap.context.managerDn = 'cn=Manager,dc=morungos,dc=com'
+//grails.plugin.springsecurity.ldap.context.managerPassword = 'd1n0$aur'
+//grails.plugin.springsecurity.ldap.context.anonymousReadOnly=true
+//grails.plugin.springsecurity.ldap.context.server = 'ldap://localhost:389/'
+//grails.plugin.springsecurity.ldap.search.base = 'dc=morungos,dc=com'
+//grails.plugin.springsecurity.ldap.search.filter = '(uid={0})'
+//grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=groups,dc=morungos,dc=com'
+//grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'member={0}'
+//grails.plugin.springsecurity.password.algorithm = 'MD5'
+//grails.plugin.springsecurity.ldap.authorities.retrieveDatabaseRoles = true
+//grails.plugin.springsecurity.ldap.authenticator.useBind = false
+//grails.plugin.springsecurity.providerNames = ['ldapAuthProvider', 'daoAuthenticationProvider']
 
 // This exploits the significantly more flexible handling of types in Grails to 
 // allow configuration down to the grading scheme. 
