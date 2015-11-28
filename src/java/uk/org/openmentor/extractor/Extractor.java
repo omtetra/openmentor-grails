@@ -50,5 +50,5 @@ public interface Extractor {
      * Returns any comments from the word processed file.
      * @return              the word processed file comments
      */
-    Set getAnnotations();
+    Set<String> getAnnotations();
 }

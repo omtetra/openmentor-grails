@@ -145,7 +145,7 @@ public class ExtractStandard implements Extractor {
         return body;
     }
 
-    public Set getAnnotations() {
+    public Set<String> getAnnotations() {
     	return comments;
     }
 }
