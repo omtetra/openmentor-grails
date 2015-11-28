@@ -36,7 +36,6 @@ grails.project.dependency.resolution = {
 		test    'org.gmock:gmock:0.8.2'
     }
     plugins {
-		compile ':cloud-foundry:1.2.3'
         runtime ":hibernate:$grailsVersion"
         build ":tomcat:$grailsVersion"
         compile ":webxml:1.4.1"

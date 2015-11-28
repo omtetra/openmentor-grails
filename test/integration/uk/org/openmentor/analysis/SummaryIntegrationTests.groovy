@@ -13,10 +13,10 @@ import uk.org.openmentor.domain.Summary;
 import uk.org.openmentor.service.CurrentUserService;
 import uk.org.openmentor.service.SummarizationService;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.io.IOUtils
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+import org.apache.commons.io.IOUtils;
+import grails.plugin.springsecurity.SpringSecurityUtils;
 
-import org.gmock.WithGMock
+import org.gmock.WithGMock;
 
 @WithGMock
 class SummaryIntegrationTests extends GroovyTestCase {

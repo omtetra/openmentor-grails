@@ -3,16 +3,16 @@ package uk.org.openmentor.service
 import grails.test.mixin.*
 import groovy.lang.Closure;
 
-import org.junit.*
-import org.apache.commons.io.IOUtils
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+import org.junit.*;
+import org.apache.commons.io.IOUtils;
+import grails.plugin.springsecurity.SpringSecurityUtils;
 
 import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Submission;
-import uk.org.openmentor.domain.Summary
-import uk.org.openmentor.test.LoadedSubmissionsTestCase
+import uk.org.openmentor.domain.Summary;
+import uk.org.openmentor.test.LoadedSubmissionsTestCase;
 
 class TrainingModeSummarizationServiceTests extends LoadedSubmissionsTestCase {
 

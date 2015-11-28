@@ -4,7 +4,7 @@ import java.util.Map;
 
 import grails.test.*
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+import grails.plugin.springsecurity.SpringSecurityUtils;
 import org.gmock.WithGMock
 import uk.org.openmentor.auth.User
 import uk.org.openmentor.courseinfo.Tutor

@@ -5,13 +5,13 @@ import org.htmlparser.Parser
 import org.htmlparser.filters.TagNameFilter
 
 import uk.org.openmentor.courseinfo.Assignment;
-import uk.org.openmentor.courseinfo.Course
-import uk.org.openmentor.data.Submission
+import uk.org.openmentor.courseinfo.Course;
+import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.controller.HistoryController;
-import uk.org.openmentor.controller.SubmissionController
-import org.apache.commons.io.IOUtils
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+import uk.org.openmentor.controller.SubmissionController;
+import org.apache.commons.io.IOUtils;
+import grails.plugin.springsecurity.SpringSecurityUtils;
 
 /**
  * Integration tests for course GPS pages. These take a little setting up and getting used

@@ -1,13 +1,13 @@
 package uk.org.openmentor.service
 
-import grails.test.mixin.*
-import org.junit.*
-import org.apache.commons.io.IOUtils
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
-import uk.org.openmentor.courseinfo.Assignment
-import uk.org.openmentor.courseinfo.Course
-import uk.org.openmentor.courseinfo.Student
-import uk.org.openmentor.courseinfo.Tutor
+import grails.test.mixin.*;
+import org.junit.*;
+import org.apache.commons.io.IOUtils;
+import grails.plugin.springsecurity.SpringSecurityUtils;
+import uk.org.openmentor.courseinfo.Assignment;
+import uk.org.openmentor.courseinfo.Course;
+import uk.org.openmentor.courseinfo.Student;
+import uk.org.openmentor.courseinfo.Tutor;
 
 class CurrentUserServiceTests extends GroovyTestCase {
 	
