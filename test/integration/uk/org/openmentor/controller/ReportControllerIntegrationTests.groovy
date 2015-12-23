@@ -3,6 +3,8 @@ package uk.org.openmentor.controller
 import java.util.Map;
 
 import grails.test.*
+import grails.test.mixin.TestMixin;
+import grails.test.mixin.integration.Integration;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.IOUtils
 
@@ -13,7 +15,8 @@ import uk.org.openmentor.service.CurrentUserService;
 import org.gmock.WithGMock
 
 @WithGMock
-class ReportControllerIntegrationTests extends GroovyTestCase {
+@TestMixin(Integration)
+class ReportControllerIntegrationTests {
 	
 	private def controller
 	

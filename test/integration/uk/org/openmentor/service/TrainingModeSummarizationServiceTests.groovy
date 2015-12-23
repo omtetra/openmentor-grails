@@ -18,6 +18,8 @@ class TrainingModeSummarizationServiceTests extends LoadedSubmissionsTestCase {
 
 	def summarizationService
 	
+	def courseInfoService
+	
 	def withAuthenticatedTrainingMode(String user, Closure c) {
 		SpringSecurityUtils.doWithAuth(user) {
 			def oldTrainingMode = courseInfoService.trainingMode
