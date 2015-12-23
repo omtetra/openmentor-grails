@@ -1,0 +1,27 @@
+# Defaults for openmentor initscript
+# sourced by /etc/init.d/openmentor
+# installed at /etc/default/openmentor by the maintainer scripts
+
+# pulled in from the init script; makes things easier.
+NAME=openmentor
+
+# location of java
+JAVA=/usr/bin/java
+
+# arguments to pass to java
+JAVA_ARGS="-Xmx1024m -XX:MaxPermSize=256M -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled"
+
+# user id (or id:gid) to be run as
+OPENMENTOR_USER=openmentor
+
+# location of the openmentor distribution file
+OPENMENTOR_HOME=/usr/share/openmentor
+
+# tracker log directory or syslog facility
+OPENMENTOR_LOG=/var/log/openmentor
+
+# base for configuration
+OPENMENTOR_CONF=/etc/openmentor
+
+# Process start arguments
+OPENMENTOR_ARGS="-DOPENMENTOR_CONF=$OPENMENTOR_CONF -DOPENMENTOR_HOME=$OPENMENTOR_HOME -jar $OPENMENTOR_HOME/java-server.jar $OPENMENTOR_CONF/openmentor.xml"

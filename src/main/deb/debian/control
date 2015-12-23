@@ -1,0 +1,15 @@
+Source: openmentor
+Section: science
+Priority: extra
+Maintainer: Stuart Watt <stuart@morungos.com>
+Build-Depends: debhelper (>= 7.0.15), dh-python
+Standards-Version: 3.8.4
+Homepage: https://github.com/omtetra/openmentor-grails
+
+Package: openmentor
+Architecture: all
+Pre-Depends: debconf, libhtml-parser-perl, coreutils (>= 6.10)
+Depends: ${misc:Depends}, adduser, daemon, psmisc, openjdk-8-jre | oracle-java8-installer
+Suggests: nginx-light
+Description: Web-based application designed to help evaluate use of 
+  feedback in electronically marked assignments.
