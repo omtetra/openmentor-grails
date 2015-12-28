@@ -9,7 +9,7 @@ Homepage: https://github.com/omtetra/openmentor-grails
 Package: openmentor
 Architecture: all
 Pre-Depends: debconf, libhtml-parser-perl, coreutils (>= 6.10)
-Depends: ${misc:Depends}, adduser, daemon, psmisc, openjdk-8-jre | oracle-java8-installer
+Depends: ${misc:Depends}, adduser, daemon, psmisc, openjdk-7-jre | oracle-java8-installer
 Suggests: nginx-light
 Description: Web-based application designed to help evaluate use of 
  feedback in electronically marked assignments.
