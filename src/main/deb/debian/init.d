@@ -1,24 +1,24 @@
 #!/bin/bash
 ### BEGIN INIT INFO
-# Provides:          tracker-webapp
+# Provides:          openmentor
 # Required-Start:    $network $local_fs $remote_fs
 # Required-Stop:     $remote_fs
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Tracker webapp
-# Description:       Tracker webapp: simple research project tracking
+# Short-Description: Open Mentor
+# Description:       Open Mentor: simple research project tracking
 ### END INIT INFO
 
 # Author: Stuart Watt <stuart@morungos.com>
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-DESC=tracker-webapp                        # Introduce a short description here
-NAME=tracker-webapp                        # Introduce the short server's name here
-TRACKER_USER=trackerapp                    # User to use to run the service
-TRACKER_HOME=/usr/share/$NAME              # Default tracker directory
-TRACKER_CONF=/etc/$NAME                    # Default tracker config location
-TRACKER_LOG=/var/log/$NAME                 # Default log location
+DESC=openmentor                            # Introduce a short description here
+NAME=openmentor                            # Introduce the short server's name here
+OPENMENTOR_USER=openmentor                 # User to use to run the service
+OPENMENTOR_HOME=/usr/share/$NAME           # Default Open Mentor directory
+OPENMENTOR_CONF=/etc/$NAME                 # Default Open Mentor config location
+OPENMENTOR_LOG=/var/log/$NAME              # Default log location
 DAEMON=/usr/bin/daemon                     # Introduce the server's location here
 DAEMON_ARGS=""                             # Arguments to run the daemon with
 TMPDIR=$TMPDIR/$NAME
@@ -39,8 +39,8 @@ SCRIPTNAME=/etc/init.d/$NAME
 # Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
 . /lib/lsb/init-functions
 
-DAEMON_ARGS="--name=$NAME --user=$TRACKER_USER --pidfile=$PIDFILE --inherit --output=$TRACKER_LOG/stdout.log --chdir=$TRACKER_HOME"
-CLASSPATH="$TRACKER_HOME/conf:$TRACKER_HOME/lib/*"
+DAEMON_ARGS="--name=$NAME --user=$OPENMENTOR_USER --pidfile=$PIDFILE --inherit --output=$OPENMENTOR_LOG/stdout.log --chdir=$OPENMENTOR_HOME"
+CLASSPATH="$OPENMENTOR_HOME/conf:$OPENMENTOR_HOME/lib/*"
 
 # Get the status of the daemon process
 get_daemon_status()
@@ -50,19 +50,19 @@ get_daemon_status()
 
 get_running() 
 {
-    return `ps -U $TRACKER_USER --no-headers -f | egrep -e '(java|daemon)' | grep -c . `
+    return `ps -U $OPENMENTOR_USER --no-headers -f | egrep -e '(java|daemon)' | grep -c . `
 }
 
 get_running_daemon() 
 {
-    return `ps -U $TRACKER_USER --no-headers -f | egrep -e '(daemon)' | grep -c . `
+    return `ps -U $OPENMENTOR_USER --no-headers -f | egrep -e '(daemon)' | grep -c . `
 }
 
 force_stop() 
 {
     get_running
     if [ $? -ne 0 ]; then 
-        killall -u $TRACKER_USER java || return 3
+        killall -u $OPENMENTOR_USER java || return 3
     fi
 }
 

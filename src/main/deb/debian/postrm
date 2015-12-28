@@ -26,7 +26,7 @@ set -e
 
 case "$1" in
     purge)
-        userdel -f trackerapp || true
+        userdel -f openmentor || true
         rm -rf /var/log/openmentor /var/run/openmentor /etc/openmentor /usr/share/openmentor
         ucf --purge /etc/openmentor/openmentor.xml
     ;;

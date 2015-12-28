@@ -125,22 +125,10 @@
             </Arg>
 	    </Call>
         
-        <New class="org.eclipse.jetty.plus.jndi.EnvEntry">
-            <Arg>trackerProperties</Arg> 
-            <Arg type="java.lang.String">file://<SystemProperty name="TRACKER_CONF" />/tracker-webapp.properties</Arg> 
-            <Arg type="boolean">true</Arg> 
-        </New>
-	
-        <New class="org.eclipse.jetty.plus.jndi.EnvEntry">
-            <Arg>trackerScript</Arg> 
-            <Arg type="java.lang.String">file://<SystemProperty name="TRACKER_CONF" />/tracker-webapp.js</Arg> 
-            <Arg type="boolean">true</Arg> 
-        </New>
-	
 		<!-- The data source -->
 	    <New id="ds" class="org.eclipse.jetty.plus.jndi.Resource">
 	        <Arg><Ref refid="webapp"/></Arg>
-	        <Arg>jdbc/TrackerDB</Arg>
+	        <Arg>jdbc/openmentorDatabase</Arg>
 	        <Arg>
 	            <New class="org.apache.commons.dbcp.BasicDataSource">
 	                <Set name="driverClassName">com.mysql.jdbc.Driver</Set>

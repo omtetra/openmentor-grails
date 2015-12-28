@@ -17,7 +17,7 @@ OPENMENTOR_USER=openmentor
 # location of the openmentor distribution file
 OPENMENTOR_HOME=/usr/share/openmentor
 
-# tracker log directory or syslog facility
+# log directory or syslog facility
 OPENMENTOR_LOG=/var/log/openmentor
 
 # base for configuration

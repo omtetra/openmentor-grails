@@ -12,7 +12,7 @@ set -e
 # dbc_generate_include_perms="755"
 # dbc_generate_include_owner="root:root"
 # dbc_generate_include_args="-o template_infile=/etc/openmentor/openmentor.xml.template -U"
-# dbc_go tracker-webapp $@
+# dbc_go openmentor $@
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>
@@ -77,8 +77,8 @@ case "$1" in
             sed -i "s/_DBC_DBPASS_/$DB_PASSWORD/" $CONFIG
         fi
 
-        # Create tracker user if it doesn't exist.
-        if ! id trackerapp > /dev/null 2>&1 ; then
+        # Create Open Mentor user if it doesn't exist.
+        if ! id openmentor > /dev/null 2>&1 ; then
             adduser --system --home /usr/share/openmentor --no-create-home \
                  --disabled-password openmentor
         fi
