@@ -2,7 +2,7 @@ Source: openmentor
 Section: science
 Priority: extra
 Maintainer: Stuart Watt <stuart@morungos.com>
-Build-Depends: debhelper (>= 7.0.15), dh-python
+Build-Depends: debhelper (>= 7.0.15)
 Standards-Version: 3.8.4
 Homepage: https://github.com/omtetra/openmentor-grails
 
