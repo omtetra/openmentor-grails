@@ -27,7 +27,7 @@ environments {
     }
     production {
         dataSource {
-        	jndiName = "java:comp/env/openmentorDatabase"
+        	jndiName = "java:comp/env/jdbc/openmentorDatabase"
         }
     }
 }
