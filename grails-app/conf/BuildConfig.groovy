@@ -41,25 +41,3 @@ grails.project.dependency.resolution = {
         compile ":webxml:1.4.1"
     }
 }
-
-grails.war.resources = { stagingDir, args ->
- 	def webxml = new File(grailsSettings.baseDir,"${stagingDir}/WEB-INF/web.xml")
- 	def newxml = new File(grailsSettings.baseDir,"${stagingDir}/WEB-INF/new.xml")
- 	def root = new XmlParser().parse(webxml)
-
-
- 	// add the jdbc/mydatasource resource reference to the web.xml
- 	def resourceRef = root.appendNode('resource-ref')
- 	resourceRef.appendNode('description','The JNDI Database resource')
- 	resourceRef.appendNode('res-ref-name','jdbc/openmentorDatabase')
- 	resourceRef.appendNode('res-type','javax.sql.DataSource')
- 	resourceRef.appendNode('res-auth','Application')
- 
- 	def writer = new StringWriter()
- 	new XmlNodePrinter(new PrintWriter(writer)).print(root)
- 	newxml.withWriter { out ->
-  		out.writeLine(writer.toString())
- 	}
- 	webxml.delete()
- 	newxml.renameTo(webxml.path)
-}
