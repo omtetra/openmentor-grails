@@ -35,7 +35,7 @@ case "$1" in
         ## exists do we need to get a value and sed it into the file. This makes
         ## updates much safer. 
         
-        CONFIG=/etc/openmentor/openmentor-config.groovy
+        CONFIG=/etc/openmentor/openmentor.xml
 
         if grep _DBC_DBSERVER_ $CONFIG > /dev/null 2>&1 ; then
             RET=""
