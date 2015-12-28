@@ -81,7 +81,7 @@ do_start()
         ulimit -n $MAXOPENFILES
     fi
     
-    $DAEMON $DAEMON_ARGS -- $JAVA $JAVA_ARGS -cp $CLASSPATH $TRACKER_ARGS || return 2
+    $DAEMON $DAEMON_ARGS -- $JAVA $JAVA_ARGS -cp $CLASSPATH $OPENMENTOR_ARGS || return 2
 }
 
 #
@@ -135,20 +135,20 @@ do_reload() {
 }
 
 #
-# Make sure tracker tmp dir exists, otherwise daemon calls will fail
+# Make sure Open Mentor tmp dir exists, otherwise daemon calls will fail
 #
 if [ ! -d $TMPDIR ]; then 
   mkdir $TMPDIR
-  chown -R $TRACKER_USER:adm $TMPDIR
+  chown -R $OPENMENTOR_USER:adm $TMPDIR
   chmod -R 750 $TMPDIR
 fi
 
 #
-# Make sure tracker pid dir exists, otherwise daemon calls will fail
+# Make sure Open Mentor pid dir exists, otherwise daemon calls will fail
 #
 if [ ! -d $PIDDIR ]; then 
   mkdir $PIDDIR
-  chown -R $TRACKER_USER:adm $PIDDIR
+  chown -R $OPENMENTOR_USER:adm $PIDDIR
   chmod -R 750 $PIDDIR
 fi
 
