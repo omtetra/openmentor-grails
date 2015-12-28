@@ -35,7 +35,7 @@ case "$1" in
         ## exists do we need to get a value and sed it into the file. This makes
         ## updates much safer. 
         
-        CONFIG=/etc/openmentor/openmentor.xml
+        CONFIG=/etc/openmentor/openmentor-config.groovy
 
         if grep _DBC_DBSERVER_ $CONFIG > /dev/null 2>&1 ; then
             RET=""
@@ -80,7 +80,7 @@ case "$1" in
         # Create tracker user if it doesn't exist.
         if ! id trackerapp > /dev/null 2>&1 ; then
             adduser --system --home /usr/share/openmentor --no-create-home \
-                 --disabled-password trackerapp
+                 --disabled-password openmentor
         fi
         
         if [ ! -d /usr/share/openmentor/lib ]; then
