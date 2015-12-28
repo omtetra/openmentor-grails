@@ -16,6 +16,56 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `grade`
+--
+
+DROP TABLE IF EXISTS `grade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `grade` (
+  `grade` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `version` bigint(20) NOT NULL,
+  PRIMARY KEY (`grade`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `category` (
+  `category` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `version` bigint(20) NOT NULL,
+  `band` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`category`),
+  KEY `band_index` (`band`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `weight`
+--
+
+DROP TABLE IF EXISTS `weight`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `weight` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `version` bigint(20) NOT NULL,
+  `band` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `grade` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `weight` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKD0D14278B8341403` (`grade`),
+  KEY `band_grade_index` (`band`,`grade`),
+  CONSTRAINT `FKD0D14278B8341403` FOREIGN KEY (`grade`) REFERENCES `grade` (`grade`)
+) ENGINE=InnoDB AUTO_INCREMENT=2911 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `assignment`
 --
 
