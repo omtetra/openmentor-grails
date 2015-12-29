@@ -524,14 +524,14 @@
                                         
                                         <copy todir="${deb.dir}/usr/share/openmentor">
                                             <fileset dir="${basedir}/target">
-                                                <filename name="openmentor-${project.version}.war"/>
+                                                <include name="openmentor-${project.version}.war"/>
                                             </fileset>
                                             <fileset dir="${basedir}/target/deployment-dependencies">
-                                                <filename name="java-server.jar"/>
+                                                <include name="java-server.jar"/>
                                             </fileset>
                                             <fileset dir="${basedir}/src/main/etc">
-                                            	<filename name="initialize_mysql.sql"/>
-                                            	<filename name="nginx.conf"/>
+                                            	<include name="initialize_mysql.sql"/>
+                                            	<include name="nginx.conf"/>
                                             </fileset>
                                         </copy>
                                         <copy todir="${deb.dir}/usr/share/openmentor/conf">
