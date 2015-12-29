@@ -192,6 +192,33 @@
 
 		<dependency>
 			<groupId>org.grails.plugins</groupId>
+			<artifactId>scaffolding</artifactId>
+			<version>2.1.2</version>
+			<scope>runtime</scope>
+			<type>zip</type>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>cache</artifactId>
+			<version>1.1.8</version>
+			<scope>runtime</scope>
+			<type>zip</type>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
+			<artifactId>asset-pipeline</artifactId>
+			<version>2.1.5</version>
+			<scope>runtime</scope>
+			<type>zip</type>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.grails.plugins</groupId>
 			<artifactId>spring-security-ldap</artifactId>
 			<version>2.0-RC4</version>
 			<scope>runtime</scope>

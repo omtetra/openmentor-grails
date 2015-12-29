@@ -1,6 +1,9 @@
+grails.servlet.version = "3.0"
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
+grails.project.target.level = 1.6
+grails.project.source.level = 1.6
 
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
@@ -36,8 +39,17 @@ grails.project.dependency.resolution = {
 		test    'org.gmock:gmock:0.8.2'
     }
     plugins {
-        runtime ":hibernate:$grailsVersion"
-        build ":tomcat:$grailsVersion"
+        
+        build ":tomcat:7.0.55.2"
+        
         compile ":webxml:1.4.1"
+        
+        compile ":scaffolding:2.1.2"
+        compile ':cache:1.1.8'
+        compile ":asset-pipeline:2.1.5"
+
+        runtime ":hibernate:3.6.10.19"
+        runtime ":database-migration:1.4.1"
+        runtime ":jquery:1.11.1"
     }
 }
