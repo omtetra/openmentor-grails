@@ -30,6 +30,8 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
+        build "commons-dbcp:commons-dbcp:1.4"
+
         runtime 'mysql:mysql-connector-java:5.1.18'
 		
 		compile 'org.apache.poi:poi:3.9'
