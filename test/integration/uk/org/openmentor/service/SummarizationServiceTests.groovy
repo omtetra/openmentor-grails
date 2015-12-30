@@ -13,12 +13,10 @@ import uk.org.openmentor.test.LoadedSubmissionsTestCase;
 
 class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 
+	static transactional = true
+
 	def summarizationService
 	
-    protected void setUp() {
-		super.setUp()
-	}
-
     void testCourseSummary() {
 		
 		Summary result = summarizationService.getCourseSummary("CM2006")

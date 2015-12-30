@@ -25,7 +25,7 @@ class SubmissionController {
 		def courseId = session.current_course
 		def courseInstance = courseInfoService.findCourse(courseId)
 
-		if (! courseInstance) {
+		if (courseInstance == null) {
 			redirect(action: "select", controller: "course")
 			return
 		}
@@ -52,23 +52,21 @@ class SubmissionController {
 	 * the underlying work. 
 	 */
 	def show() {
-		
 		Submission sub = Submission.get(params.id)
 		Summary summary = summarizationService.getSubmissionSummary(sub, true)
 		return [summary: summary, submissionInstance: sub]
 	}
 	
 	def save(SubmissionCommand cmd) {
-		
 		def courseInstance = getSelectedCourse()
 		if (! courseInstance) {
 			return
 		}
-		
+				
 		def grades = categorizationInfoService.getGrades()
 		def model = [grades: grades, courseInstance: courseInstance]
 		model.cmd = cmd
-
+		
 		if (cmd.hasErrors()) {
 			render(view: "upload", model: model)
 			return
@@ -106,7 +104,8 @@ class SubmissionController {
 	
 }
 
-final class SubmissionCommand {
+@grails.validation.Validateable
+class SubmissionCommand {
 	String courseId
 	Integer assignmentId
 	String grade

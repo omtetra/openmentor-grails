@@ -4,6 +4,8 @@ import grails.test.*
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.IOUtils
 
+import grails.plugin.springsecurity.SpringSecurityUtils;
+
 import uk.org.openmentor.config.Grade;
 import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.data.Submission
@@ -11,64 +13,34 @@ import uk.org.openmentor.domain.Summary
 import uk.org.openmentor.service.CurrentUserService;
 import uk.org.openmentor.service.SummarizationService
 
-import org.gmock.WithGMock
+import grails.test.spock.IntegrationSpec
 
-@WithGMock
-class SubmissionControllerIntegrationTests extends GroovyTestCase {
+class SubmissionControllerIntegrationTests extends IntegrationSpec {
 	
-	private def controller
+	static transactional = true
+	
 	private def summarizationService
 	
 	// Public so it can be injected
 	def courseInfoService
 	def currentUserService
+	def categorizationInfoService
+	def summarizationService
 	
-	Map savedMetaClasses = [:]
-	Map renderMap
-	Map redirectMap
-	
-    protected void setUp() {
-        super.setUp()
-		
-		registerMetaClass(SubmissionController.class)
-		SubmissionController.metaClass.render = {Map m ->
-			renderMap = m
-		}
-		SubmissionController.metaClass.redirect = {Map m ->
-			redirectMap = m
-		}
-		
-		controller = new SubmissionController()
-		
-		summarizationService = new SummarizationService()
-		summarizationService.courseInfoService = courseInfoService
-		summarizationService.currentUserService = currentUserService
-    }
-
-    protected void tearDown() {
-        super.tearDown()
-    }
-	
-	private def getMockFile(String fileName) {
-		def mockFile = mock(MultipartFile)
-		mockFile.getOriginalFilename().returns(fileName).stub()
-		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream(fileName))).stub()
-		mockFile.getContentType().returns("application/msword").stub()
-		
-		return mockFile
-	}
 	
 	/**
 	 * Test that the upload page redirects when we don't have a selected
 	 * course
 	 */
 	void testUploadRedirect() {
-		def result = controller.upload()
-		assertNull(renderMap)
-		assertNotNull(redirectMap)
+		given: 'SubmissionController'
+        def controller = new SubmissionController()
+        
+        when: 'upload is called'
+		controller.upload()
 		
-		assertEquals "select", redirectMap.action
-		assertEquals "course", redirectMap.controller
+		then: 'check redirect url'
+        controller.response.redirectUrl == '/course/select'
 	}
 
 	/**
@@ -76,112 +48,110 @@ class SubmissionControllerIntegrationTests extends GroovyTestCase {
 	 * course
 	 */
 	void testUploadNoRedirect() {
+		given: 'SubmissionController'
+        def controller = new SubmissionController()
+	
+		and: 'current_course is CM2006'	
 		controller.session.putAt('current_course', 'CM2006')
-		def result = controller.upload()
-		assertNotNull(result?.courseInstance)
-		assertNull(redirectMap)		
+		
+        when: 'upload is called'
+		def model = controller.upload()
+		
+		then: 'model is correct'
+		model?.courseInstance != null
 	}
 
-    void testSubmission() {
-		def mockFile = getMockFile("test/resources/test1a.doc")
-		
-		def sc = new SubmissionCommand()
-		
-		Assignment ass = courseInfoService.findAssignment("CM2006", "TMA03")
-		
-		def mockCurrentUserService = mock(CurrentUserService)
-		mockCurrentUserService.currentUserName().returns("admin").stub()		
-		controller.currentUserService = mockCurrentUserService
-		
-		controller.session.putAt('current_course', 'CM2006')
-		play {
-			sc.dataFile = mockFile
-			sc.grade = "Pass 1"
-			sc.courseId = 'CM2006'
-			sc.studentIds = '09000231'
-			sc.tutorIds = 'M4000061'
-			sc.assignmentId = ass.id
-		
-			controller.save(sc)
-		}
+    void testSubmissionSave() {
+		given: 'SubmissionController'
+        def controller = new SubmissionController()
+        controller.courseInfoService = courseInfoService
+        controller.categorizationInfoService = categorizationInfoService
 
-		assertNull(renderMap)
-		assertNotNull(redirectMap)
+		and: 'given a submission with uploaded file'
+		def mockFile = Mock(MultipartFile)
+		mockFile.getOriginalFilename() >> "test/resources/test1a.doc"
+		mockFile.getBytes() >> IOUtils.toByteArray(new FileInputStream("test/resources/test1a.doc"))
+		mockFile.getContentType() >> "application/msword"
+				
+		def ass = courseInfoService.findAssignment("CM2006", "TMA03")
 		
-		def identifier = redirectMap.id
+		controller.params.dataFile = mockFile
+		controller.params.grade = "Pass 1"
+		controller.params.courseId = 'CM2006'
+		controller.params.studentIds = '09000231'
+		controller.params.tutorIds = 'M4000061'
+		controller.params.assignmentId = ass.id
+
+		controller.session.putAt('current_course', 'CM2006')
+
+        when: 'save is called'
+		SpringSecurityUtils.doWithAuth("admin") {
+			def result = controller.save()
+		}
+		
+		then: 'redirect to list and the user has been renamed'
+		def group = (controller.response.redirectUrl =~ /^\/submission\/show\/(\d+)$/)
+		group.hasGroup()
+		1 == group.size()
+		def identifier = group[0][1]
+		
 		Submission submissionInstance = Submission.get(identifier)
+		null != submissionInstance
 		
-		assertNotNull(submissionInstance)
-		
-		assertEquals("test1a.doc", submissionInstance.filename)
-		assertEquals("test/resources/test1a.doc", submissionInstance.longFilename)
+		"test1a.doc" == submissionInstance.filename
+		"test/resources/test1a.doc" == submissionInstance.longFilename
 		
 		Summary summary = summarizationService.getSubmissionSummary(submissionInstance, true)
-		assertNotNull summary
+		null != summary
 		
 		Set<String> comments = summary.data.getAt("B").comments
-		assertNotNull comments.find { it.contains("Not a word wasted here!") }
+		null != comments.find { it.contains("Not a word wasted here!") }
     }
 	
-    void testSubmissionDOCX() {
-		def mockFile = getMockFile("test/resources/test3a.docx")
+    void testSubmissionSaveDOCX() {
+		given: 'SubmissionController'
+        def controller = new SubmissionController()
+        controller.courseInfoService = courseInfoService
+        controller.categorizationInfoService = categorizationInfoService
+
+		and: 'given a submission with uploaded file'
+		def mockFile = Mock(MultipartFile)
+		mockFile.getOriginalFilename() >> "test/resources/test3a.docx"
+		mockFile.getBytes() >> IOUtils.toByteArray(new FileInputStream("test/resources/test3a.docx"))
+		mockFile.getContentType() >> "application/msword"
 		
-		def sc = new SubmissionCommand()
-		
-		Assignment ass = courseInfoService.findAssignment("CM2006", "TMA03")
-		
-		def mockCurrentUserService = mock(CurrentUserService)
-		mockCurrentUserService.currentUserName().returns("admin").stub()		
-		controller.currentUserService = mockCurrentUserService
+		def ass = courseInfoService.findAssignment("CM2006", "TMA03")
+
+		controller.params.dataFile = mockFile
+		controller.params.grade = "Pass 2"
+		controller.params.courseId = 'CM2006'
+		controller.params.studentIds = '09000232'
+		controller.params.tutorIds = 'M4000062'
+		controller.params.assignmentId = ass.id
 		
 		controller.session.putAt('current_course', 'CM2006')
-		play {
-			sc.dataFile = mockFile
-			sc.grade = "Pass 2"
-			sc.courseId = 'CM2006'
-			sc.studentIds = '09000232'
-			sc.tutorIds = 'M4000062'
-			sc.assignmentId = ass.id
-		
-			controller.save(sc)
+
+        when: 'save is called'
+		SpringSecurityUtils.doWithAuth("admin") {
+			controller.save()
 		}
 
-		assertNull(renderMap)
-		assertNotNull(redirectMap)
-		
-		def identifier = redirectMap.id
+		then: 'redirect to list and the user has been renamed'
+		def group = (controller.response.redirectUrl =~ /^\/submission\/show\/(\d+)$/)
+		group.hasGroup()
+		1 == group.size()
+		def identifier = group[0][1]
+
 		Submission submissionInstance = Submission.get(identifier)
 		
-		assertNotNull(submissionInstance)
-		assertEquals("test3a.docx", submissionInstance.filename)
-		assertEquals("test/resources/test3a.docx", submissionInstance.longFilename)
+		null != submissionInstance
+		"test3a.docx" == submissionInstance.filename
+		"test/resources/test3a.docx" == submissionInstance.longFilename
 
 		Summary summary = summarizationService.getSubmissionSummary(submissionInstance, true)
-		assertNotNull summary
+		null != summary
 		
 		Set<String> comments = summary.data.getAt("B").comments
-		assertNotNull comments.find { it.contains("You might need to be a little more explicit") }
-    }
-	
-	// Stolen from GrailsUnitTestCase
-	/**
-	 * Use this method when you plan to perform some meta-programming
-	 * on a class. It ensures that any modifications you make will be
-	 * cleared at the end of the test.
-	 * @param clazz The class to register.
-	 */
-	protected void registerMetaClass(Class clazz) {
-		// If the class has already been registered, then there's
-		// nothing to do.
-		if (savedMetaClasses.containsKey(clazz)) return
-
-		// Save the class's current meta class.
-		savedMetaClasses[clazz] = clazz.metaClass
-
-		// Create a new EMC for the class and attach it.
-		def emc = new ExpandoMetaClass(clazz, true, true)
-		emc.initialize()
-		GroovySystem.metaClassRegistry.setMetaClass(clazz, emc)
-	}
-
+		null != comments.find { it.contains("You might need to be a little more explicit") }
+   }	
 }

@@ -109,14 +109,12 @@ class ReportGroovyPagesTests extends GroovyPagesTestCase {
 		assertTrue(commentCells.size == 4)
 
 		for(int i = 0; i < commentCells.size; i++) {
-			System.err.println("New cell")
 			NodeList commentCell = new NodeList(commentCells.elementAt(i))
 			NodeList paragraphs = commentCell.extractAllNodesThatMatch(paragraphFilter, true)
 			SimpleNodeIterator iterator = paragraphs.elements()
 			Set table = [] as Set
 			while(iterator.hasMoreNodes()) {
 				String comment = iterator.nextNode().toHtml()
-				System.err.println("Comment: " + comment)
 				assertFalse table.contains(comment)
 				table.add(comment)
 			}

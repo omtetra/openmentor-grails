@@ -5,140 +5,127 @@ import java.util.Map;
 import grails.test.*
 
 import grails.plugin.springsecurity.SpringSecurityUtils;
-import org.gmock.WithGMock
 import uk.org.openmentor.auth.User
 import uk.org.openmentor.courseinfo.Tutor
 
-@WithGMock
-class UserControllerIntegrationTests extends GroovyTestCase {
+import grails.test.spock.IntegrationSpec
+
+class UserControllerIntegrationTests extends IntegrationSpec {
 	
-	UserController controller
-	
-	Map savedMetaClasses = [:]
-	Map renderMap
-	Map redirectMap
-
-    protected void setUp() {
-        super.setUp()
-
-		registerMetaClass(UserController.class)
-		UserController.metaClass.render = {Map m ->
-			renderMap = m
-		}
-		UserController.metaClass.redirect = {Map m ->
-			redirectMap = m
-		}
-
-		controller = new UserController()
-    }
-
-    protected void tearDown() {
-        super.tearDown()
-    }
+	static transactional = true
 	
 	/**
 	 * Test the list action
 	 */
 	void testListAction() {
+		given: 'UserController'	
+		def controller = new UserController()
+	
+		when: 'list is called'
 		def model = controller.list()
-		
-		assertEquals 3, model.userInstanceTotal
-		assertTrue model.userInstanceList.every { it instanceof User }
+
+		then: 'model is correct'
+		model.userInstanceTotal == 3
+		model.userInstanceList.every { it instanceof User }
 	}
 
 	/**
 	 * Test the create action
 	 */
 	void testCreateAction() {
-		SpringSecurityUtils.doWithAuth("admin") {
-			controller.create()
+		given: 'UserController'	
+		def controller = new UserController()
 		
-			assertNull(renderMap)
-			assertNull(redirectMap)
+		when: 'create is called'
+		def model = null
+		SpringSecurityUtils.doWithAuth("admin") {
+			model = controller.create()
 		}
+			
+		then: 'model is correct'
+		model != null
 	}
 	
 	/**
 	 * Test the set password action
 	 */
 	void testSetPasswordAction() {
-		SpringSecurityUtils.doWithAuth("admin") {
-			controller.params.id = "user"
-			controller.set_password()
+		given: 'UserController'	
+		def controller = new UserController()
 		
-			assertNull(renderMap)
-			assertNull(redirectMap)
+		and: 'the user is set'
+		controller.params.id = "user"
+		
+		when: 'set_password is called'
+		def model = null
+		SpringSecurityUtils.doWithAuth("admin") {
+			model = controller.set_password()
 		}
+		
+		then: 'model is correct'
+		model != null
 	}
 	
 	/**
 	 * Test the edit action
 	 */
 	void testEditAction() {
-		SpringSecurityUtils.doWithAuth("admin") {
-			controller.params.id = 'user'
-			def model = controller.edit()
+		given: 'UserController'	
+		def controller = new UserController()
 		
-			assertEquals 'user', model.userInstance?.username
+		and: 'the user is set'
+		controller.params.id = "user"
+
+		when: 'edit is called'
+		def model = null
+		SpringSecurityUtils.doWithAuth("admin") {
+			model = controller.edit()
 		}
+		
+		then: 'model is correct'
+		model.userInstance?.username == 'user'
 	}
 
 	/**
 	 * Test the show action
 	 */
 	void testShowAction() {
-		SpringSecurityUtils.doWithAuth("admin") {
-			controller.params.id = 'user'
-			def model = controller.show()
+		given: 'UserController'	
+		def controller = new UserController()
 		
-			assertEquals 'user', model.userInstance?.username
+		and: 'the user is set'
+		controller.params.id = "user"
+
+		when: 'show is called'
+		def model = null
+		SpringSecurityUtils.doWithAuth("admin") {
+			model = controller.show()
 		}
+		
+		then: 'model is correct'
+		model.userInstance?.username == 'user'
 	}
 
 	/**
 	 * Test the update action
 	 */
 	void testUpdateAction() {
+		given: 'UserController'	
+		def controller = new UserController()
+
+		and: 'the user is set'
+		controller.params.id = User.findByUsername('user')?.id
+		controller.params.username = 'morag'
+
+		when: 'update is called'
 		SpringSecurityUtils.doWithAuth("admin") {
-			controller.params.id = User.findByUsername('user')?.id
-			controller.params.username = 'morag'
 			controller.update()
+		}	
 		
-			if (renderMap?.view == "edit") {
-				def errors = renderMap.model.userInstance.errors
-				errors.allErrors.each { System.err.println(it.toString()) }
-			}
+		then: 'redirect to list and the user has been renamed'
+		controller.response.redirectUrl == "/user/list"
 		
-			assertNull(renderMap)
-			assertNotNull(redirectMap)
-			
-			assertEquals 'list', redirectMap.action
-			
-			// And check the saved data
-			User found = User.findByUsername('morag')
-			assertNotNull found
-		}
+		def found = User.findByUsername('morag')
+		found != null
 	}
-
-	// Stolen from GrailsUnitTestCase
-	/**
-	 * Use this method when you plan to perform some meta-programming
-	 * on a class. It ensures that any modifications you make will be
-	 * cleared at the end of the test.
-	 * @param clazz The class to register.
-	 */
-	protected void registerMetaClass(Class clazz) {
-		// If the class has already been registered, then there's
-		// nothing to do.
-		if (savedMetaClasses.containsKey(clazz)) return
-
-		// Save the class's current meta class.
-		savedMetaClasses[clazz] = clazz.metaClass
-
-		// Create a new EMC for the class and attach it.
-		def emc = new ExpandoMetaClass(clazz, true, true)
-		emc.initialize()
-		GroovySystem.metaClassRegistry.setMetaClass(clazz, emc)
-	}
-
 }

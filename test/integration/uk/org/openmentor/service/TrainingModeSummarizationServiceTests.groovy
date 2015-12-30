@@ -16,6 +16,8 @@ import uk.org.openmentor.test.LoadedSubmissionsTestCase;
 
 class TrainingModeSummarizationServiceTests extends LoadedSubmissionsTestCase {
 
+	static transactional = true
+	
 	def summarizationService
 	
 	def courseInfoService
@@ -45,10 +47,6 @@ class TrainingModeSummarizationServiceTests extends LoadedSubmissionsTestCase {
 			sub3 = addSubmission("CMM511", "TMA01", '09000238', 'M4000064', "Pass 3", "other", "test/resources/test3a.doc")
 			sub4 = addSubmission("CMM511", "TMA02", '09000238', 'M4000064', "Pass 2", "other", "test/resources/test4a.doc")
 		}
-	}
-
-    protected void setUp() {
-		super.setUp()
 	}
 
     void testSummaryUser() {

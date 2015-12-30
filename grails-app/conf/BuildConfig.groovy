@@ -5,6 +5,8 @@ grails.project.test.reports.dir = "target/test-reports"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 
+grails.project.dependency.resolver = "maven"
+
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 grails.project.dependency.resolution = {
@@ -47,6 +49,8 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
+        
+        compile ":spring-security-core:2.0.0"
 
         runtime ":hibernate:3.6.10.19"
         runtime ":database-migration:1.4.1"

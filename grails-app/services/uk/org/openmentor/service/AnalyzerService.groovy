@@ -87,10 +87,10 @@ class AnalyzerService {
         }
 
         sub.setComments(commentSet);
-        log.info("Number of comments: " + commentSet.size())
-        log.info("Number of classified comments: " + commentSet.findAll { it.getCategories().size() > 0 }.size())
 
         if (log.isDebugEnabled()) {
+            log.debug("Number of comments: " + commentSet.size())
+            log.debug("Number of classified comments: " + commentSet.findAll { it.getCategories().size() > 0 }.size())
             log.debug("Completed analysis of submission OK");
         }
 

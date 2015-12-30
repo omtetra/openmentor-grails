@@ -4,132 +4,123 @@ import java.util.Map;
 
 import grails.test.*
 
-import org.gmock.WithGMock
 import uk.org.openmentor.courseinfo.Student
 
-@WithGMock
-class StudentControllerIntegrationTests extends GroovyTestCase {
+import grails.test.spock.IntegrationSpec
+
+class StudentControllerIntegrationTests extends IntegrationSpec {
 	
-	StudentController controller
-	
-	Map savedMetaClasses = [:]
-	Map renderMap
-	Map redirectMap
-
-    protected void setUp() {
-        super.setUp()
-
-		registerMetaClass(StudentController.class)
-		StudentController.metaClass.render = {Map m ->
-			renderMap = m
-		}
-		StudentController.metaClass.redirect = {Map m ->
-			redirectMap = m
-		}
-
-		controller = new StudentController()
-    }
-
-    protected void tearDown() {
-        super.tearDown()
-    }
+	static transactional = true
 	
 	/**
 	 * Test the create action
 	 */
 	void testCreateAction() {
+		given: 'StudentController'
+        def controller = new StudentController()
+		
+		when: 'create is called'
 		controller.create()
 		
-		assertNull(renderMap)
-		assertNull(redirectMap)
+		then: 'check redirect url is null'
+        controller.response.redirectUrl == null
 	}
 	
 	/**
 	 * Test the edit action
 	 */
 	void testEditAction() {
+		given: 'StudentController'
+        def controller = new StudentController()
+
+        and: 'with studentId set to 09000231'
 		controller.params.studentId = '09000231'
+
+		when: 'edit is called'
 		def model = controller.edit()
 		
-		assertEquals '09000231', model.studentInstance?.studentId
+		then: 'model is correct'
+		model.studentInstance?.studentId == '09000231'
 	}
 
 	/**
 	 * Test the show action
 	 */
 	void testShowAction() {
+		given: 'StudentController'
+        def controller = new StudentController()
+
+        and: 'with studentId set to 09000231'
 		controller.params.studentId = '09000231'
+
+		when: 'show is called'
 		def model = controller.show()
-		
-		assertEquals '09000231', model.studentInstance?.studentId
+
+		then: 'model is correct'
+		model.studentInstance?.studentId == '09000231'
 	}
 
 	/**
 	 * Test the list action
 	 */
 	void testListAction() {
+		given: 'StudentController'
+        def controller = new StudentController()
+
+		when: 'list is called'
 		def model = controller.list()
-		
-		assertEquals 9, model.studentInstanceTotal
-		assertTrue model.studentInstanceList.every { it instanceof Student }
+
+		then: 'model is correct'
+		model.studentInstanceTotal == 9
+		model.studentInstanceList.every { it instanceof Student }
 	}
 	
 	/**
 	 * Test the update action
 	 */
 	void testUpdateAction() {
+		given: 'StudentController'
+        def controller = new StudentController()
+
+		and: 'with studentId set to 09000231'
 		controller.params.studentId = '09000231'
+		
+		and: 'with givenName set to Given'
 		controller.params.givenName = 'Given'
+
+		and: 'with familyName set to Family'
 		controller.params.familyName = 'Family'
+		
+		when: 'update is called'
 		controller.update()
 		
-		if (renderMap?.view == "edit") {
-			def errors = renderMap.model.studentInstance.errors
-			errors.allErrors.each { System.err.println(it.toString()) }
-		}
+		then: 'redirect to list and the data is updated'
+        controller.response.redirectUrl == "/student/list"
 		
-		assertNull(renderMap)
-		assertNotNull(redirectMap)
-		
-		assertEquals 'list', redirectMap.action
-		
-		// And check the saved data
-		Student found = Student.findByStudentId('09000231')
-		assertNotNull found
-		assertEquals 'Given', found.givenName
-		assertEquals 'Family', found.familyName
+		def found = Student.findByStudentId('09000231')
+		found != null
+		found.givenName == 'Given'
+		found.familyName == 'Family'
 	}
 
 	/**
 	 * Test the delete action
 	 */
 	void testDeleteAction() {
+		given: 'StudentController'
+        def controller = new StudentController()
+
+		and: 'with id set to 09000237'
 		controller.params.id = '09000237'
-		def model = controller.delete()
-		
-		assertNotNull(redirectMap)
-		assertEquals 'list', redirectMap.action
+
+		when: 'update is called'
+		controller.delete()
+
+		then: 'redirect to list and the data is updated'
+        controller.response.redirectUrl == "/student/list"
+        controller.flash.message == "Student 09000237 deleted"
+        
+        def found = Student.findByStudentId('09000237')
+		found == null
 	}
-
-	// Stolen from GrailsUnitTestCase
-	/**
-	 * Use this method when you plan to perform some meta-programming
-	 * on a class. It ensures that any modifications you make will be
-	 * cleared at the end of the test.
-	 * @param clazz The class to register.
-	 */
-	protected void registerMetaClass(Class clazz) {
-		// If the class has already been registered, then there's
-		// nothing to do.
-		if (savedMetaClasses.containsKey(clazz)) return
-
-		// Save the class's current meta class.
-		savedMetaClasses[clazz] = clazz.metaClass
-
-		// Create a new EMC for the class and attach it.
-		def emc = new ExpandoMetaClass(clazz, true, true)
-		emc.initialize()
-		GroovySystem.metaClassRegistry.setMetaClass(clazz, emc)
-	}
-
 }

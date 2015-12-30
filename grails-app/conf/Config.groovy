@@ -99,13 +99,16 @@ log4j = {
 	       'org.apache',
 	       'org.springframework',
 		   'org.hibernate',
-           'org.eclipse'
+           'org.eclipse',
+           'asset.pipeline',
+           'ScaffoldingGrailsPlugin'
 		   
 	error  'net.sf.ehcache',
 		   'org.codehaus.groovy.grails',
 		   'org.springframework.aop',
 		   'grails.plugin.webxml',
-		   'org.grails.datastore.mapping'
+		   'org.grails.datastore.mapping',
+		   'grails.plugin.springsecurity.web.access.intercept'
 }
 
 //grails.plugin.springsecurity.rejectIfNoRule = true
@@ -136,8 +139,10 @@ grails.plugin.springsecurity.authority.className = 'uk.org.openmentor.auth.Role'
 
 // This exploits the significantly more flexible handling of types in Grails to 
 // allow configuration down to the grading scheme. 
+//
+// By default, work in non-training mode
 openmentor {
-	trainingMode = true
+	trainingMode = false
 	
 	grades = [
 		"Pass 1", "Pass 2", "Pass 3", "Pass 4", "Bare fail", "Fail"
