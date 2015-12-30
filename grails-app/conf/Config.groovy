@@ -122,6 +122,10 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'uk.org.openmentor
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'uk.org.openmentor.auth.UserRole'
 grails.plugin.springsecurity.authority.className = 'uk.org.openmentor.auth.Role'
 
+grails.plugin.springsecurity.interceptUrlMap = [
+    '/**': ["IS_AUTHENTICATED_FULLY"]
+]
+
 // Added for the Spring Security LDAP plugin:
 // Tested against slapd - 19/12/2012
 //grails.plugin.springsecurity.ldap.context.managerDn = 'cn=Manager,dc=morungos,dc=com'
