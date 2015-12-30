@@ -1,15 +1,6 @@
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
-
-// if(System.properties["${appName}.config.location"]) {
-//    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
-// }
-
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
@@ -26,9 +17,6 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       form: 'application/x-www-form-urlencoded',
                       multipartForm: 'multipart/form-data'
                     ]
-
-// URL Mapping Cache Max Size, defaults to 5000
-//grails.urlmapping.cache.maxsize = 1000
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -88,9 +76,7 @@ log4j = {
 	root {
 		debug 'stdout'
 	}
-	
-	//debug  'org.hibernate.hql.ast.QueryTranslatorImpl'
-    
+	    
 	info   'grails.app',
 	       'uk.org.openmentor'
 
@@ -111,8 +97,6 @@ log4j = {
 		   'grails.plugin.springsecurity.web.access.intercept'
 }
 
-//grails.plugin.springsecurity.rejectIfNoRule = true
-
 grails.plugin.springsecurity.roleHierarchy = '''
 ROLE_OPENMENTOR-ADMIN > ROLE_OPENMENTOR-USER
 '''
@@ -125,21 +109,6 @@ grails.plugin.springsecurity.authority.className = 'uk.org.openmentor.auth.Role'
 grails.plugin.springsecurity.interceptUrlMap = [
     '/**': ["IS_AUTHENTICATED_FULLY"]
 ]
-
-// Added for the Spring Security LDAP plugin:
-// Tested against slapd - 19/12/2012
-//grails.plugin.springsecurity.ldap.context.managerDn = 'cn=Manager,dc=morungos,dc=com'
-//grails.plugin.springsecurity.ldap.context.managerPassword = 'd1n0$aur'
-//grails.plugin.springsecurity.ldap.context.anonymousReadOnly=true
-//grails.plugin.springsecurity.ldap.context.server = 'ldap://localhost:389/'
-//grails.plugin.springsecurity.ldap.search.base = 'dc=morungos,dc=com'
-//grails.plugin.springsecurity.ldap.search.filter = '(uid={0})'
-//grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=groups,dc=morungos,dc=com'
-//grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'member={0}'
-//grails.plugin.springsecurity.password.algorithm = 'MD5'
-//grails.plugin.springsecurity.ldap.authorities.retrieveDatabaseRoles = true
-//grails.plugin.springsecurity.ldap.authenticator.useBind = false
-//grails.plugin.springsecurity.providerNames = ['ldapAuthProvider', 'daoAuthenticationProvider']
 
 // This exploits the significantly more flexible handling of types in Grails to 
 // allow configuration down to the grading scheme. 
