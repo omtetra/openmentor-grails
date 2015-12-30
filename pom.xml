@@ -9,8 +9,68 @@
     <packaging>grails-app</packaging>
     <version>1.0.0</version>
 
-    <name>openmentor</name>
-    <description>openmentor</description>
+	<name>OpenMentor</name>
+	<description>
+    An open source tool providing feedback to tutors 
+    on comment usage in assessments.
+    </description>
+	<url>http://www.openmentor.org.uk</url>
+    
+    <licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+    
+	<organization>
+		<name>The OpenMentor Team</name>
+		<url>http://www.openmentor.org.uk</url>
+	</organization>
+
+	<inceptionYear>2004</inceptionYear>
+
+	<scm>
+		<connection>scm:git:git@github.com:omtetra/openmentor-grails.git</connection>
+		<developerConnection>scm:git:git@github.com:omtetra/openmentor-grails.git</developerConnection>
+		<url>scm:git:git@github.com:omtetra/openmentor-grails.git</url>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/omtetra/openmentor-grails/issues</url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<name>Denise Whitelock</name>
+			<id>denise</id>
+			<email>D.M.Whitelock@open.ac.uk</email>
+			<organization>Institute of Educational Technology, The Open University</organization>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Stuart Watt</name>
+			<id>morungos</id>
+			<email>stuart@morungos.com</email>
+			<url>http://morungos.com</url>
+			<timezone>-5</timezone>
+		</developer>
+		<developer>
+			<name>Alejandra Recio Saucedo</name>
+			<id>arecios</id>
+			<email>ars@ecs.soton.ac.uk</email>
+			<url>http://www.southampton.ac.uk/healthsciences/about/staff/ars1d09.page</url>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Pei Zhang</name>
+			<id>arecios</id>
+			<email>pz@ecs.soton.ac.uk</email>
+			<timezone>0</timezone>
+		</developer>
+	</developers>
 
     <properties>
         <grails.version>2.5.3</grails.version>
@@ -269,5 +329,112 @@
                 </dependency>
             </dependencies>
         </profile>
+
+		<profile>
+			<id>package-debian</id>
+		
+			<build>
+                <plugins>
+                
+                    <!-- Resolves and retrieves the server container, which we use for Debian packaging -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.10</version>
+                        <executions>
+                            <execution>
+                                <id>copy</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>ca.uhnresearch.pughlab</groupId>
+                                            <artifactId>java-server</artifactId>
+                                            <version>1.0.3</version>
+                                            <type>jar</type>
+                                            <overWrite>true</overWrite>
+                                            <outputDirectory>${basedir}/target/deployment-dependencies</outputDirectory>
+                                            <destFileName>java-server.jar</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+      
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>make-deb</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <property name="deb.dir" value="${basedir}/target/deb" />
+                                        <property name="deb.version" value="${project.version}" />
+                                        <tstamp>
+                                            <!-- http://www.debian.org/doc/debian-policy/ch-source.html -->
+                                            <format property="deb.date" pattern="EEE, d MMM yyyy HH:mm:ss Z" locale="en" />
+                                        </tstamp>
+    
+                                        <mkdir dir="${deb.dir}" />
+                                        <mkdir dir="${deb.dir}/usr/share/openmentor" />
+                                        <mkdir dir="${deb.dir}/etc/openmentor" />
+    
+                                        <!-- Copy the files, templating the changelog, etc., with the right date -->
+                                        <copy todir="${deb.dir}">
+                                            <fileset dir="src/main/deb" />
+                                            <filterset>
+                                                <filter token="project.version" value="${deb.version}" />
+                                                <filter token="date" value="${deb.date}" />
+                                            </filterset>
+                                        </copy>
+                                        
+                                        <copy todir="${deb.dir}/usr/share/openmentor">
+                                            <fileset dir="${basedir}/target">
+                                                <include name="openmentor-${project.version}.war"/>
+                                            </fileset>
+                                            <fileset dir="${basedir}/target/deployment-dependencies">
+                                                <include name="java-server.jar"/>
+                                            </fileset>
+                                            <fileset dir="${basedir}/src/main/etc">
+                                            	<include name="initialize_mysql.sql"/>
+                                            	<include name="nginx.conf"/>
+                                            </fileset>
+                                        </copy>
+                                        <copy todir="${deb.dir}/usr/share/openmentor/conf">
+											<fileset dir="${basedir}/src/main/etc">
+												<filename name="logging.properties"/>
+											</fileset>
+										</copy>
+                                        <copy todir="${deb.dir}/etc/openmentor">
+                                            <fileset dir="${basedir}/target/generated-etc">
+                                                <filename name="*.*"/>
+                                            </fileset>
+                                        </copy>
+                                            <exec executable="debuild" dir="${deb.dir}" failonerror="true" osfamily="unix">
+                                            <arg value="-b" />
+    
+                                            <!-- Turn off signing for now, until we move to a continuous integration server -->
+                                            <arg value="-us" />
+                                            <arg value="-uc" />
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                </plugins>
+            </build>
+		</profile>
     </profiles>
 </project>
