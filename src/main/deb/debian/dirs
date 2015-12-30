@@ -1,0 +1,5 @@
+# Location for the main files
+usr/share/openmentor
+
+# Location for the log files
+var/log/openmentor

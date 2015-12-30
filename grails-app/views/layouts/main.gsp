@@ -8,8 +8,16 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="${resource(dir:'css/jqueryui',file:'jquery-ui-1.9.2.custom.css')}" />
-    <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap.css')}">
+    <asset:javascript src="jquery.js"/>
+    <asset:javascript src="bootstrap.js"/>
+    <asset:javascript src="bootstrap.file-input.js"/>
+    <asset:javascript src="jquery-ui-1.9.2.custom.js"/>
+    <asset:javascript src="jquery.bulletcharts.js"/>
+    <asset:javascript src="excanvas.js"/>
+    <asset:javascript src="raphael.js"/>
+    <asset:javascript src="chosen.jquery.js"/>
+    <asset:stylesheet href="jquery-ui-1.9.2.custom.css"/>
+    <asset:stylesheet href="bootstrap.css"/>
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -19,15 +27,8 @@
         padding: 9px 0;
       }
     </style>
-    <link rel="stylesheet" href="${resource(dir:'css',file:'chosen.css')}">
-    <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}">
-    <g:javascript src='libs/jquery-1.9.1.js'/>
-    <g:javascript src='libs/bootstrap.js'/>
-    <g:javascript src='libs/bootstrap.file-input.js'/>
-    <g:javascript src='libs/excanvas.min.js'/>
-    <g:javascript src='libs/raphael.js'/>
-    <g:javascript src='libs/chosen.jquery.min.js'/>
-    <g:javascript src='jquery.bulletcharts.js'/>
+    <asset:stylesheet href="chosen.css"/>
+    <asset:stylesheet href="main.css"/>
     <g:layoutHead />
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

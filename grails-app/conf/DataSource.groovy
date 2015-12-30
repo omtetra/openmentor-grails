@@ -16,22 +16,18 @@ environments {
     development {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:h2:mem:devDB"
+            url = "jdbc:h2:mem:devDB;DB_CLOSE_ON_EXIT=FALSE"
         }
     }
     test {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:h2:mem:testDB"
+            url = "jdbc:h2:mem:testDB;DB_CLOSE_ON_EXIT=FALSE"
         }
     }
     production {
         dataSource {
-			driverClassName = "com.mysql.jdbc.Driver"
-            dbCreate = "update"
-            url = "jdbc:mysql://localhost:3306/openmentor?characterEncoding=UTF-8"
-	        username='root'
-   	        password=''
+        	jndiName = "java:comp/env/jdbc/openmentorDatabase"
         }
     }
 }

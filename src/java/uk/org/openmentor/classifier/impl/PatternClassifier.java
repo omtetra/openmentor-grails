@@ -160,13 +160,13 @@ public class PatternClassifier implements Classifier {
                 theRule.applyRule();
             }
         }
-        for (Iterator i = vExclude.iterator(); i.hasNext();) {
+        for (Iterator<String> i = vExclude.iterator(); i.hasNext();) {
             vInclude.remove(i.next());
         }
 
         Set<String> theResult = new HashSet<String>();
-        for (Iterator i = vInclude.iterator(); i.hasNext();) {
-            theResult.add((String) i.next());
+        for (Iterator<String> i = vInclude.iterator(); i.hasNext();) {
+            theResult.add(i.next());
         }
 
         return theResult;

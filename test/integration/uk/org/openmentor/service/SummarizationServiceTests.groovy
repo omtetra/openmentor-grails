@@ -9,16 +9,14 @@ import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Submission;
 import uk.org.openmentor.domain.Summary
-import uk.org.openmentor.test.LoadedSubmissionsTestCase
+import uk.org.openmentor.test.LoadedSubmissionsTestCase;
 
 class SummarizationServiceTests extends LoadedSubmissionsTestCase {
 
+	static transactional = true
+
 	def summarizationService
 	
-    protected void setUp() {
-		super.setUp()
-	}
-
     void testCourseSummary() {
 		
 		Summary result = summarizationService.getCourseSummary("CM2006")

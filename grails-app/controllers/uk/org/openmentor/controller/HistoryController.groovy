@@ -1,8 +1,8 @@
 package uk.org.openmentor.controller
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.annotation.Secured
 
-import grails.plugins.springsecurity.Secured;
 import uk.org.openmentor.data.Submission;
 
 /**
@@ -24,7 +24,7 @@ class HistoryController {
 		redirect(action: "list", params: params)
 	}
 	
-	def list = {
+	def list() {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		params.sort = params.sort ?: 'dateSubmitted'
 		params.order = params.order ?: 'asc'

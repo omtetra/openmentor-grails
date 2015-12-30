@@ -1,6 +1,6 @@
 package uk.org.openmentor.controller
 
-import grails.plugins.springsecurity.Secured;
+import grails.plugin.springsecurity.annotation.Secured;
 import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course;
 
@@ -21,11 +21,11 @@ class AssignmentController {
 		return courseInstance
 	}
 	
-    def index = { 
+    def index() { 
 		redirect(action: "list", params: params)
 	}
 	
-	def list = {
+	def list() {
 		def courseInstance = getSelectedCourse()
 		if (! courseInstance) {
 			return
@@ -37,13 +37,13 @@ class AssignmentController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-	def create = { 
+	def create() { 
 		def courseInstance = getSelectedCourse()
 		[courseInstance: courseInstance]
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-	def save = {		
+	def save() {		
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = new Assignment(params)
 		courseInfoService.initializeAssignment(assignmentInstance)
@@ -62,7 +62,7 @@ class AssignmentController {
 		}
 	}
 	
-	def show = {
+	def show() {
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = courseInfoService.findAssignment(courseInstance, params.id)
 		
@@ -76,7 +76,7 @@ class AssignmentController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-	def edit = {		
+	def edit() {		
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = courseInfoService.findAssignment(courseInstance, params.id)
 		
@@ -90,7 +90,7 @@ class AssignmentController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-	def update = {       
+	def update() {       
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = courseInfoService.findAssignment(courseInstance, params.code)
 		
@@ -123,7 +123,7 @@ class AssignmentController {
     }
 
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-	def delete = {		
+	def delete() {		
 		def courseInstance = getSelectedCourse()
 		def assignmentInstance = courseInfoService.findAssignment(courseInstance, params.id)
 		if (!assignmentInstance) {
@@ -138,7 +138,7 @@ class AssignmentController {
 		}
 	}
 	
-	def query = {
+	def query() {
 		def courseInstance = getSelectedCourse()
 		def assignmentList = courseInfoService.findAssignmentsLike(courseInstance, "%" + params.term + "%")
 		
@@ -147,7 +147,7 @@ class AssignmentController {
 		}
 	}
 	
-	def courseAssignments = {
+	def courseAssignments() {
 		log.info("Requested course id: " + params.courseId);
 		log.error("Requested course id (error): " + params.courseId);
 		

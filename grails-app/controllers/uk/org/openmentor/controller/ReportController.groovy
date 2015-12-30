@@ -2,7 +2,7 @@ package uk.org.openmentor.controller
 
 import java.util.Map;
 
-import grails.plugins.springsecurity.Secured
+import grails.plugin.springsecurity.annotation.Secured
 
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Submission;
@@ -35,14 +35,14 @@ class ReportController {
 		return model
 	}
 
-    def index = { 
+    def index() { 
 		def model = getUploadModel()
 		if (! model) return
 		
 		model
 	}
 
-    def course = { 
+    def course() { 
 		def model = getUploadModel()
 		if (! model) return
 		
@@ -52,7 +52,7 @@ class ReportController {
 		return model
 	}
 
-    def course_details = { 
+    def course_details() { 
 		def model = getUploadModel()
 		if (! model) return
 		
@@ -62,7 +62,7 @@ class ReportController {
 		return model
 	}
 
-    def assignments = { 
+    def assignments() { 
 		def model = getUploadModel()
 		if (! model) return
 		
@@ -72,7 +72,7 @@ class ReportController {
 		model
 	}
 	
-	def assignment = {
+	def assignment() {
 		assert params.id != null
 		def model = getUploadModel()
 		if (! model) return
@@ -83,7 +83,7 @@ class ReportController {
 		model
 	}
 
-    def assignment_details = { 
+    def assignment_details() { 
 		assert params.id != null
 		def model = getUploadModel()
 		if (! model) return
@@ -94,7 +94,7 @@ class ReportController {
 		return model
 	}
 
-    def students = { 
+    def students() { 
 		def model = getUploadModel()
 		if (! model) return
 		
@@ -104,7 +104,7 @@ class ReportController {
 		model
 	}
 
-    def student = { 
+    def student() { 
 		assert params.id != null
 		def model = getUploadModel()
 		if (! model) return
@@ -115,7 +115,7 @@ class ReportController {
 		model
 	}
 
-    def student_details = { 
+    def student_details() { 
 		assert params.id != null
 		def model = getUploadModel()
 		if (! model) return
@@ -126,7 +126,7 @@ class ReportController {
 		return model
 	}
 
-	def tutors = { 
+	def tutors() { 
 		def model = getUploadModel()
 		if (! model) return
 		
@@ -136,7 +136,7 @@ class ReportController {
 		model
 	}
 
-    def tutor = { 
+    def tutor() { 
 		assert params.id != null
 		def model = getUploadModel()
 		if (! model) return
@@ -147,7 +147,7 @@ class ReportController {
 		model
 	}
 
-    def tutor_details = { 
+    def tutor_details() { 
 		assert params.id != null
 		def model = getUploadModel()
 		if (! model) return

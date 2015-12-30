@@ -5,9 +5,10 @@ import org.apache.commons.io.IOUtils;
 import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course;
 import uk.org.openmentor.data.Submission;
-import groovy.util.GroovyTestCase
 
-class LoadedSubmissionsTestCase extends GroovyTestCase {
+import grails.test.spock.IntegrationSpec
+
+class LoadedSubmissionsTestCase extends IntegrationSpec {
 
 	def analyzerService
 	def courseInfoService
@@ -29,9 +30,7 @@ class LoadedSubmissionsTestCase extends GroovyTestCase {
 		sub5 = addSubmission("AA1003", "TMA01", '09000231', 'M4000061', "Pass 3", userName, "test/resources/test5a.doc")
 	}
 
-	protected void setUp() {
-		super.setUp()
-
+	protected void setup() {
 		initializeSubmissions()
 	}
 

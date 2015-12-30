@@ -1,6 +1,6 @@
 package uk.org.openmentor.service
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
+import grails.plugin.springsecurity.SpringSecurityUtils
 import org.springframework.security.core.context.SecurityContextHolder
 
 /**

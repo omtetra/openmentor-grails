@@ -1,8 +1,8 @@
 package uk.org.openmentor.controller
 
-import grails.plugins.springsecurity.Secured;
+import grails.plugin.springsecurity.annotation.Secured;
+import grails.plugin.springsecurity.SpringSecurityUtils;
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import uk.org.openmentor.auth.Role;
@@ -16,12 +16,12 @@ class UserController {
 	def currentUserService
 
 	@Secured(['ROLE_OPENMENTOR-ADMIN'])
-    def index = { 
+    def index() { 
 		redirect(action: "list", params: params)
 	}
 
 	@Secured(['ROLE_OPENMENTOR-ADMIN'])
-    def list = { 
+    def list() { 
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		params.sort = params.sort ?: 'username'
 		params.order = params.order ?: 'asc'
@@ -41,19 +41,19 @@ class UserController {
 	}
 
 	@Secured(['ROLE_OPENMENTOR-ADMIN'])
-	def create = { 
+	def create() { 
 		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>		
 		[availableRoles: allPossibleRoles]
 	}
 	
 	@Secured(['ROLE_OPENMENTOR-ADMIN'])
-	def set_password = { 
+	def set_password() { 
 		def userInstance = User.findByUsername(params.id)
 		[userInstance: userInstance]
 	}
 	
 	@Secured(['ROLE_OPENMENTOR-ADMIN'])
-	def save = { 
+	def save() { 
 		
 		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>		
 
@@ -121,7 +121,7 @@ class UserController {
 	}
 	
 	@Secured(['ROLE_OPENMENTOR-USER'])
-	def show = {
+	def show() {
 		def allPossibleRoles = Role.getAll().collect { it.authority }.sort() as List<String>		
 		def username = params.id
 		def currentUser = springSecurityService.currentUser		
@@ -142,7 +142,7 @@ class UserController {
 	}
 	
 	@Secured(['ROLE_OPENMENTOR-USER'])
-	def edit = {
+	def edit() {
 		
 		log.trace("Request user/edit: " + params.id)
 		
@@ -171,7 +171,7 @@ class UserController {
 	}
 
 	@Secured(['ROLE_OPENMENTOR-USER'])
-	def update = { 
+	def update() { 
 		
 		def username = params.username
 		def currentUser = springSecurityService.currentUser

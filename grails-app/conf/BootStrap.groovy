@@ -99,7 +99,7 @@ class BootStrap {
     private void seedTestData() {
         // Seed only when there's no data
         if (Course.count() == 0) {
-            
+        
             def courseCM2006 = new Course(courseId: "CM2006", courseTitle: "Interface Design").save(failOnError:true)
             def courseCM2007 = new Course(courseId: "CM2007", courseTitle: "Intranet Systems Development").save(failOnError:true)
             def courseCM3010 = new Course(courseId: "CM3010", courseTitle: "Information Retrieval").save(failOnError:true)

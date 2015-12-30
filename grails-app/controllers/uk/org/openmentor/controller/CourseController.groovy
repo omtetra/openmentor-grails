@@ -1,6 +1,6 @@
 package uk.org.openmentor.controller
 
-import grails.plugins.springsecurity.Secured;
+import grails.plugin.springsecurity.annotation.Secured;
 import uk.org.openmentor.courseinfo.Assignment;
 import uk.org.openmentor.courseinfo.Course
 
@@ -9,11 +9,11 @@ class CourseController {
 	
 	def courseInfoService
 
-    def index = {
+    def index() {
         redirect(action: "list", params: params)
     }
 	
-	def list = {
+	def list() {
 		def courseList = courseInfoService.getCourses(params)
 		def courseCount = courseInfoService.getCourseCount()
 		def allowDeletion = courseInfoService.getAllowDeletion()	
@@ -21,7 +21,7 @@ class CourseController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def save = {
+    def save() {
     	def courseInstance = new Course(params)
 		courseInfoService.initializeCourse(courseInstance)
 		
@@ -35,7 +35,7 @@ class CourseController {
 		}
 	}
 	
-	def show = {
+	def show() {
     	def courseInstance = courseInfoService.findCourse(params.courseId)
     	if (!courseInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.courseId])}"
@@ -47,7 +47,7 @@ class CourseController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def edit = {
+    def edit() {
     	def courseInstance = courseInfoService.findCourse(params.courseId)
     	if (!courseInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.courseId])}"
@@ -59,7 +59,7 @@ class CourseController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def delete = {
+    def delete() {
     	def courseInstance = courseInfoService.findCourse(params.id)
     	if (!courseInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'course.label', default: 'Course'), params.id])}"
@@ -74,10 +74,10 @@ class CourseController {
 	}
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def create = { }
+    def create() { }
 	
 	@Secured(["hasRole('MANAGE_COURSEINFO_ROLE')"])
-    def update = {
+    def update() {
     	def courseInstance = courseInfoService.findCourse(params.courseId)
 		
 		if (courseInstance) {
@@ -109,7 +109,7 @@ class CourseController {
         }
     }
 
-	def select = {
+	def select() {
 		if (request.method == 'POST') {
 			def course = courseInfoService.findCourse(params.courseId)
 			if (course) {
@@ -121,7 +121,7 @@ class CourseController {
 		[courseList: courseList]
 	}
 	
-	def query = {
+	def query() {
 		def courseList = courseInfoService.findCoursesLike("%" + params.term + "%")
 		courseList.sort { it.courseId }
 		
